@@ -1,0 +1,14 @@
+﻿<Window x:Class="CFSJMIS.sshConnectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="sshConnectWindow" Height="300" Width="530" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize" WindowStyle="SingleBorderWindow">
+    <Grid Margin="0,0,2,0">
+
+        <Label Content="服务器名：" HorizontalAlignment="Left" Margin="40,71,0,0" VerticalAlignment="Top"/>
+        <Label Content="端口：" HorizontalAlignment="Left" Margin="40,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.569,2.298"/>
+        <TextBox Name="tbServer" HorizontalAlignment="Left" Height="23" Margin="115,71,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="366"/>
+        <TextBox Name="tbPort" HorizontalAlignment="Left" Height="23" Margin="115,123.24,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Name="btnClose" Content="关闭" HorizontalAlignment="Left" Margin="406,228,0,0" VerticalAlignment="Top" Width="75" Click="btnClose_Click" IsCancel="True" />
+        <Button  Name="btnTestConnect" Content="测试链接" HorizontalAlignment="Left" Margin="322,228,0,0" VerticalAlignment="Top" Width="75" Click="btnTestConnect_Click" IsDefault="True"/>
+    </Grid>
+</Window>
