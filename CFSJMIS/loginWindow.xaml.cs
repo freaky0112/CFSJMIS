@@ -33,6 +33,7 @@ namespace CFSJMIS {
 
                 if (DataOperate.login(name, password)) {
                     MessageBox.Show(Messages.LOGIN_SUCCESS);
+                    Common.table = name;
                     this.Close();
                 } else {
                     MessageBox.Show(Messages.LOGIN_ERROR);

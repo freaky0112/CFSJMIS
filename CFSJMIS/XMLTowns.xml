@@ -1,0 +1,21 @@
+﻿<?xmlversion="1.0" encoding="utf-8"?>
+<GTX NAME="鹤城所">
+	<Town name="鹤城街道"/>
+	<Town name="瓯南街道"/>
+	<Town name="油竹街道"/>
+	<Town name="章旦乡"/>
+	<Town name="阜山乡"/>
+	<Town name="仁宫乡"/>
+	<Town name="石溪乡"/>
+</GTX>
+<GTX NAME="温溪所">
+	<Town name="温溪镇"/>
+</GTX>
+<GTX NAME="山口所">
+	<Town name="山口镇"/>
+	<Town name="汤垟乡"/>
+</GTX>
+<GTX NAME="船寮所"></GTX>
+<GTX NAME="东源所"></GTX>
+<GTX NAME="腊口所"></GTX>
+<GTX NAME="北山所"></GTX>

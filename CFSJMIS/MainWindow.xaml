@@ -14,6 +14,8 @@
                 <MenuItem Name="tsmOpen" Header="打开" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
             </MenuItem>
         </Menu>
+        <ComboBox Name="cbxTown" HorizontalAlignment="Left" Margin="10,44.092,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Text, ElementName=cbxTown}"/>
+        <Button Name="btnImport" Content="导入" HorizontalAlignment="Left" Margin="135,44.092,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>
