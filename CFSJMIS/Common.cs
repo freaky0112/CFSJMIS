@@ -95,7 +95,14 @@ namespace CFSJMIS {
 
         }
         #endregion
+
+        #region XML信息
+        public const string XMLTOWN = "XMLTowns.xml";
+
+        #endregion
     }
+
+
 
     public class Messages {
         public const string SSHCONNECTED = "服务器连接成功";

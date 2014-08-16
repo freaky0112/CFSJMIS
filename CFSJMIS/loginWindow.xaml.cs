@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace CFSJMIS {
     /// <summary>
@@ -18,26 +19,41 @@ namespace CFSJMIS {
     public partial class loginWindow : Window {
         public loginWindow() {
             InitializeComponent();
+            this.Loaded += loginWindow_Loaded;
+        }
+
+        void loginWindow_Loaded(object sender, RoutedEventArgs e) {
+            try {
+                List<String> gtx = Load.gtxRead("GTX");
+                this.cbxNames.ItemsSource = gtx;
+                if (gtx.Count > 0) {
+                    cbxNames.SelectedIndex = 0;
+                }
+            } catch (NotImplementedException ex) {
+                throw ex;
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e) {
             if ((MessageBox.Show(Messages.EXIT, Messages.EXIT, MessageBoxButton.OKCancel) == MessageBoxResult.OK)) {
                 Application.Current.Shutdown();
+            } else {
+                //this.Close();
             }
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             string name = cbxNames.Text;
             string password = pbxPassword.Password;
-            if (Common.sshConnected) {
+            if (!Common.sshConnected) {
 
-                if (DataOperate.login(name, password)) {
-                    MessageBox.Show(Messages.LOGIN_SUCCESS);
+                //if (DataOperate.login(name, password)) {
+                  //  MessageBox.Show(Messages.LOGIN_SUCCESS);
                     Common.table = name;
                     this.Close();
-                } else {
-                    MessageBox.Show(Messages.LOGIN_ERROR);
-                }
+                //} else {
+                  //  MessageBox.Show(Messages.LOGIN_ERROR);
+                //}
             } else {
                 MessageBox.Show(Messages.SSH_ERROR);
             }

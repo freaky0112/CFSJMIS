@@ -19,11 +19,18 @@ namespace CFSJMIS {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-            if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
-                MessageBox.Show(Messages.SSH_ERROR);
-            }
+            //if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
+            //    MessageBox.Show(Messages.SSH_ERROR);
+            //}
             loginWindow login = new loginWindow();
             login.ShowDialog();
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+            List<string> towns = Load.townRead("Town");
+            this.cbxTown.ItemsSource = towns;
+            //throw new NotImplementedException();
         }
     }
 }

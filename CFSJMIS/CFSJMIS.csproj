@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Common\SshConnect.cs" />
     <Compile Include="DataOperate.cs" />
+    <Compile Include="Load.cs" />
     <Compile Include="loginWindow.xaml.cs">
       <DependentUpon>loginWindow.xaml</DependentUpon>
     </Compile>
@@ -113,7 +114,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="XMLTowns.xml" />
+    <None Include="XMLTowns.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
