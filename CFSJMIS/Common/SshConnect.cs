@@ -21,7 +21,7 @@ namespace CFSJMIS {
                 client.Connect();
                 Common.sshConnected = client.IsConnected;
             } catch (Exception ex) {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
                 return sshState;
             }
             var porcik = new ForwardedPortLocal("localhost", 3306, "localhost", 3306);
@@ -30,7 +30,7 @@ namespace CFSJMIS {
                 porcik.Start();
                 sshState = true;
             } catch (Exception ex) {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
                 return sshState;
             }
             return sshState;

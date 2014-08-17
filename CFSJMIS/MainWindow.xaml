@@ -3,19 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen">
     <Grid>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="350*"/>
+    		<ColumnDefinition Width="167*"/>
+    	</Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="28*"/>
         </Grid.RowDefinitions>
-        <TextBox Name="tbDataSource" HorizontalAlignment="Left" Height="23" Margin="10,16.092,0,0" TextWrapping="Wrap" Text="双击选择导入文件" VerticalAlignment="Top" Width="497" Grid.Row="1" />
-        <StatusBar HorizontalAlignment="Left" Height="18.534" Margin="0,289.248,0,0" VerticalAlignment="Top" Width="517" Grid.Row="1"/>
-        <Menu HorizontalAlignment="Left" Height="22.092" Grid.RowSpan="2" VerticalAlignment="Top" Width="517">
+        <TextBox Name="tbDataSource" HorizontalAlignment="Left" Height="23" Margin="10,16.092,0,0" TextWrapping="Wrap" Text="双击选择导入文件" VerticalAlignment="Top" Width="497" Grid.Row="1" Grid.ColumnSpan="2" />
+        <StatusBar HorizontalAlignment="Left" Height="18.534" Margin="0,289.248,0,0" VerticalAlignment="Top" Width="517" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Menu HorizontalAlignment="Left" Height="22.092" Grid.RowSpan="2" VerticalAlignment="Top" Width="517" Grid.ColumnSpan="2">
             <MenuItem Header="文件" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
                 <MenuItem Name="tsmOpen" Header="打开" HorizontalAlignment="Center" HorizontalContentAlignment="Center" />
             </MenuItem>
         </Menu>
         <ComboBox Name="cbxTown" HorizontalAlignment="Left" Margin="10,44.092,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Text, ElementName=cbxTown}"/>
         <Button Name="btnImport" Content="导入" HorizontalAlignment="Left" Margin="135,44.092,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="44.5,87,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" CornerRadius="10,10,10,10"></Border>
 
     </Grid>
 </Window>

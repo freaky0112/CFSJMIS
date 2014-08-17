@@ -45,15 +45,15 @@ namespace CFSJMIS {
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             string name = cbxNames.Text;
             string password = pbxPassword.Password;
-            if (!Common.sshConnected) {
+            if (Common.sshConnected) {
 
-                //if (DataOperate.login(name, password)) {
-                  //  MessageBox.Show(Messages.LOGIN_SUCCESS);
+                if (DataOperate.login(name, password)) {
+                   MessageBox.Show(Messages.LOGIN_SUCCESS);
                     Common.table = name;
                     this.Close();
-                //} else {
-                  //  MessageBox.Show(Messages.LOGIN_ERROR);
-                //}
+                } else {
+                  MessageBox.Show(Messages.LOGIN_ERROR);
+                }
             } else {
                 MessageBox.Show(Messages.SSH_ERROR);
             }
@@ -62,6 +62,29 @@ namespace CFSJMIS {
         private void btnSSH_Click(object sender, RoutedEventArgs e) {
             sshConnectWindow ssh = new sshConnectWindow();
             ssh.ShowDialog();
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e) {
+            string name = cbxNames.Text;
+            string password = pbxPassword.Password;
+            if (Common.sshConnected) {
+
+                if (DataOperate.login(name, password)) {
+                    MessageBox.Show(Messages.LOGIN_SUCCESS);
+                    Common.table = name;
+                    this.Close();
+                } else {
+                    MessageBox.Show(Messages.LOGIN_ERROR);
+                }
+            } else {
+                MessageBox.Show(Messages.SSH_ERROR);
+            }
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e) {
+            if ((MessageBox.Show(Messages.EXIT, Messages.EXIT, MessageBoxButton.OKCancel) == MessageBoxResult.OK)) {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
