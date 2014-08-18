@@ -15,9 +15,27 @@
   <GTX NAME="山口所">
     <Town NAME="山口镇"/>
     <Town NAME="汤垟乡"/>
+    <Town NAME="仁庄镇"/>
   </GTX>
-  <GTX NAME="船寮所"></GTX>
-  <GTX NAME="东源所"></GTX>
-  <GTX NAME="腊口所"></GTX>
-  <GTX NAME="北山所"></GTX>
+  <GTX NAME="船寮所">
+    <Town NAME="船竂镇"/>
+    <Town NAME="海口镇"/>
+  </GTX>
+  <GTX NAME="东源所">
+    <Town NAME="东源镇"/>
+    <Town NAME="万山乡"/>
+    <Town NAME="高湖镇"/>
+    <Town NAME="黄垟乡"/>
+    <Town NAME="季宅乡"/>
+  </GTX>
+  <GTX NAME="腊口所">
+    <Town NAME="腊口镇"/>
+    <Town NAME="祯埠乡"/>
+    <Town NAME="章村乡"/>
+  </GTX>
+  <GTX NAME="北山所">
+    <Town NAME="北山镇"/>
+    <Town NAME="巨浦乡"/>
+    <Town NAME="万阜乡"/>
+  </GTX>
 </ELEMENT>
