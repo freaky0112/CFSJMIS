@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Threading;
 
 namespace CFSJMIS {
     /// <summary>
@@ -28,12 +21,74 @@ namespace CFSJMIS {
             loginWindow login = new loginWindow();
             login.ShowDialog();
             this.Loaded += MainWindow_Loaded;
+            
         }
 
-        void MainWindow_Loaded(object sender, RoutedEventArgs e) {            
+        void MainWindow_Loaded(object sender, RoutedEventArgs e) {
             List<string> towns = Load.townRead("Town");
             this.cbxTown.ItemsSource = towns;
+            this.cbxTown.SelectedIndex = 0;
+            this.lblDepartment.Content = Common.table;
+            //ImageBrush b = new ImageBrush();
+            //b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/CFSJMIS;component/Images/gray-x.png"));
+            //b.Stretch = Stretch.Fill;
+            //this.borderExit.Background = b;
             //throw new NotImplementedException();
         }
+
+
+        private void borderExit_MouseDown(object sender, MouseButtonEventArgs e) {
+
+            Application.Current.Shutdown();
+        }
+
+        private void borderExit_MouseEnter(object sender, MouseEventArgs e) {            
+            this.borderExit.Background = Common.EXIT_AFTER_BRUSH;
+        }
+
+        private void borderExit_MouseLeave(object sender, MouseEventArgs e) {
+            this.borderExit.Background = Common.EXIT_BEFORE_BRUSH;
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e) {
+            gridImport.Visibility = Visibility.Hidden;
+            
+            
+        }
+
+        private void tbxPath_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            tbxPath.Text=Load.getPath();
+            if (string.IsNullOrEmpty(tbxPath.Text)) {
+                tbxPath.Text = Messages.IMPORT_TIPS;
+                tbxPath.Foreground = Brushes.Gray;
+            } else {
+                tbxPath.Foreground = Brushes.Black;
+            }
+        }
+
+        private void tagImport_MouseDown(object sender, MouseButtonEventArgs e) {
+            if (tagImport.Focus()) {
+                tagImport.Foreground = Brushes.Black;
+            }
+            gridImport.Visibility = Visibility.Visible;
+        }
+
+        private void lblImport_MouseDown(object sender, MouseButtonEventArgs e) {
+            
+            foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
+                DataOperate.insertData(data);
+            }
+        }
+
+        private void tagImport_GotFocus(object sender, RoutedEventArgs e) {
+            tagImport.Foreground = Brushes.Black;
+        }
+
+        private void tagImport_LostFocus(object sender, RoutedEventArgs e) {
+            tagImport.Foreground = Brushes.Gray;
+        }
+
+
+
     }
 }

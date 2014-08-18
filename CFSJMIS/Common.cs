@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CFSJMIS {
     public class Common {
@@ -112,6 +113,22 @@ namespace CFSJMIS {
         /// 鼠标移入时字体颜色
         /// </summary>
         public static Brush AFTER_BRUSH = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4886BF"));
+        /// <summary>
+        /// 退出键鼠标移入时背景色
+        /// </summary>
+        public static Brush EXIT_BACKGROUD_BRUSH = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE04343"));
+        /// <summary>
+        /// 退出键鼠标移出时字体颜色
+        /// </summary>
+        public static Brush EXIT_FONT_BRUSH = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCBCBCB"));
+        /// <summary>
+        /// 右上角X鼠标移上去显示
+        /// </summary>
+        public static Brush EXIT_AFTER_BRUSH = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/CFSJMIS;component/Images/red-x.png")));
+        /// <summary>
+        /// 右上角X鼠标移开后显示
+        /// </summary>
+        public static Brush EXIT_BEFORE_BRUSH = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/CFSJMIS;component/Images/gray-x.png")));
         #endregion
     }
 
@@ -131,6 +148,8 @@ namespace CFSJMIS {
         public const string SSH_ERROR = "请连接服务器";
 
         public const string EXIT = "确认退出";
+
+        public const string IMPORT_TIPS = "双击选择要导入的EXCEL文件";
     }
     /// <summary>
     /// 没收计算

@@ -159,7 +159,7 @@ namespace CFSJMIS {
     /// excel操作
     /// </summary>
     public abstract class ExcelOperate {
-        public static ArrayList dataList(string path,string town) {
+        public static ArrayList getDataList(string path,string town) {
             ArrayList dataList = new ArrayList();
             DataSet dataSet = importExcelToDataSet(path);
             Data data = new Data();
@@ -215,6 +215,7 @@ namespace CFSJMIS {
                         }
                     }
                 } catch (Exception ex) {
+                    dataList = new ArrayList();
                     throw new Exception(data.Name.ToString() + ex.Message);
                 }
             }

@@ -26,9 +26,7 @@ namespace CFSJMIS {
             try {
                 List<String> gtx = Load.gtxRead("GTX");
                 this.cbxNames.ItemsSource = gtx;
-                if (gtx.Count > 0) {
-                    cbxNames.SelectedIndex = 0;
-                }
+                cbxNames.SelectedIndex = 0;
             } catch (NotImplementedException ex) {
                 throw ex;
             }

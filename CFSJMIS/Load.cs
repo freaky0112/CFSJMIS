@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Linq;
 using System.Xml.Linq;
+using System.Windows.Forms;
 
 namespace CFSJMIS {
   public abstract  class Load {
@@ -26,7 +26,11 @@ namespace CFSJMIS {
           }
           return gtxs;
       }
-
+      /// <summary>
+      /// 读取国土所对应乡镇
+      /// </summary>
+      /// <param name="node"></param>
+      /// <returns></returns>
       public static List<string> townRead(string node) {
           XElement gtx = XElement.Load(Common.XMLTOWN);
           IEnumerable<XElement> elements =
@@ -42,6 +46,19 @@ namespace CFSJMIS {
               towns.Add((string)el.Attribute("NAME"));
           }
           return towns;
+      }
+      public static string getPath() {
+          OpenFileDialog openFileDialog = new OpenFileDialog();
+          openFileDialog.InitialDirectory = "c://";
+          openFileDialog.Multiselect = false;
+          openFileDialog.Filter = "xls文件|*.xls|xlsx文件|*.xlsx|所有文件|*.*";
+          openFileDialog.RestoreDirectory = true;
+          openFileDialog.FilterIndex = 1;
+          if (openFileDialog.ShowDialog() == DialogResult.OK) {
+              return openFileDialog.FileName;
+          } else {
+              return null;
+          }
       }
     }
 }
