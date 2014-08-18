@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Media;
 
 namespace CFSJMIS {
     public class Common {
@@ -99,6 +100,18 @@ namespace CFSJMIS {
         #region XML信息
         public const string XMLTOWN = "XMLTowns.xml";
 
+        #endregion
+
+        #region 颜色
+        //private Color color = (Color)ColorConverter.ConvertFromString("#FF1F60A0");
+        /// <summary>
+        /// 鼠标离开后字体颜色
+        /// </summary>
+        public static Brush BEFORE_BRUSH = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1F60A0"));
+        /// <summary>
+        /// 鼠标移入时字体颜色
+        /// </summary>
+        public static Brush AFTER_BRUSH = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4886BF"));
         #endregion
     }
 

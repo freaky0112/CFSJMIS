@@ -11,12 +11,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace CFSJMIS {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window {
+
+
         public MainWindow() {
             InitializeComponent();
             if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
@@ -27,7 +30,7 @@ namespace CFSJMIS {
             this.Loaded += MainWindow_Loaded;
         }
 
-        void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+        void MainWindow_Loaded(object sender, RoutedEventArgs e) {            
             List<string> towns = Load.townRead("Town");
             this.cbxTown.ItemsSource = towns;
             //throw new NotImplementedException();

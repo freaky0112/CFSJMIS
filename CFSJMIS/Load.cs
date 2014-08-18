@@ -20,6 +20,7 @@ namespace CFSJMIS {
               //where (string)el.Attribute("name") == node
               select el;
           List<string> gtxs=new List<string>();
+          gtxs.Add("请选择所在国土所");
           foreach (XElement el in elements) {
               gtxs.Add((string)el.Attribute("NAME"));
           }
@@ -36,6 +37,7 @@ namespace CFSJMIS {
               from el in elements.Elements(node)
               select el;
           List<string> towns = new List<string>();
+          towns.Add("请选择导入乡镇");
           foreach (XElement el in element) {
               towns.Add((string)el.Attribute("NAME"));
           }

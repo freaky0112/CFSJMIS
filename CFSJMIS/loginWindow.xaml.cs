@@ -64,7 +64,10 @@ namespace CFSJMIS {
             ssh.ShowDialog();
         }
 
-        private void Label_MouseDown(object sender, MouseButtonEventArgs e) {
+
+
+
+        private void lblLogin_MouseDown(object sender, MouseButtonEventArgs e) {
             string name = cbxNames.Text;
             string password = pbxPassword.Password;
             if (Common.sshConnected) {
@@ -81,10 +84,26 @@ namespace CFSJMIS {
             }
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e) {
+        private void lblExit_MouseDown(object sender, MouseButtonEventArgs e) {
             if ((MessageBox.Show(Messages.EXIT, Messages.EXIT, MessageBoxButton.OKCancel) == MessageBoxResult.OK)) {
                 Application.Current.Shutdown();
             }
+        }
+
+        private void lblLogin_MouseEnter(object sender, MouseEventArgs e) {
+            lblLogin.Foreground = Common.AFTER_BRUSH;
+        }
+
+        private void lblLogin_MouseLeave(object sender, MouseEventArgs e) {
+            lblLogin.Foreground = Common.BEFORE_BRUSH;
+        }
+
+        private void lblExit_MouseEnter(object sender, MouseEventArgs e) {
+            lblExit.Foreground = Common.AFTER_BRUSH;
+        }
+
+        private void lblExit_MouseLeave(object sender, MouseEventArgs e) {
+            lblExit.Foreground = Common.BEFORE_BRUSH;
         }
     }
 }
