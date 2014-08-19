@@ -15,11 +15,11 @@ namespace CFSJMIS {
 
         public MainWindow() {
             InitializeComponent();
-            if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
-                MessageBox.Show(Messages.SSH_ERROR);
-            }
-            loginWindow login = new loginWindow();
-            login.ShowDialog();
+            //if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
+            //    MessageBox.Show(Messages.SSH_ERROR);
+            //}
+            //loginWindow login = new loginWindow();
+            //login.ShowDialog();
             this.Loaded += MainWindow_Loaded;
             
         }
@@ -52,7 +52,7 @@ namespace CFSJMIS {
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e) {
             gridImport.Visibility = Visibility.Hidden;
-            
+            gridQuery.Visibility = Visibility.Hidden;
             
         }
 
@@ -71,6 +71,11 @@ namespace CFSJMIS {
                 tagImport.Foreground = Brushes.Black;
             }
             gridImport.Visibility = Visibility.Visible;
+            gridQuery.Visibility = Visibility.Hidden;
+            tagImport.Foreground = Brushes.White;
+            tagImport.Background = Common.AFTER_BRUSH;
+            tagQuery.Background = Brushes.Transparent;
+            tagQuery.Foreground = Brushes.Gray;
         }
 
         private void lblImport_MouseDown(object sender, MouseButtonEventArgs e) {
@@ -85,6 +90,15 @@ namespace CFSJMIS {
         }
 
         private void tagImport_LostFocus(object sender, RoutedEventArgs e) {
+            tagImport.Foreground = Brushes.Gray;
+        }
+
+        private void lblQuery_MouseDown_1(object sender, MouseButtonEventArgs e) {
+            gridImport.Visibility = Visibility.Hidden;
+            gridQuery.Visibility = Visibility.Visible;
+            tagQuery.Foreground = Brushes.White;
+            tagQuery.Background = Common.AFTER_BRUSH;
+            tagImport.Background = Brushes.Transparent;
             tagImport.Foreground = Brushes.Gray;
         }
 

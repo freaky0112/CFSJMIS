@@ -10,7 +10,7 @@
                 <ImageBrush ImageSource="Images/gray-x.png" Stretch="UniformToFill"></ImageBrush>
             </Border.Background>
         </Border>
-        <Grid Name="gridImport" Background="Transparent" HorizontalAlignment="Left" Margin="120,30,0,0" Grid.ColumnSpan="2" >
+        <Grid Name="gridImport" Background="Transparent" HorizontalAlignment="Left" Margin="120,30,0,0" Grid.ColumnSpan="2"  Visibility="Hidden">
             <ComboBox x:Name="cbxTown" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top"  Width="220" ItemsSource="{Binding Text, ElementName=cbxTown}" Height="21.24"/>
             <TextBox Name="tbxPath" HorizontalAlignment="Left" Height="23" Margin="10,96,0,0" TextWrapping="Wrap" Text="双击选择要导入的EXCEL文件" VerticalAlignment="Top" Width="575.383" MouseDoubleClick="tbxPath_MouseDoubleClick" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
             <Border  BorderBrush="#FF1F60A0" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="18,24,0,0" VerticalAlignment="Top" Width="50" CornerRadius="25,25,25,25">
@@ -25,11 +25,15 @@
                 <Label Name="tagImport"  Content="导  入" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent"  Margin="0" FontSize="14.667" MouseDown="tagImport_MouseDown" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" GotFocus="tagImport_GotFocus" LostFocus="tagImport_LostFocus"/>
             </Border>
             <Border BorderThickness="1" Height="40" VerticalAlignment="Top" Margin="0,176,0,0" CornerRadius="5,0,0,5">
-                <Label Content="查  询" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent"  Margin="0" FontSize="14.667" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                <Label Content="查  询" Name="tagQuery" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent"  Margin="0" FontSize="14.667" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" MouseDown="lblQuery_MouseDown_1"/>
             </Border>
             <Label Name="lblDepartment" Content="鹤城所" Margin="0,58,0,0" VerticalAlignment="Top" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF4886BF" FontSize="21.333" />
         </Grid>
-
+        <Grid Name="gridQuery" Background="Transparent" HorizontalAlignment="Left" Margin="120,30,0,0" Grid.ColumnSpan="2"  Visibility="Hidden">
+            <Border  BorderBrush="#FF1F60A0" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="18,24,0,0" VerticalAlignment="Top" Width="50" CornerRadius="25,25,25,25">
+                <Label Content="&lt;" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="50" FontWeight="Bold" FontSize="26.667" Foreground="#FF1F60A0" MouseDown="Label_MouseDown"/>
+            </Border>
+        </Grid>
     </Grid>
 
 </Window>
