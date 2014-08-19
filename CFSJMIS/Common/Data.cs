@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace CFSJMIS{
 
-    public class Data {
+    public class Data : INotifyPropertyChanged {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String info) {
+            if (PropertyChanged != null) {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }  
         public Data() {
         }
         /// <summary>
@@ -19,6 +27,7 @@ namespace CFSJMIS{
             }
             set {
                 _name = value;
+                this.NotifyPropertyChanged("Name");
             }
         }
         /// <summary>
@@ -221,9 +230,9 @@ namespace CFSJMIS{
         /// <summary>
         /// 没收单价
         /// </summary>
-        private int _confiscateAreaUnit;
+        private double _confiscateAreaUnit;
 
-        public int ConfiscateAreaUnit {
+        public double ConfiscateAreaUnit {
             get {
                 return _confiscateAreaUnit;
             }
@@ -404,9 +413,9 @@ namespace CFSJMIS{
         /// <summary>
         /// 没收编号
         /// </summary>
-        private int _confiscateID;
+        private int? _confiscateID;
 
-        public int ConfiscateID {
+        public int? ConfiscateID {
             get {
                 return _confiscateID;
             }
@@ -465,11 +474,11 @@ namespace CFSJMIS{
             }
         }
 
-        private double _farmArea;
+        private double? _farmArea;
         /// <summary>
         /// 耕地面积
         /// </summary>
-        public double FarmArea {
+        public double? FarmArea {
             get {
                 return _farmArea;
             }
@@ -478,11 +487,11 @@ namespace CFSJMIS{
             }
         }
 
-        private int _farmUnit;
+        private double? _farmUnit;
         /// <summary>
         /// 耕地单价
         /// </summary>
-        public int FarmUnit {
+        public double? FarmUnit {
             get {
                 return _farmUnit;
             }
@@ -501,6 +510,7 @@ namespace CFSJMIS{
             }
             set {
                 _signed = value;
+                this.NotifyPropertyChanged("Signed");
             }
         }
     }

@@ -75,6 +75,10 @@ namespace CFSJMIS {
         public static string tableConfiscate() {
             return table + "没收";
         }
+
+        public static string getView() {
+            return table + "视图";
+        }
         /// <summary>
         /// 返回数据库连接字符串
         /// </summary>

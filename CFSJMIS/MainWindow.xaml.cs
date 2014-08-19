@@ -5,6 +5,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 
 namespace CFSJMIS {
     /// <summary>
@@ -12,14 +13,15 @@ namespace CFSJMIS {
     /// </summary>
     public partial class MainWindow : Window {
 
+        private List<Data> dataList;
 
         public MainWindow() {
             InitializeComponent();
-            //if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
-            //    MessageBox.Show(Messages.SSH_ERROR);
-            //}
-            //loginWindow login = new loginWindow();
-            //login.ShowDialog();
+            if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
+                MessageBox.Show(Messages.SSH_ERROR);
+            }
+            loginWindow login = new loginWindow();
+            login.ShowDialog();
             this.Loaded += MainWindow_Loaded;
             
         }
@@ -29,6 +31,8 @@ namespace CFSJMIS {
             this.cbxTown.ItemsSource = towns;
             this.cbxTown.SelectedIndex = 0;
             this.lblDepartment.Content = Common.table;
+
+            this.lswData.ItemsSource = dataList;
             //ImageBrush b = new ImageBrush();
             //b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/CFSJMIS;component/Images/gray-x.png"));
             //b.Stretch = Stretch.Fill;
@@ -102,7 +106,30 @@ namespace CFSJMIS {
             tagImport.Foreground = Brushes.Gray;
         }
 
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e) {
+            if (e.LeftButton == MouseButtonState.Pressed) {
+                DragMove();
+            }
+        }
 
+        private void lblQuery_MouseDown(object sender, MouseButtonEventArgs e) {
+            dataList = DataOperate.query();
+            this.lswData.ItemsSource = dataList;            
+        }
 
+        /// <summary>  
+        /// 由ChecBox的Click事件修改是否已处罚
+        /// </summary>  
+        /// <param name="sender"></param>  
+        /// <param name="e"></param>  
+        private void CheckBox_Click(object sender, RoutedEventArgs e) {
+            CheckBox cbx=sender as CheckBox;
+            string guid = cbx.Tag.ToString();
+            try {
+                DataOperate.dataSinged(guid, (bool)cbx.IsChecked);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
     }
 }

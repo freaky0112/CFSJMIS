@@ -4,13 +4,19 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Data.OleDb;
+using System.Collections.Generic;
 
 namespace CFSJMIS {
     /// <summary>
     /// 数据操作
     /// </summary>
     public abstract class DataOperate {
-
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="name">用户名</param>
+        /// <param name="password">密码</param>
+        /// <returns></returns>
         public static bool login(string name, string password) {
             int isLogined = 0;
             StringBuilder sql = new StringBuilder();
@@ -85,7 +91,7 @@ namespace CFSJMIS {
             sql.Append("@ConfiscateAreaUnit,");
             sql.Append("@ConfiscateAreaPrice,");
             sql.Append("@Guid)");
-            MySqlParameter[] pt=new MySqlParameter[]{
+            MySqlParameter[] pt = new MySqlParameter[]{
                     new MySqlParameter("ID",id),
                     new MySqlParameter("@Name",data.Name.ToString()),
                     new MySqlParameter("@CardID",data.CardID.ToString()),
@@ -111,7 +117,7 @@ namespace CFSJMIS {
             };
             try {
                 MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 throw ex;
             }
             if (data.ConfiscateAreaPrice > 0) {
@@ -154,12 +160,109 @@ namespace CFSJMIS {
             }
             return id;
         }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <returns></returns>
+        public static List<Data> query() {
+            List<Data> dataList = new List<Data>();
+            StringBuilder sql = new StringBuilder();
+            sql.Append("SELECT * FROM ");
+            sql.Append(Common.getView());
+            MySqlDataReader reader;
+            try {
+                reader = MySqlHelper.ExecuteReader(Common.strConntection(), CommandType.Text, sql.ToString(), null);
+            } catch (MySqlException ex) {
+                throw ex;
+            }
+            while (reader.Read()) {
+                Data data = readDB(reader);
+                dataList.Add(data);
+            }
+            return dataList;
+        }
+        /// <summary>
+        /// 将数据库reader赋值到data
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        private static Data readDB(MySqlDataReader reader) {
+            Data data = new Data();
+            try {
+
+                data.ID = Int32.Parse(reader[0].ToString());//处罚编号
+                data.Name = reader[1].ToString();//户主
+                //没收编号
+                if (!string.IsNullOrEmpty(reader[2].ToString())) {
+                    data.ConfiscateID = Int32.Parse(reader[2].ToString());
+                } else {
+                    data.ConfiscateID = null;
+                }
+                data.CardID = reader["身份证号"].ToString();
+                data.Town = reader["乡镇"].ToString();
+                data.Accounts = reader["户口人数"].ToString();
+                data.Location = reader["土地座落"].ToString();
+                data.Control = reader["控制区"].ToString();
+                data.LandOwner = reader.GetString("土地性质");
+                data.Area = reader.GetDouble("占地面积");
+                if (!string.IsNullOrEmpty(reader["耕地面积"].ToString())) {
+                    data.FarmArea = reader.GetDouble("耕地面积");
+                } else {
+                    data.FarmUnit = null;
+                }
+                data.Layer = reader.GetDouble("层数");
+                data.BuildDate = reader.GetInt32("建成年月");
+                data.LegalArea = reader.GetDouble("审批面积");
+                data.IllegaArea = reader.GetDouble("超建面积");
+                data.IllegaUnit = reader.GetDouble("单价");
+                if (!string.IsNullOrEmpty(reader["耕地单价"].ToString())) {
+                    data.FarmUnit = reader.GetDouble("耕地单价");
+                } else {
+                    data.FarmUnit = null;
+                }
+                data.Price = reader.GetDouble("金额");
+                data.ConfiscateFloorArea = reader.GetDouble("没收占地面积");
+                data.ConfiscateArea = reader.GetDouble("没收建筑面积");
+                data.ConfiscateAreaUnit = reader.GetDouble("没收单价");
+                data.ConfiscateAreaPrice = reader.GetDouble("没收金额");
+                if (!string.IsNullOrEmpty(reader["是否已处罚"].ToString())) {
+                    data.Signed = reader.GetBoolean("是否已处罚");
+                }
+                data.Guid = reader.GetString("GUID");
+            } catch {
+                throw new Exception(data.ID.ToString());
+            }
+            return data;
+        }
+        /// <summary>
+        /// 修改是否已处罚
+        /// </summary>
+        /// <param name="guid">GUID</param>
+        /// <param name="signed">是否已处罚</param>
+        public static void dataSinged(string guid, bool signed) {
+            StringBuilder sql = new StringBuilder();
+            sql.Append("update ");
+            sql.Append(Common.table);
+            sql.Append(" set ");
+            sql.Append("是否已处罚=@Signed  ");
+            sql.Append("where ");
+            sql.Append("GUID= @Guid ");
+            MySqlParameter[] pt = new MySqlParameter[]{
+                new MySqlParameter("@GUID",guid),
+                new MySqlParameter("@Signed",signed)
+            };
+            try {
+                MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
+            } catch (MySqlException ex) {
+                throw ex;
+            }
+        }
     }
     /// <summary>
     /// excel操作
     /// </summary>
     public abstract class ExcelOperate {
-        public static ArrayList getDataList(string path,string town) {
+        public static ArrayList getDataList(string path, string town) {
             ArrayList dataList = new ArrayList();
             DataSet dataSet = importExcelToDataSet(path);
             Data data = new Data();
