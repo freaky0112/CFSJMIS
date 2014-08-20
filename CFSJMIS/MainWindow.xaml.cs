@@ -7,6 +7,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using CFSJMIS.Collections;
+using CFSJMIS.Biult;
+using System.Threading;
+using CFSJMIS.Search;
 
 namespace CFSJMIS {
     /// <summary>
@@ -15,6 +18,7 @@ namespace CFSJMIS {
     public partial class MainWindow : Window {
 
         private List<Data> dataList;
+        private Thread biult;
 
         public MainWindow() {
             InitializeComponent();
@@ -24,7 +28,7 @@ namespace CFSJMIS {
             loginWindow login = new loginWindow();
             login.ShowDialog();
             this.Loaded += MainWindow_Loaded;
-            
+
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e) {
@@ -47,7 +51,7 @@ namespace CFSJMIS {
             Application.Current.Shutdown();
         }
 
-        private void borderExit_MouseEnter(object sender, MouseEventArgs e) {            
+        private void borderExit_MouseEnter(object sender, MouseEventArgs e) {
             this.borderExit.Background = Common.EXIT_AFTER_BRUSH;
         }
 
@@ -58,11 +62,11 @@ namespace CFSJMIS {
         private void Label_MouseDown(object sender, MouseButtonEventArgs e) {
             gridImport.Visibility = Visibility.Hidden;
             gridQuery.Visibility = Visibility.Hidden;
-            
+
         }
 
         private void tbxPath_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-            tbxPath.Text=Load.getPath();
+            tbxPath.Text = Load.getPath();
             if (string.IsNullOrEmpty(tbxPath.Text)) {
                 tbxPath.Text = Messages.IMPORT_TIPS;
                 tbxPath.Foreground = Brushes.Gray;
@@ -84,7 +88,7 @@ namespace CFSJMIS {
         }
 
         private void lblImport_MouseDown(object sender, MouseButtonEventArgs e) {
-            
+
             foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
                 DataOperate.insertData(data);
             }
@@ -115,7 +119,7 @@ namespace CFSJMIS {
 
         private void lblQuery_MouseDown(object sender, MouseButtonEventArgs e) {
             dataList = DataOperate.query();
-            this.lswData.ItemsSource = dataList;            
+            this.lswData.ItemsSource = dataList;
         }
 
         /// <summary>  
@@ -124,7 +128,7 @@ namespace CFSJMIS {
         /// <param name="sender"></param>  
         /// <param name="e"></param>  
         private void CheckBox_Click(object sender, RoutedEventArgs e) {
-            CheckBox cbx=sender as CheckBox;
+            CheckBox cbx = sender as CheckBox;
             string guid = cbx.Tag.ToString();
             try {
                 DataOperate.dataSinged(guid, (bool)cbx.IsChecked);
@@ -141,7 +145,27 @@ namespace CFSJMIS {
         }
 
         private void lblBuilt_MouseDown(object sender, MouseButtonEventArgs e) {
-
+            int count = 0;
+            prbState.Maximum = lswData.Items.Count;
+            prbState.Foreground = Common.AFTER_BRUSH;
+            biult = new Thread(() => {
+                foreach (Data data in lswData.Items) {
+                    string path = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
+                    WordBiult.Generate(path, data);
+                    count++;
+                    DelegateProgressBar progressBar = new DelegateProgressBar(prbState);
+                    progressBar.output(count);
+                    Thread.Sleep(30);
+                }
+            });
+            biult.Start();
         }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e) {
+            this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+        }
+
+
+
     }
 }

@@ -75,8 +75,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\SshConnect.cs" />
-    <Compile Include="DataOperate.cs" />
-    <Compile Include="Load.cs" />
+    <Compile Include="Common\DataOperate.cs" />
+    <Compile Include="Common\DelegateControls.cs" />
+    <Compile Include="Common\Load.cs" />
     <Compile Include="loginWindow.xaml.cs">
       <DependentUpon>loginWindow.xaml</DependentUpon>
     </Compile>
@@ -95,7 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common.cs" />
+    <Compile Include="Common\Common.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -151,6 +152,10 @@
     <ProjectReference Include="..\CFSJMIS.Data\CFSJMIS.Data.csproj">
       <Project>{53280b9d-b2da-492a-b275-a129d68fc1b6}</Project>
       <Name>CFSJMIS.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CFSJMIS.Search\CFSJMIS.Search.csproj">
+      <Project>{c5f888ec-8ea6-4b56-93c9-f38a1525a151}</Project>
+      <Name>CFSJMIS.Search</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
