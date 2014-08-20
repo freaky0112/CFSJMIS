@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" x:Class="CFSJMIS.MainWindow"
         Title="MainWindow" WindowStartupLocation="CenterScreen"
         Style="{StaticResource for_noresize_window}" Width="768" Height="535">
-	<Grid MouseDown="Grid_MouseDown">
+	<Grid >
+		<Grid Height="30" VerticalAlignment="Top" Margin="0,0,24,0" MouseDown="Grid_MouseDown" Background="Transparent"/>
 		<Border x:Name="borderExit" BorderThickness="1" HorizontalAlignment="Right" Height="24" VerticalAlignment="Top" Width="24" Margin="0" CornerRadius="0,5,0,0" MouseDown="borderExit_MouseDown" MouseEnter="borderExit_MouseEnter" MouseLeave="borderExit_MouseLeave" d:IsLocked="True" Grid.Column="1">
 			<Border.Background>
 				<ImageBrush ImageSource="Images/gray-x.png" Stretch="UniformToFill"/>
@@ -34,30 +35,30 @@
 			<Border  BorderBrush="#FF1F60A0" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="18,24,0,0" VerticalAlignment="Top" Width="50" CornerRadius="25,25,25,25">
 				<Label Content="&lt;" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="50" FontWeight="Bold" FontSize="26.667" Foreground="#FF1F60A0" MouseDown="Label_MouseDown" Background="{x:Null}"/>
 			</Border>
-			<ListView Name="lswData" Margin="18,100,18,48">
+			<ListView x:Name="lswData" Margin="18,100,18,48" MouseDoubleClick="lswData_MouseDoubleClick">
 				<ListView.View>
 					<GridView>
-						<GridViewColumn Header="编号" Width="60" DisplayMemberBinding="{Binding Path=ID}"/>
-						<GridViewColumn Header="姓名"  DisplayMemberBinding="{Binding Path=Name}"/>
-						<GridViewColumn Header="没收编号" Width="60" DisplayMemberBinding="{Binding Path=ConfiscateID}"/>
-						<GridViewColumn Header="所在乡镇" Width="auto" DisplayMemberBinding="{Binding Path=Town}"/>
-						<GridViewColumn Header="所在地" Width="auto" DisplayMemberBinding="{Binding Path=Location}"/>
-						                    <GridViewColumn x:Name="gvc">  
-                        <GridViewColumn.Header>  
-                            <Label Content="是否已处罚"></Label>  
-                        </GridViewColumn.Header>  
-                        <GridViewColumn.CellTemplate>  
-                            <DataTemplate>  
-                                <CheckBox  Click="CheckBox_Click" IsChecked="{Binding  Path=Signed}" Tag="{Binding Path=Guid}" ></CheckBox>  
-                            </DataTemplate>  
-                        </GridViewColumn.CellTemplate>  
-                    </GridViewColumn> 
+						<GridViewColumn Header="编号" Width="60" DisplayMemberBinding="{Binding ID}"/>
+						<GridViewColumn Header="姓名"  DisplayMemberBinding="{Binding Name}"/>
+						<GridViewColumn Header="没收编号" Width="60" DisplayMemberBinding="{Binding ConfiscateID}"/>
+						<GridViewColumn Header="所在乡镇" Width="auto" DisplayMemberBinding="{Binding Town}"/>
+						<GridViewColumn Header="所在地" Width="auto" DisplayMemberBinding="{Binding Location}"/>
+						<GridViewColumn x:Name="gvc">  
+							<GridViewColumn.CellTemplate>  
+								<DataTemplate>  
+									<CheckBox  Click="CheckBox_Click" IsChecked="{Binding Signed}" Tag="{Binding Guid}" />  
+								</DataTemplate>  
+							</GridViewColumn.CellTemplate>  
+							<Label Content="是否已处罚"/>  
+						</GridViewColumn> 
 					</GridView>
 				</ListView.View>
 			</ListView>
-			<Label Margin="18,0,18,12" VerticalAlignment="Bottom" Foreground="#FF4886BF" Height="24"/>
 			<Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="510,54,18,0" VerticalAlignment="Top" Width="100" CornerRadius="5">
-				<Label Name="lblQuery" Content="查  询" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblQuery_MouseDown"/>
+				<Label x:Name="lblQuery" Content="查  询" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblQuery_MouseDown"/>
+			</Border>
+			<Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,445,18,0" VerticalAlignment="Top" Width="100" CornerRadius="5">
+				<Label x:Name="lblBuilt" Content="生  成" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblBuilt_MouseDown" />
 			</Border>
 		</Grid>
 	</Grid>

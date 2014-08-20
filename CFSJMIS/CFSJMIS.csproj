@@ -96,7 +96,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common.cs" />
-    <Compile Include="Common\Data.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -143,6 +142,16 @@
   <ItemGroup>
     <Resource Include="Images\gray-x.png" />
     <Resource Include="Images\red-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CFSJMIS.Biult\CFSJMIS.Biult.csproj">
+      <Project>{4faf68d6-691e-4a00-afae-2bf38da2ef6c}</Project>
+      <Name>CFSJMIS.Biult</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CFSJMIS.Data\CFSJMIS.Data.csproj">
+      <Project>{53280b9d-b2da-492a-b275-a129d68fc1b6}</Project>
+      <Name>CFSJMIS.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

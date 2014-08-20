@@ -5,6 +5,7 @@ using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Data.OleDb;
 using System.Collections.Generic;
+using CFSJMIS.Collections;
 
 namespace CFSJMIS {
     /// <summary>
@@ -187,7 +188,7 @@ namespace CFSJMIS {
         /// <param name="reader"></param>
         /// <returns></returns>
         private static Data readDB(MySqlDataReader reader) {
-            Data data = new Data();
+            Data data=new Data();
             try {
 
                 data.ID = Int32.Parse(reader[0].ToString());//处罚编号

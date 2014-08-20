@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using CFSJMIS.Collections;
 
 namespace CFSJMIS {
     public class Common {

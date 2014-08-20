@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using CFSJMIS.Collections;
 
 namespace CFSJMIS {
     /// <summary>
@@ -130,6 +131,17 @@ namespace CFSJMIS {
             } catch (Exception ex) {
                 throw ex;
             }
+        }
+
+        private void lswData_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            Data data = (Data)lswData.SelectedItem;
+            if (data != null) {
+                MessageBox.Show(data.ID.ToString());
+            }
+        }
+
+        private void lblBuilt_MouseDown(object sender, MouseButtonEventArgs e) {
+
         }
     }
 }
