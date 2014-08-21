@@ -13,7 +13,6 @@ namespace CFSJMIS.Biult {
                 Directory.CreateDirectory(generatePath);//创建文件夹
             }
             BiultReportForm brf = new BiultReportForm();
-           
             try {
                 brf.CreateAWord();
                 Index.biult(brf, data);

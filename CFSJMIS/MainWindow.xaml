@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" x:Class="CFSJMIS.MainWindow"
         Title="MainWindow" WindowStartupLocation="CenterScreen"
         Style="{StaticResource for_noresize_window}" Width="768" Height="535">
-	<Grid >
-		<Grid Height="30" VerticalAlignment="Top" Margin="0,0,24,0" MouseDown="Grid_MouseDown" Background="Transparent"/>
+	<Grid>
+
+            <Grid Height="30" VerticalAlignment="Top" Margin="0,0,24,0" MouseDown="Grid_MouseDown" Background="Transparent"/>
 		<Border x:Name="borderExit" BorderThickness="1" HorizontalAlignment="Right" Height="24" VerticalAlignment="Top" Width="24" Margin="0" CornerRadius="0,5,0,0" MouseDown="borderExit_MouseDown" MouseEnter="borderExit_MouseEnter" MouseLeave="borderExit_MouseLeave" d:IsLocked="True" Grid.Column="1">
 			<Border.Background>
 				<ImageBrush ImageSource="Images/gray-x.png" Stretch="UniformToFill"/>
@@ -85,6 +86,5 @@
 				<Label x:Name="lblQuery1" Content="查  询" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblQuery_MouseDown"/>
 			</Border>
 		</Grid>
-	</Grid>
-
+    </Grid>
 </Window>

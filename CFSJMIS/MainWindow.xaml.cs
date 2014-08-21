@@ -141,11 +141,15 @@ namespace CFSJMIS {
         private void lswData_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             Data data = (Data)lswData.SelectedItem;
             if (data != null) {
-                MessageBox.Show(data.ID.ToString());
             }
         }
-
+        /// <summary>
+        /// 生成WORD文档
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lblBuilt_MouseDown(object sender, MouseButtonEventArgs e) {
+            #region 单线程生成
             int count = 0;
             prbState.Maximum = lswData.Items.Count;
             prbState.Foreground = Common.AFTER_BRUSH;
@@ -156,11 +160,44 @@ namespace CFSJMIS {
                     WordBiult.Generate(path, data);
                     count++;
                     DelegateProgressBar progressBar = new DelegateProgressBar(prbState);
-                    progressBar.output(count);
+                    progressBar.output(count);///控制进度条
                     //Thread.Sleep(30);
                 }
             });
             biult.Start();
+            #endregion
+
+            #region 多线程生成
+            //int maxThread = 10;
+            //int currentNum = 0;
+            //prbState.Maximum = lswData.Items.Count;
+            //prbState.Foreground = Common.AFTER_BRUSH;
+            //WaitHandle[] whs = new WaitHandle[maxThread];
+            //for (int i = 0; i < whs.Length; i++) {
+            //    whs[i] = new AutoResetEvent(false);
+            //}
+            //int sortIdx = 0;
+            //for (int i = 0; i < lswData.Items.Count; i++) {
+            //    var ex = i;
+            //    currentNum++;
+            //    if (currentNum > maxThread) {
+            //        int freeInx = WaitHandle.WaitAny(whs);
+            //        currentNum--;
+            //        sortIdx = freeInx;
+            //    } else {
+            //        sortIdx = currentNum - 1;
+            //    }
+            //    ThreadPool.QueueUserWorkItem(new WaitCallback((p) => {
+            //        Data data = (Data)lswData.Items[i];
+            //        data.Code = Common.getCode();
+            //        string path = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
+            //        WordBiult.Generate(path, data);
+            //        DelegateProgressBar progressBar = new DelegateProgressBar(prbState);
+            //        progressBar.output(i);///控制进度条
+            //        (whs[sortIdx] as AutoResetEvent).Set();
+            //    }), ex);
+            //}
+            #endregion
         }
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e) {
