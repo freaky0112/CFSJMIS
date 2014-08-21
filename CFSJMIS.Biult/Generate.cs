@@ -13,8 +13,21 @@ namespace CFSJMIS.Biult {
                 Directory.CreateDirectory(generatePath);//创建文件夹
             }
             BiultReportForm brf = new BiultReportForm();
+           
             try {
                 brf.CreateAWord();
+                Index.biult(brf, data);
+                CFGZS.biult(brf, data);
+                CFGZS.biult(brf, data);
+                CFJDS.biult(brf, data);
+                CFJDS.biult(brf, data);
+                if (data.ConfiscateAreaPrice > 0) {
+                    CLJD.biult(brf, data);
+                    CLJD.biult(brf, data);
+                }
+                JKTZ.biult(brf, data);
+                brf.TypeBackspace();
+                brf.TypeBackspace();
                 brf.SaveWord(path);
             } catch (Exception ex) {
                 throw ex;

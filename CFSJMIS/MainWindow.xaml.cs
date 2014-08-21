@@ -90,6 +90,7 @@ namespace CFSJMIS {
         private void lblImport_MouseDown(object sender, MouseButtonEventArgs e) {
 
             foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
+                
                 DataOperate.insertData(data);
             }
         }
@@ -150,12 +151,13 @@ namespace CFSJMIS {
             prbState.Foreground = Common.AFTER_BRUSH;
             biult = new Thread(() => {
                 foreach (Data data in lswData.Items) {
+                    data.Code = Common.getCode();
                     string path = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
                     WordBiult.Generate(path, data);
                     count++;
                     DelegateProgressBar progressBar = new DelegateProgressBar(prbState);
                     progressBar.output(count);
-                    Thread.Sleep(30);
+                    //Thread.Sleep(30);
                 }
             });
             biult.Start();

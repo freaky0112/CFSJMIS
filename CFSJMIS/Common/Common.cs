@@ -49,7 +49,7 @@ namespace CFSJMIS {
 
 
         #region ssh连接信息
-        public static string sshServer = "192.168.1.3";
+        public static string sshServer = "192.168.99.13";
         public static int sshPort = 2222;
         public static string sshUID = "root";
         public static string sshPWD = "admin";
@@ -79,6 +79,34 @@ namespace CFSJMIS {
 
         public static string getView() {
             return table + "视图";
+        }
+
+        public static string getCode() {
+            string code = "";
+            switch (table) {
+                case "鹤城所":
+                    code = "A";
+                    break;
+                case "温溪所":
+                    code = "B";
+                    break;
+                case "山口所":
+                    code = "C";
+                    break;
+                case "船寮所":
+                    code = "D";
+                    break;
+                case "东源所":
+                    code = "E";
+                    break;
+                case "腊口所":
+                    code = "F";
+                    break;
+                case "北山所":
+                    code = "G";
+                    break;
+            }
+            return code;
         }
         /// <summary>
         /// 返回数据库连接字符串
