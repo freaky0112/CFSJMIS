@@ -188,7 +188,7 @@ namespace CFSJMIS {
         /// <param name="reader"></param>
         /// <returns></returns>
         private static Data readDB(MySqlDataReader reader) {
-            Data data=new Data();
+            Data data = new Data();
             try {
 
                 data.ID = Int32.Parse(reader[0].ToString());//处罚编号
@@ -226,6 +226,14 @@ namespace CFSJMIS {
                 data.ConfiscateArea = reader.GetDouble("没收建筑面积");
                 data.ConfiscateAreaUnit = reader.GetDouble("没收单价");
                 data.ConfiscateAreaPrice = reader.GetDouble("没收金额");
+                data.Characters = new List<Character>();
+                for (int i = 0; i < data.Names.Length; i++) {
+                    Character character = new Character();
+                    character.Name = data.Names[i];
+                    character.Sex = data.Sex[i];
+                    character.CardID = data.CardIDs[i];
+                    data.Characters.Add(character);
+                }
                 if (!string.IsNullOrEmpty(reader["是否已处罚"].ToString())) {
                     data.Signed = reader.GetBoolean("是否已处罚");
                 }
@@ -257,6 +265,71 @@ namespace CFSJMIS {
             } catch (MySqlException ex) {
                 throw ex;
             }
+        }
+        /// <summary>
+        /// 修改数据
+        /// </summary>
+        /// <param name="data"></param>
+        public static Data modifyData(Data data) {
+
+            StringBuilder sql = new StringBuilder();
+            sql.Append("update 鹤城所 set ");
+            sql.Append("户主 = @Name , ");
+            sql.Append("身份证号= @CardID , ");
+            sql.Append("乡镇= @Town , ");
+            sql.Append("户口人数= @Accounts , ");
+            sql.Append("土地座落= @Location , ");
+            sql.Append("控制区= @Control , ");
+            sql.Append("土地性质= @LandOwner , ");
+            sql.Append("占地面积= @Area , ");
+            sql.Append("层数= @Layer , ");
+            sql.Append("建成年月= @BuildDate , ");
+            sql.Append("土地利用总体规划= @Conform , ");
+            sql.Append("建房资格= @Available , ");
+            sql.Append("审批面积= @LegalArea , ");
+            sql.Append("超建面积= @IllegaArea , ");
+            sql.Append("单价= @IllegaUnit , ");
+            sql.Append("金额= @Price , ");
+            sql.Append("没收占地面积= @ConfiscateFloorArea , ");
+            sql.Append("没收建筑面积= @ConfiscateArea , ");
+            sql.Append("没收单价= @ConfiscateAreaUnit , ");
+            sql.Append("没收金额= @ConfiscateAreaPrice ,");
+            sql.Append("耕地面积= @FarmArea ,");
+            sql.Append("耕地单价=@FarmUnit ");
+            sql.Append("where ");
+            sql.Append("GUID= @Guid ");
+
+            MySqlParameter[] pt = new MySqlParameter[]{
+                    new MySqlParameter("@Name",data.Name.ToString()),
+                    new MySqlParameter("@CardID",data.CardID.ToString()),
+                    new MySqlParameter("@Town",data.Town.ToString()),
+                    new MySqlParameter("@Accounts",data.Accounts.ToString()),
+                    new MySqlParameter("@Location",data.Location.ToString()),
+                    new MySqlParameter("@Control",data.Control.ToString()),
+                    new MySqlParameter("@LandOwner",data.LandOwner.ToString()),
+                    new MySqlParameter("@Area",data.Area.ToString()),
+                    new MySqlParameter("@Layer",data.Layer.ToString()),
+                    new MySqlParameter("@BuildDate",data.BuildDate.ToString()),
+                    new MySqlParameter("@Conform",data.Conform.ToString()),
+                    new MySqlParameter("@Available",data.Available.ToString()),
+                    new MySqlParameter("@LegalArea",data.LegalArea.ToString()),
+                    new MySqlParameter("@IllegaArea",data.IllegaArea.ToString()),
+                    new MySqlParameter("@IllegaUnit",data.IllegaUnit.ToString()),
+                    new MySqlParameter("@Price",data.Price.ToString()),
+                    new MySqlParameter("@ConfiscateFloorArea",data.ConfiscateFloorArea.ToString()),
+                    new MySqlParameter("@ConfiscateArea",data.ConfiscateArea.ToString()),
+                    new MySqlParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit.ToString()),
+                    new MySqlParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice.ToString()),
+                    new MySqlParameter("@FarmArea",data.FarmArea.ToString()),
+                    new MySqlParameter("@FarmUnit",data.FarmUnit.ToString()),
+                    new MySqlParameter("@Guid",data.Guid)
+                 };
+            try {
+                MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
+            } catch (MySqlException ex) {
+                throw ex;
+            }
+            return data;
         }
     }
     /// <summary>

@@ -15,6 +15,20 @@ namespace CFSJMIS.Collections
             }
         }
 
+        private List<Character> _characters;
+        /// <summary>
+        /// 人物信息
+        /// </summary>
+        public List<Character> Characters {
+            get {
+                return _characters;
+            }
+            set {
+                _characters = value;
+                
+            }
+        }
+
         public Data() {
             // TODO: Complete member initialization
         }
@@ -43,6 +57,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _biuldDate = value;
+                this.NotifyPropertyChanged("BuildDate");
             }
         }
         /// <summary>
@@ -69,6 +84,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _location = value;
+                this.NotifyPropertyChanged("Location");
             }
         }
         /// <summary>
@@ -82,6 +98,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _accounts = value;
+                this.NotifyPropertyChanged("Accounts");
             }
         }
         /// <summary>
@@ -95,6 +112,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _landOwner = value;
+                this.NotifyPropertyChanged("LandOwner");
             }
         }
 
@@ -106,6 +124,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _control = value;
+                this.NotifyPropertyChanged("Control");
             }
         }
         /// <summary>
@@ -119,6 +138,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _area = value;
+                this.NotifyPropertyChanged("Area");
             }
         }
         /// <summary>
@@ -132,6 +152,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _legalArea = value;
+                this.NotifyPropertyChanged("LegalArea");
             }
         }
 
@@ -146,6 +167,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _illegalArea = value;
+                this.NotifyPropertyChanged("IllegaArea");
             }
         }
         /// <summary>
@@ -159,6 +181,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _illegaUnit = value;
+                this.NotifyPropertyChanged("IllegaUnit");
             }
         }
 
@@ -173,6 +196,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _price = value;
+                this.NotifyPropertyChanged("Price");
             }
         }
         /// <summary>
@@ -186,6 +210,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _isnotConfiscate = value;
+                this.NotifyPropertyChanged("IsnotConfiscate");
             }
         }
         /// <summary>
@@ -213,6 +238,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _confiscateFloorArea = value;
+                this.NotifyPropertyChanged("ConfiscateFloorArea");
             }
         }
 
@@ -227,6 +253,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _confiscateArea = value;
+                this.NotifyPropertyChanged("ConfiscateArea");
             }
         }
         /// <summary>
@@ -240,6 +267,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _confiscateAreaUnit = value;
+                this.NotifyPropertyChanged("ConfiscateAreaUnit");
             }
         }
         //编号
@@ -254,7 +282,7 @@ namespace CFSJMIS.Collections
             }
         }
         /// <summary>
-        /// 没收价格
+        /// 没收金额
         /// </summary>
         private double _confiscateAreaPrice;
 
@@ -264,6 +292,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _confiscateAreaPrice = value;
+                this.NotifyPropertyChanged("ConfiscateAreaPrice");
             }
         }
         /// <summary>
@@ -383,6 +412,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _town = value;
+                this.NotifyPropertyChanged("Town");
             }
         }
 
@@ -434,6 +464,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _layer = value;
+                this.NotifyPropertyChanged("Layer");
             }
         }
         /// <summary>
@@ -486,6 +517,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _farmArea = value;
+                this.NotifyPropertyChanged("FarmArea");
             }
         }
 
@@ -499,6 +531,7 @@ namespace CFSJMIS.Collections
             }
             set {
                 _farmUnit = value;
+                this.NotifyPropertyChanged("FarmUnit");
             }
         }
 
@@ -513,6 +546,101 @@ namespace CFSJMIS.Collections
             set {
                 _signed = value;
                 this.NotifyPropertyChanged("Signed");
+            }
+        }
+        private string _remark;
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark {
+            get {
+                return _remark;
+            }
+            set {
+                _remark = value;
+                this.NotifyPropertyChanged("Remark");
+            }
+        }
+
+        private string _upperEight;
+
+        public string UpperEight {
+            get {
+                return _upperEight;
+            }
+            set {
+                _upperEight = value;
+                this.NotifyPropertyChanged("UpperEight");
+            }
+        }
+    }
+    /// <summary>
+    /// 人物
+    /// </summary>
+    public class Character : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String info) {
+            if (PropertyChanged != null) {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        public Character() {
+        }
+
+        private string _Name;
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string Name {
+            get {
+                return _Name;
+            }
+            set {
+                _Name = value;
+                this.NotifyPropertyChanged("Name");
+            }
+        }
+
+        private string _sex;
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public string Sex {
+            get {
+                return _sex;
+            }
+            set {
+                _sex = value;
+                this.NotifyPropertyChanged("Sex");
+            }
+        }
+
+        private string _ethnic;
+        /// <summary>
+        /// 民族
+        /// </summary>
+        public string Ethnic {
+            get {
+                return _ethnic;
+            }
+            set {
+                _ethnic = value;
+                this.NotifyPropertyChanged("Ethnic");
+            }
+        }
+
+        private string _cardID;
+        /// <summary>
+        /// 证件号
+        /// </summary>
+        public string CardID {
+            get {
+                return _cardID;
+            }
+            set {
+                _cardID = value;
+                this.NotifyPropertyChanged("CardID");
             }
         }
     }

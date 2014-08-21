@@ -35,8 +35,7 @@ namespace CFSJMIS {
             List<string> towns = Load.townRead("Town");
             this.cbxTown.ItemsSource = towns;
             this.cbxTown.SelectedIndex = 0;
-            this.lblDepartment.Content = Common.table;
-
+            this.lblDepartment.Content = Common.table;            
             this.lswData.ItemsSource = dataList;
             //ImageBrush b = new ImageBrush();
             //b.ImageSource = new BitmapImage(new Uri("pack://application:,,,/CFSJMIS;component/Images/gray-x.png"));
@@ -120,7 +119,7 @@ namespace CFSJMIS {
 
         private void lblQuery_MouseDown(object sender, MouseButtonEventArgs e) {
             dataList = DataOperate.query();
-            this.lswData.ItemsSource = dataList;
+            this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
         }
 
         /// <summary>  
@@ -141,6 +140,8 @@ namespace CFSJMIS {
         private void lswData_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             Data data = (Data)lswData.SelectedItem;
             if (data != null) {
+                DataModify dm = new DataModify(data);
+                dm.ShowDialog();
             }
         }
         /// <summary>
@@ -201,7 +202,10 @@ namespace CFSJMIS {
         }
 
         private void txtFilter_TextChanged(object sender, TextChangedEventArgs e) {
-            this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+            if (dataList != null) {
+
+                this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+            }
         }
 
 

@@ -49,7 +49,7 @@ namespace CFSJMIS {
 
 
         #region ssh连接信息
-        public static string sshServer = "192.168.99.13";
+        public static string sshServer = "192.168.31.1";
         public static int sshPort = 2222;
         public static string sshUID = "root";
         public static string sshPWD = "admin";
@@ -132,8 +132,9 @@ namespace CFSJMIS {
         #endregion
 
         #region XML信息
-        public const string XMLTOWN = "XMLTowns.xml";
+        public const string XMLTown = "XMLTowns.xml";
 
+        public const string XMLEthnic = "XMLEthnic.xml";
         #endregion
 
         #region 颜色
@@ -163,6 +164,16 @@ namespace CFSJMIS {
         /// </summary>
         public static Brush EXIT_BEFORE_BRUSH = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/CFSJMIS;component/Images/gray-x.png")));
         #endregion
+
+        #region 控制区
+        public  enum Contorls {
+            一级I类,一级II类,一级III类,二级,三级集镇,三级非集镇,四级
+        };
+
+        public enum LandOwner {
+            国有,集体
+        };
+        #endregion
     }
 
 
@@ -183,6 +194,10 @@ namespace CFSJMIS {
         public const string EXIT = "确认退出";
 
         public const string IMPORT_TIPS = "双击选择要导入的EXCEL文件";
+
+        public const string MODIFY_ERROR = "数据修改失败";
+
+        public const string MODIFY_SUCCES = "数据修改成功";
     }
     /// <summary>
     /// 没收计算

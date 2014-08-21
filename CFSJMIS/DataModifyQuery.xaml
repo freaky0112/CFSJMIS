@@ -1,0 +1,141 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" x:Class="CFSJMIS.MainWindow"
+        Title="MainWindow" WindowStartupLocation="CenterScreen"
+        Style="{StaticResource for_noresize_window}" Width="768" Height="535">
+    <Grid>
+    	<Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,18,39" VerticalAlignment="Bottom" Width="100" CornerRadius="5">
+    		<Label x:Name="lblCancel" Content="取消" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" />
+    	</Border>
+    	<Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,138,39" VerticalAlignment="Bottom" Width="100" CornerRadius="5">
+    		<Label x:Name="lblModify" Content="修改" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" />
+    	</Border>
+    	<Grid HorizontalAlignment="Left" Height="102" Margin="18,18,0,0" VerticalAlignment="Top" Width="311">
+    		<ListView x:Name="lswCharacter">
+    			<ListView.View>    			
+    				<GridView>
+    					<GridViewColumn Header="姓名" Width="60">  
+    						<GridViewColumn.CellTemplate>  
+    							<DataTemplate>  
+    								<TextBox  Text="{Binding Name}" />  
+    							</DataTemplate>  
+    						</GridViewColumn.CellTemplate>  
+    					</GridViewColumn> 
+    					<GridViewColumn Header="性别" Width="30">  
+    						<GridViewColumn.CellTemplate>  
+    							<DataTemplate>  
+    								<TextBox  Text="{Binding Sex}" />  
+    							</DataTemplate>  
+    						</GridViewColumn.CellTemplate>  
+    					</GridViewColumn> 
+    					<GridViewColumn Header="民族" Width="50">  
+    						<GridViewColumn.CellTemplate>  
+    							<DataTemplate>  
+    								<TextBox  Text="{Binding Ethnic}" />  
+    							</DataTemplate>  
+    						</GridViewColumn.CellTemplate>  
+    					</GridViewColumn> 
+    					<GridViewColumn Header="证件号" Width="auto">  
+    						<GridViewColumn.CellTemplate>  
+    							<DataTemplate>  
+    								<TextBox  Text="{Binding CardID}" />  
+    							</DataTemplate>  
+    						</GridViewColumn.CellTemplate>  
+    					</GridViewColumn> 
+    				</GridView>
+    			</ListView.View>
+    		</ListView>
+    	</Grid>
+    	<Grid HorizontalAlignment="Left" Margin="18,125,0,18" Width="311">
+    		<Grid Height="35" VerticalAlignment="Top">
+    			<Label Content="家庭人数" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Accounts}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
+    			<Label Content="乡镇" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Town}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
+    			<Label Content="层数" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Layer}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0">
+    			<Label Content="土地座落" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Location}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
+    			<Label Content="控制区" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<ComboBox Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Control}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,175,0,0">
+    			<Label Content="土地性质" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<ComboBox Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding LandOwner}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,210,0,0">
+    			<Label Content="建成时间" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding BiuldDate}"/>
+    		</Grid>
+    		<Grid Margin="0,245,0,0">
+    			<Label Content="备注" Margin="0,0,0,92" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0,35,0,0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Remark}"/>
+    		</Grid>
+    	</Grid>
+    	<Grid HorizontalAlignment="Right" Height="175" Margin="0,18,18,0" VerticalAlignment="Top" Width="390">
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0">
+    			<Label Content="占地面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding Area}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
+    			<Label Content="审批面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding LegalArea}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0" Width="190" HorizontalAlignment="Left">
+    			<Label Content="超建面积" HorizontalAlignment="Left" Margin="0" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaArea}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0" Width="190" HorizontalAlignment="Left">
+    			<Label Content="单价" HorizontalAlignment="Left" Margin="0" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaUnit}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0" Width="200" HorizontalAlignment="Right">
+    			<Label Content="耕地面积" HorizontalAlignment="Left" Margin="0" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaArea}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0" Width="200" HorizontalAlignment="Right">
+    			<Label Content="耕地单价" HorizontalAlignment="Left" Margin="0" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaUnit}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
+    			<Label Content="金额" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding Price}"/>
+    		</Grid>
+    	</Grid>
+    	<Grid Height="210" Margin="340,193,18,0" VerticalAlignment="Top" Width="390" HorizontalAlignment="Right">
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0">
+    			<Label Content="没收占地面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
+    			<Label Content="没收建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
+    			<Label Content="没收8层以上建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding UpperEight}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0">
+    			<Label Content="没收单价" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaUnit}"/>
+    		</Grid>
+    		<Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
+    			<Label Content="没收金额" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    			<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaPrice}"/>
+    		</Grid>
+    		<CheckBox Content="底层是否超过5.2米" Margin="0,175,0,0" HorizontalAlignment="Left" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF4886BF" BorderBrush="#FF4886BF" />
+    		<CheckBox Content="7层高度是否超过22米" Margin="0,175,0,0" HorizontalAlignment="right" Width="200" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF4886BF" BorderBrush="#FF4886BF"/>
+
+
+    	</Grid>
+    </Grid>
+</Window>

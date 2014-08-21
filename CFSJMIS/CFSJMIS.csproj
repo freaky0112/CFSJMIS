@@ -78,12 +78,19 @@
     <Compile Include="Common\DataOperate.cs" />
     <Compile Include="Common\DelegateControls.cs" />
     <Compile Include="Common\Load.cs" />
+    <Compile Include="DataModify.xaml.cs">
+      <DependentUpon>DataModify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="loginWindow.xaml.cs">
       <DependentUpon>loginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="sshConnectWindow.xaml.cs">
       <DependentUpon>sshConnectWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="DataModify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="loginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +164,9 @@
       <Project>{c5f888ec-8ea6-4b56-93c9-f38a1525a151}</Project>
       <Name>CFSJMIS.Search</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="XMLEthnic.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -52,6 +52,7 @@
 							</GridViewColumn.CellTemplate>  
 							<Label Content="是否已处罚"/>  
 						</GridViewColumn> 
+						<GridViewColumn Header="所在地" Width="auto" DisplayMemberBinding="{Binding Signed}"/>
 					</GridView>
 				</ListView.View>
 			</ListView>

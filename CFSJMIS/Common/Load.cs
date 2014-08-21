@@ -14,7 +14,7 @@ namespace CFSJMIS {
       /// <returns></returns>
       public static List<string> gtxRead(string node) {
           //string[] nodes;
-          XElement gtx = XElement.Load(Common.XMLTOWN);
+          XElement gtx = XElement.Load(Common.XMLTown);
           IEnumerable<XElement> elements =
               from el in gtx.Elements(node)
               //where (string)el.Attribute("name") == node
@@ -32,7 +32,7 @@ namespace CFSJMIS {
       /// <param name="node"></param>
       /// <returns></returns>
       public static List<string> townRead(string node) {
-          XElement gtx = XElement.Load(Common.XMLTOWN);
+          XElement gtx = XElement.Load(Common.XMLTown);
           IEnumerable<XElement> elements =
               from el in gtx.Elements("GTX")
               where (string)el.Attribute("NAME") == Common.table
@@ -46,6 +46,17 @@ namespace CFSJMIS {
               towns.Add((string)el.Attribute("NAME"));
           }
           return towns;
+      }
+      public static List<string> ethnicRead() {
+          XElement ethnic = XElement.Load(Common.XMLEthnic);
+          IEnumerable<XElement> element =
+              from el in ethnic.Elements("Ethnic")
+              select el;
+          List<string> Ethnics = new List<string>();
+          foreach (XElement el in element) {
+              Ethnics.Add(el.Value);
+          }
+          return Ethnics;
       }
       public static string getPath() {
           OpenFileDialog openFileDialog = new OpenFileDialog();
