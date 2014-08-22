@@ -284,7 +284,7 @@ namespace CFSJMIS {
             sql.Append("占地面积= @Area , ");
             sql.Append("层数= @Layer , ");
             sql.Append("建成年月= @BuildDate , ");
-            sql.Append("土地利用总体规划= @Conform , ");
+            //sql.Append("土地利用总体规划= @Conform , ");
             sql.Append("建房资格= @Available , ");
             sql.Append("审批面积= @LegalArea , ");
             sql.Append("超建面积= @IllegaArea , ");
@@ -300,28 +300,28 @@ namespace CFSJMIS {
             sql.Append("GUID= @Guid ");
 
             MySqlParameter[] pt = new MySqlParameter[]{
-                    new MySqlParameter("@Name",data.Name.ToString()),
-                    new MySqlParameter("@CardID",data.CardID.ToString()),
-                    new MySqlParameter("@Town",data.Town.ToString()),
-                    new MySqlParameter("@Accounts",data.Accounts.ToString()),
-                    new MySqlParameter("@Location",data.Location.ToString()),
-                    new MySqlParameter("@Control",data.Control.ToString()),
-                    new MySqlParameter("@LandOwner",data.LandOwner.ToString()),
-                    new MySqlParameter("@Area",data.Area.ToString()),
-                    new MySqlParameter("@Layer",data.Layer.ToString()),
-                    new MySqlParameter("@BuildDate",data.BuildDate.ToString()),
-                    new MySqlParameter("@Conform",data.Conform.ToString()),
-                    new MySqlParameter("@Available",data.Available.ToString()),
-                    new MySqlParameter("@LegalArea",data.LegalArea.ToString()),
-                    new MySqlParameter("@IllegaArea",data.IllegaArea.ToString()),
-                    new MySqlParameter("@IllegaUnit",data.IllegaUnit.ToString()),
-                    new MySqlParameter("@Price",data.Price.ToString()),
-                    new MySqlParameter("@ConfiscateFloorArea",data.ConfiscateFloorArea.ToString()),
-                    new MySqlParameter("@ConfiscateArea",data.ConfiscateArea.ToString()),
-                    new MySqlParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit.ToString()),
-                    new MySqlParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice.ToString()),
-                    new MySqlParameter("@FarmArea",data.FarmArea.ToString()),
-                    new MySqlParameter("@FarmUnit",data.FarmUnit.ToString()),
+                    new MySqlParameter("@Name",data.Name),
+                    new MySqlParameter("@CardID",data.CardID),
+                    new MySqlParameter("@Town",data.Town),
+                    new MySqlParameter("@Accounts",data.Accounts),
+                    new MySqlParameter("@Location",data.Location),
+                    new MySqlParameter("@Control",data.Control),
+                    new MySqlParameter("@LandOwner",data.LandOwner),
+                    new MySqlParameter("@Area",data.Area),
+                    new MySqlParameter("@Layer",data.Layer),
+                    new MySqlParameter("@BuildDate",data.BuildDate),
+                    new MySqlParameter("@Conform",data.Conform),
+                    new MySqlParameter("@Available",data.Available),
+                    new MySqlParameter("@LegalArea",data.LegalArea),
+                    new MySqlParameter("@IllegaArea",data.IllegaArea),
+                    new MySqlParameter("@IllegaUnit",data.IllegaUnit),
+                    new MySqlParameter("@Price",data.Price),
+                    new MySqlParameter("@ConfiscateFloorArea",data.ConfiscateFloorArea),
+                    new MySqlParameter("@ConfiscateArea",data.ConfiscateArea),
+                    new MySqlParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit),
+                    new MySqlParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice),
+                    new MySqlParameter("@FarmArea",data.FarmArea),
+                    new MySqlParameter("@FarmUnit",data.FarmUnit),
                     new MySqlParameter("@Guid",data.Guid)
                  };
             try {

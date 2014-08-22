@@ -174,6 +174,12 @@ namespace CFSJMIS {
             国有,集体
         };
         #endregion
+
+        #region 个人信息
+        public enum Sex {
+            男,女
+        };
+        #endregion 
     }
 
 

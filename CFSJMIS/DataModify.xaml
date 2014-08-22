@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  WindowStartupLocation="CenterScreen"
         Title="DataModify"   Style="{StaticResource for_noresize_window}" Width="768" Height="535">
-    <Grid>
+    <Grid Name="grid">
         <Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,18,18" VerticalAlignment="Bottom" Width="100" CornerRadius="5">
             <Label x:Name="lblCancel" Content="取消" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblCancel_MouseDown" />
         </Border>
@@ -13,31 +13,31 @@
             <ListView x:Name="lswCharacter">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="姓名" Width="60">
+                        <GridViewColumn Header="姓名" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox  Text="{Binding Name}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Width="60"/>
+                                    <Label  Content="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" Width="60"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="性别" Width="30">
+                        <GridViewColumn Header="性别" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox x:Name="cbxSex" Text="{Binding Sex}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Width="30"/>
+                                    <ComboBox x:Name="cbxSex" Loaded="cbxSex_Loaded" Text="{Binding Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" Width="auto"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="民族" Width="50">
+                        <GridViewColumn Header="民族" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox x:Name="cbxEthnic"  Text="{Binding Ethnic}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Width="50"/>
+                                    <ComboBox Loaded="ComboBox_Loaded"  Text="{Binding Ethnic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" Width="auto"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="证件号" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox  Text="{Binding CardID}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                                    <Label  Content="{Binding CardID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -48,45 +48,45 @@
         <Grid HorizontalAlignment="Left" Margin="18,125,0,18" Width="311">
             <Grid Height="35" VerticalAlignment="Top">
                 <Label Content="家庭人数" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Accounts}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Accounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
                 <Label Content="乡镇" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Town}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
                 <Label Content="层数" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Layer}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Layer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0">
                 <Label Content="土地座落" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Location}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
                 <Label Content="控制区" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <ComboBox x:Name="cbxControls" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Control}"/>
+                <ComboBox x:Name="cbxControls" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Control, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,175,0,0">
                 <Label Content="土地性质" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <ComboBox x:Name="cbxLandOwner" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding LandOwner}"/>
+                <ComboBox x:Name="cbxLandOwner" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding LandOwner, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,210,0,0">
                 <Label Content="建成时间" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding BuildDate}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding BuildDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Margin="0,245,0,0">
                 <Label Content="备注" Margin="0,0,0,92" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF" HorizontalAlignment="Stretch"/>
-                <TextBox Margin="0,35,0,0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Remark}"/>
+                <TextBox Margin="0,35,0,0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Remark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Grid>
         <Grid HorizontalAlignment="Right" Height="175" Margin="0,18,18,0" VerticalAlignment="Top" Width="390">
             <Grid Height="35" VerticalAlignment="Top" Margin="0">
                 <Label Content="占地面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding Area}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding Area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
                 <Label Content="审批面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding LegalArea}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding LegalArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0" Width="190" HorizontalAlignment="Left">
                 <Label Content="超建面积" HorizontalAlignment="Left" Margin="0" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
@@ -94,41 +94,41 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0" Width="190" HorizontalAlignment="Left">
                 <Label Content="单价" HorizontalAlignment="Left" Margin="0" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaUnit}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0" Width="200" HorizontalAlignment="Right">
                 <Label Content="耕地面积" HorizontalAlignment="Left" Margin="0" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaArea}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0" Width="200" HorizontalAlignment="Right">
                 <Label Content="耕地单价" HorizontalAlignment="Left" Margin="0" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaUnit}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
                 <Label Content="金额" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding Price}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Grid>
         <Grid Height="210" Margin="340,193,18,0" VerticalAlignment="Top" Width="390" HorizontalAlignment="Right">
             <Grid Height="35" VerticalAlignment="Top" Margin="0">
                 <Label Content="没收占地面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
                 <Label Content="没收建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
                 <Label Content="没收8层以上建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding UpperEight}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding UpperEight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0">
                 <Label Content="没收单价" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaUnit}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
                 <Label Content="没收金额" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaPrice}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <CheckBox Content="底层是否超过5.2米" Margin="0,175,0,0" HorizontalAlignment="Left" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF4886BF" BorderBrush="#FF4886BF" />
             <CheckBox Content="7层高度是否超过22米" Margin="0,175,0,0" HorizontalAlignment="right" Width="200" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF4886BF" BorderBrush="#FF4886BF"/>

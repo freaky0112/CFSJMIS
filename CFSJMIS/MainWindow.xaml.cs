@@ -141,7 +141,13 @@ namespace CFSJMIS {
             Data data = (Data)lswData.SelectedItem;
             if (data != null) {
                 DataModify dm = new DataModify(data);
-                dm.ShowDialog();
+                if (dm.ShowDialog() == true) {
+                    try {
+                        lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+                    }catch(Exception ex){
+                        throw ex;
+                    }
+                }
             }
         }
         /// <summary>
