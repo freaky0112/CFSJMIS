@@ -1,4 +1,32 @@
-﻿using System;
+﻿//
+//                       _oo0oo_
+//                      o8888888o
+//                      88" . "88
+//                      (| -_- |)
+//                      0\  =  /0
+//                    ___/`---'\___
+//                  .' \\|     |// '.
+//                 / \\|||  :  |||// \
+//                / _||||| -:- |||||- \
+//               |   | \\\  -  /// |   |
+//               | \_|  ''\---/''  |_/ |
+//               \  .-\__  '-'  ___/-. /
+//             ___'. .'  /--.--\  `. .'___
+//          ."" '<  `.___\_<|>_/___.' >' "".
+//         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//         \  \ `_.   \_ __\ /__ _/   .-` /  /
+//     =====`-.____`.___ \_____/___.-`___.-'=====
+//                       `=---='
+//
+//
+//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//               佛祖保佑         永无BUG
+//
+//
+//
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +40,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CFSJMIS.Collections;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
+using CFSJMIS.ViewModel;
 
 namespace CFSJMIS {
     /// <summary>
@@ -25,7 +55,6 @@ namespace CFSJMIS {
         }
 
 
-
         
         void DataModify_Loaded(object sender, RoutedEventArgs e) {            
             List<string> controls = Enum.GetNames(typeof(Common.Contorls)).ToList<string>();
@@ -34,20 +63,23 @@ namespace CFSJMIS {
 
             this.lswCharacter.ItemsSource = data.Characters;
             this.cbxLandOwner.ItemsSource = landOwner;
-            grid.DataContext = data;
+            this.DataContext = new DataModel(data);
             //base.DataContext = data;
         }
 
         private Data data;
 
         private void lblCancel_MouseDown(object sender, MouseButtonEventArgs e) {
+            ((IEditableObject)DataContext).CancelEdit();
             this.DialogResult = false;
             this.Close();
         }
 
         private void lblModify_MouseDown(object sender, MouseButtonEventArgs e) {
             try {
+                ((IEditableObject)DataContext).EndEdit();
                 data = DataOperate.modifyData(data);
+                //data = (Data)this.DataContext;
                 this.DialogResult = true;
             } catch(Exception ex) {
                 MessageBox.Show(Messages.MODIFY_ERROR);
@@ -69,6 +101,16 @@ namespace CFSJMIS {
             cbx.ItemsSource = sex;
             cbx.DataContext = data.Characters;
 
+        }
+
+        private void lswCharacter_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            Character charcter = (Character)lswCharacter.SelectedItem;
+            if (charcter != null) {
+                CharacterProperty cp = new CharacterProperty(charcter);
+                if (cp.ShowDialog() == true) {
+                    lswCharacter.ItemsSource = data.Characters;
+                }
+            }
         }
     }
 }

@@ -74,6 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CharacterProperty.xaml.cs">
+      <DependentUpon>CharacterProperty.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\SshConnect.cs" />
     <Compile Include="Common\DataOperate.cs" />
     <Compile Include="Common\DelegateControls.cs" />
@@ -87,6 +90,14 @@
     <Compile Include="sshConnectWindow.xaml.cs">
       <DependentUpon>sshConnectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Commands.cs" />
+    <Compile Include="ViewModel\DataModel.cs" />
+    <Compile Include="ViewModel\TransacablePropertyDescriptor.cs" />
+    <Compile Include="ViewModel\ViewModel.cs" />
+    <Page Include="CharacterProperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DataModify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +179,7 @@
   <ItemGroup>
     <None Include="XMLEthnic.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

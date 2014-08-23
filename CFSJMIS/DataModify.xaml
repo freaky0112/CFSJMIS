@@ -10,7 +10,7 @@
             <Label x:Name="lblModify" Content="修改" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblModify_MouseDown" />
         </Border>
         <Grid HorizontalAlignment="Left" Height="102" Margin="18,18,0,0" VerticalAlignment="Top" Width="311">
-            <ListView x:Name="lswCharacter">
+            <ListView x:Name="lswCharacter" MouseDoubleClick="lswCharacter_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="姓名" Width="auto">
@@ -23,14 +23,14 @@
                         <GridViewColumn Header="性别" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox x:Name="cbxSex" Loaded="cbxSex_Loaded" Text="{Binding Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" Width="auto"/>
+                                    <Label Content="{Binding Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" Width="auto"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="民族" Width="auto">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ComboBox Loaded="ComboBox_Loaded"  Text="{Binding Ethnic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" Width="auto"/>
+                                    <Label  Content="{Binding Ethnic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalContentAlignment="Center" Width="auto"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -52,7 +52,7 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
                 <Label Content="乡镇" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Town,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
                 <Label Content="层数" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>

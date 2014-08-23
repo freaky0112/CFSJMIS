@@ -30,27 +30,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using CFSJMIS.Collections;
 
 namespace CFSJMIS {
-    class DelegateProgressBar {
-        private ProgressBar _progressBar;
-        /// <summary>
-        /// 初始化变量
-        /// </summary>
-        /// <param name="progressBar">传入进度条控件</param>
-        public DelegateProgressBar(ProgressBar progressBar) {
-            this._progressBar = progressBar;
+    /// <summary>
+    /// CharacterProperty.xaml 的交互逻辑
+    /// </summary>
+    public partial class CharacterProperty : Window {
+        public CharacterProperty(Character _character) {
+            InitializeComponent();
+            this.character = _character;
+            this.DataContext = character;
         }
 
-        private delegate void outputDelegate(double value);
+        private Character character;
 
-        public void output(double value) {
-            this._progressBar.Dispatcher.Invoke(new outputDelegate(outputAction), value);
+        private void lblOK_MouseDown(object sender, MouseButtonEventArgs e) {
+            this.DialogResult = false;
+
         }
 
-        private void outputAction(double value) {
-            this._progressBar.Value = value;
+        private void lblCancel_MouseDown(object sender, MouseButtonEventArgs e) {
+
         }
     }
 }
