@@ -177,13 +177,19 @@ namespace CFSJMIS.Biult {
                 if (data.FarmArea > 0) {
                     pText += "，其中耕地面积";
                     pText += data.FarmArea;
-                    pText += "平方米";
+                    pText += "平方米，";
                 }
-                pText += "（其中超土地审批限额";
-                pText += data.ConfiscateFloorArea;
-                pText += "平方米），并在该土地上建造建筑物（房屋），其中超出审批限额占用的土地上的建筑物面积为";
-                pText += data.ConfiscateArea;
-                pText += "平方米。经核对青田县";
+                if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
+                    pText += "并在该土地上建造建筑物（房屋），非法建筑物面积为";
+                    pText += data.ConfiscateArea;
+                    pText += "平方米。经核对青田县";
+                } else {
+                    pText += "（其中超土地审批限额";
+                    pText += data.ConfiscateFloorArea;
+                    pText += "平方米），并在该土地上建造建筑物（房屋），其中超出审批限额占用的土地上的建筑物面积为";
+                    pText += data.ConfiscateArea;
+                    pText += "平方米。经核对青田县";
+                }
             } else {
                 pText += "平方米";
                 if (data.FarmArea > 0) {
@@ -202,7 +208,12 @@ namespace CFSJMIS.Biult {
             addTxt(brf);
             //如果没收
             if (data.ConfiscateAreaPrice > 0) {
-                pText = "    1.没收被处罚人超出审批限额占用的" + data.ConfiscateFloorArea.ToString() + "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
+                if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
+                    pText = "    1.没收被处罚人非法占用的" + data.IllegaArea.ToString();
+                } else {
+                    pText = "    1.没收被处罚人超出审批限额占用的" + data.ConfiscateFloorArea.ToString();
+                 }
+                pText+= "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
                 addLine(brf);
                 pText = "    2.对被处罚人非法占用" + data.IllegaArea + "平方米土地的行为处以罚款，";
                 addTxt(brf);

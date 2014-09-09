@@ -118,12 +118,20 @@ namespace CFSJMIS.Biult {
             pText += "年在青田县";
             pText += data.Town;
             pText += data.Location;
-            pText += "超土地审批限额建造的房屋。";
+            if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
+                pText += "非法建造的房屋。";
+            } else {
+                pText += "超土地审批限额建造的房屋。";
+            }
             addLine(brf);
             pText = "    没收建筑面积计";
             pText += data.ConfiscateArea;
             pText += "平方米（占地";
-            pText += data.ConfiscateFloorArea;
+            if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
+                pText += data.IllegaArea;
+            } else {
+                pText += data.ConfiscateFloorArea;
+            }
             pText += "平方米，依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，没收金额为";
             pText += data.ConfiscateAreaUnit;
             pText += "元/平方米，共计人民币";

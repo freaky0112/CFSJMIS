@@ -96,6 +96,9 @@ namespace CFSJMIS {
             sql.Append("没收建筑面积,");
             sql.Append("没收单价,");
             sql.Append("没收金额,");
+            sql.Append("建筑面积,");
+            sql.Append("审批建筑面积,");
+            sql.Append("非法建筑面积,");
             sql.Append("GUID");
             sql.Append(") values (");
             sql.Append("@ID,");
@@ -119,6 +122,9 @@ namespace CFSJMIS {
             sql.Append("@ConfiscateArea,");
             sql.Append("@ConfiscateAreaUnit,");
             sql.Append("@ConfiscateAreaPrice,");
+            sql.Append("@ConstructionArea,");
+            sql.Append("@LegalConstructionArea,");
+            sql.Append("@IllegalConstructionArea,");
             sql.Append("@Guid)");
             MySqlParameter[] pt = new MySqlParameter[]{
                     new MySqlParameter("ID",id),
@@ -142,6 +148,9 @@ namespace CFSJMIS {
                     new MySqlParameter("@ConfiscateArea",data.ConfiscateArea.ToString()),
                     new MySqlParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit.ToString()),
                     new MySqlParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice.ToString()),
+                    new MySqlParameter("@ConstructionArea",data.ConstructionArea),
+                    new MySqlParameter("@LegalConstructionArea",data.LegalConstructionArea),
+                    new MySqlParameter("@IllegalConstructionArea",data.IllegalConstructionArea),
                     new MySqlParameter("@Guid",data.Guid.ToString())
             };
             try {
@@ -186,6 +195,16 @@ namespace CFSJMIS {
                 id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
             } catch (Exception ex) {
                 throw ex;
+            }
+            if (string.IsNullOrEmpty(id)) {
+                sqlMax = new StringBuilder();
+                sqlMax.Append("select count(*)+1 from ");
+                sqlMax.Append(table);
+                try {
+                    id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
+                } catch (Exception ex) {
+                    throw ex;
+                }
             }
             return id;
         }
@@ -254,6 +273,15 @@ namespace CFSJMIS {
                 data.ConfiscateArea = reader.GetDouble("没收建筑面积");
                 data.ConfiscateAreaUnit = reader.GetDouble("没收单价");
                 data.ConfiscateAreaPrice = reader.GetDouble("没收金额");
+                if (!string.IsNullOrEmpty(reader["建筑面积"].ToString())) {
+                    data.ConstructionArea = reader.GetDouble("建筑面积");
+                }
+                if (!string.IsNullOrEmpty(reader["非法建筑面积"].ToString())) {
+                    data.IllegalConstructionArea = reader.GetDouble("非法建筑面积");
+                }
+                if (!string.IsNullOrEmpty(reader["审批建筑面积"].ToString())) {
+                    data.LegalConstructionArea = reader.GetDouble("审批建筑面积");
+                }
                 data.Characters = new List<Character>();
                 for (int i = 0; i < data.Names.Length; i++) {
                     Character character = new Character();
@@ -301,28 +329,33 @@ namespace CFSJMIS {
         public static Data modifyData(Data data) {
 
             StringBuilder sql = new StringBuilder();
-            sql.Append("update 鹤城所 set ");
-            sql.Append("户主 = @Name , ");
-            sql.Append("身份证号= @CardID , ");
-            sql.Append("乡镇= @Town , ");
-            sql.Append("户口人数= @Accounts , ");
-            sql.Append("土地座落= @Location , ");
-            sql.Append("控制区= @Control , ");
-            sql.Append("土地性质= @LandOwner , ");
-            sql.Append("占地面积= @Area , ");
-            sql.Append("层数= @Layer , ");
-            sql.Append("建成年月= @BuildDate , ");
-            //sql.Append("土地利用总体规划= @Conform , ");
-            sql.Append("建房资格= @Available , ");
-            sql.Append("审批面积= @LegalArea , ");
-            sql.Append("超建面积= @IllegaArea , ");
-            sql.Append("单价= @IllegaUnit , ");
-            sql.Append("金额= @Price , ");
-            sql.Append("没收占地面积= @ConfiscateFloorArea , ");
-            sql.Append("没收建筑面积= @ConfiscateArea , ");
-            sql.Append("没收单价= @ConfiscateAreaUnit , ");
-            sql.Append("没收金额= @ConfiscateAreaPrice ,");
-            sql.Append("耕地面积= @FarmArea ,");
+            sql.Append("update ");
+            sql.Append(Common.table);
+            sql.Append(" set ");
+            sql.Append("户主=@Name, ");
+            sql.Append("身份证号=@CardID, ");
+            sql.Append("乡镇=@Town, ");
+            sql.Append("户口人数=@Accounts, ");
+            sql.Append("土地座落=@Location, ");
+            sql.Append("控制区=@Control, ");
+            sql.Append("土地性质=@LandOwner, ");
+            sql.Append("占地面积=@Area, ");
+            sql.Append("层数=@Layer, ");
+            sql.Append("建成年月=@BuildDate, ");
+            //sql.Append("土地利用总体规划=@Conform, ");
+            sql.Append("建房资格=@Available, ");
+            sql.Append("审批面积=@LegalArea, ");
+            sql.Append("超建面积=@IllegaArea, ");
+            sql.Append("单价=@IllegaUnit, ");
+            sql.Append("金额=@Price, ");
+            sql.Append("没收占地面积=@ConfiscateFloorArea, ");
+            sql.Append("没收建筑面积=@ConfiscateArea, ");
+            sql.Append("没收单价=@ConfiscateAreaUnit, ");
+            sql.Append("没收金额=@ConfiscateAreaPrice, ");
+            sql.Append("建筑面积=@ConstructionArea, ");
+            sql.Append("审批建筑面积=@LegalConstructionArea, ");
+            sql.Append("非法建筑面积=@IllegalConstructionArea, ");
+            sql.Append("耕地面积=@FarmArea, ");
             sql.Append("耕地单价=@FarmUnit ");
             sql.Append("where ");
             sql.Append("GUID= @Guid ");
@@ -348,6 +381,9 @@ namespace CFSJMIS {
                     new MySqlParameter("@ConfiscateArea",data.ConfiscateArea),
                     new MySqlParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit),
                     new MySqlParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice),
+                    new MySqlParameter("@ConstructionArea",data.ConstructionArea),
+                    new MySqlParameter("@LegalConstructionArea",data.LegalConstructionArea),
+                    new MySqlParameter("@IllegalConstructionArea",data.IllegalConstructionArea),
                     new MySqlParameter("@FarmArea",data.FarmArea),
                     new MySqlParameter("@FarmUnit",data.FarmUnit),
                     new MySqlParameter("@Guid",data.Guid)
@@ -380,10 +416,14 @@ namespace CFSJMIS {
                         data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
                         data.Area = double.Parse(dr[6].ToString());//实地占地面积
                         data.LegalArea = double.Parse(dr[7].ToString());//合法面积
-                        data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
+                        //data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
+                        data.IllegaArea = data.Area - data.LegalArea;
                         data.IllegaUnit = double.Parse(dr[9].ToString());//单价
                         data.Price = double.Parse(dr[10].ToString());//处罚金额
                         data.Layer = double.Parse(dr[11].ToString());//建设层数
+                        data.ConstructionArea = double.Parse(dr[13].ToString());//建筑面积
+                        data.LegalConstructionArea = double.Parse(dr[14].ToString());//审批建筑面积
+                        data.IllegalConstructionArea = AreaCalculate.getIlegalConstructionArea(data);
                         data.Conform = dr[22].ToString();//土地利用总体规划
                         data.Available = dr[21].ToString();//建房资格
                         data.Control = dr[29].ToString();//控制区
@@ -406,7 +446,7 @@ namespace CFSJMIS {
                         //    }
                         //}
                         data.Guid = System.Guid.NewGuid().ToString();//GUID生成
-                        data = ConfiscateCalculate.getConfiscateData(data);
+                        data = AreaCalculate.getConfiscateData(data);
 
                         if (data.IsnotConfiscate) {
 

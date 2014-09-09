@@ -278,11 +278,11 @@ namespace CFSJMIS.Collections
             }
         }
 
+        
+        private double _confiscateArea;
         /// <summary>
         /// 没收面积
         /// </summary>
-        private double _confiscateArea;
-
         public double ConfiscateArea {
             get {
                 return _confiscateArea;
@@ -609,6 +609,49 @@ namespace CFSJMIS.Collections
                 this.NotifyPropertyChanged("UpperEight");
             }
         }
+
+        private double _constructionArea;
+        /// <summary>
+        /// 建筑面积
+        /// </summary>
+        public double ConstructionArea {
+            get {
+                return _constructionArea;
+            }
+            set {
+                _constructionArea = value;
+                this.NotifyPropertyChanged("ConstructionArea");
+            }
+        }
+
+        private double _illegalConstructionArea;
+        /// <summary>
+        /// 非法建筑面积
+        /// </summary>
+        public double IllegalConstructionArea {
+            get {
+                return _illegalConstructionArea;
+            }
+            set {
+                _illegalConstructionArea = value;
+                this.NotifyPropertyChanged("IllegalConstructionArea");
+            }
+        }
+
+        private double _legalConstructionArea;
+        /// <summary>
+        /// 审批建筑面积
+        /// </summary>
+        public double LegalConstructionArea {
+            get {
+                return _legalConstructionArea;
+            }
+            set {
+                _legalConstructionArea = value;
+                this.NotifyPropertyChanged("LegalConstructionArea");
+            }
+        }
+
     }
     /// <summary>
     /// 人物

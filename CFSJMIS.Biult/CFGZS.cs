@@ -104,7 +104,7 @@ namespace CFSJMIS.Biult {
         /// <param name="brf"></param>
         /// <param name="data"></param>
         private static void addText(BiultReportForm brf, Data data) {
-            brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            brf.SetLineSpacing(28f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             pFontName = "仿宋_GB2312";
             pText = "";
@@ -130,11 +130,17 @@ namespace CFSJMIS.Biult {
                 pText += "平方米";
             }
             if (data.ConfiscateAreaPrice > 0) {
-                pText += "（其中超土地审批限额";
-                pText += data.ConfiscateFloorArea;
-                pText += "平方米），并在该土地上建造建筑物（房屋），其中超出审批限额占用的土地上的建筑物面积为";
-                pText += data.ConfiscateArea;
-                pText += "平方米。经核对青田县";
+                if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
+                    pText += "，并在该土地上建造建筑物（房屋），非法建筑物面积为";
+                    pText += data.ConfiscateArea;
+                    pText += "平方米。经核对青田县";
+                } else {
+                    pText += "（其中超土地审批限额";
+                    pText += data.ConfiscateFloorArea;
+                    pText += "平方米），并在该土地上建造建筑物（房屋），其中超出审批限额占用的土地上的建筑物面积为";
+                    pText += data.ConfiscateArea;
+                    pText += "平方米。经核对青田县";
+                }            
             } else {
                 pText += "，用于建房。经核对青田县";
             }
@@ -146,7 +152,12 @@ namespace CFSJMIS.Biult {
             addTxt(brf);
             //如果没收
             if (data.ConfiscateAreaPrice > 0) {
-                pText = "    1.没收你户超出审批限额占用的" + data.ConfiscateFloorArea.ToString() + "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
+                if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
+                    pText = "    1.没收你户非法占用" + data.IllegaArea.ToString();
+                } else {
+                    pText = "    1.没收你户超出审批限额占用的" + data.ConfiscateFloorArea.ToString();
+                }
+                pText+= "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
                 addLine(brf);
                 pText = "    2.对你户非法占用土地" + data.IllegaArea + "平方米的行为处以罚款，";
                 addTxt(brf);
@@ -178,8 +189,8 @@ namespace CFSJMIS.Biult {
                 pText += "的权利。";
             }
             addLine(brf);
-            pText = "";
-            addLine(brf);
+            //pText = "";
+            //addLine(brf);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             //ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
             pText = "                              2014年   月   日";

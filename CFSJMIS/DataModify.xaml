@@ -98,11 +98,11 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0" Width="200" HorizontalAlignment="Right">
                 <Label Content="耕地面积" HorizontalAlignment="Left" Margin="0" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding FarmArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0" Width="200" HorizontalAlignment="Right">
                 <Label Content="耕地单价" HorizontalAlignment="Left" Margin="0" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding FarmUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
                 <Label Content="金额" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
@@ -116,7 +116,7 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
                 <Label Content="没收建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
                 <Label Content="没收8层以上建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>

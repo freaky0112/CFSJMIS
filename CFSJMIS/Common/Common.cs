@@ -234,9 +234,9 @@ namespace CFSJMIS {
         public const string MODIFY_SUCCES = "数据修改成功";
     }
     /// <summary>
-    /// 没收计算
+    /// 面积计算
     /// </summary>
-    public abstract class ConfiscateCalculate {
+    public abstract class AreaCalculate {
 
         public static Data getConfiscateData(Data data) {
 
@@ -278,6 +278,16 @@ namespace CFSJMIS {
                 timeandowner = "99年以前" + data.LandOwner;
             } else if (data.BuildDate < 201304) {
                 timeandowner = "99年以后" + data.LandOwner;
+            } else if (data.BuildDate >= 201304) {
+                if (data.Control.Contains("四级")) {
+                    timeandowner = "99年以后" + data.LandOwner;
+                } else {
+                    if (data.IllegaArea > 20) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             }
 
             switch (timeandowner) {
@@ -300,11 +310,17 @@ namespace CFSJMIS {
         /// <returns></returns>
         private static double getConfiscateArea(Data data) {
             double confiscateArea = new double();
-            if (data.Layer <= 7) {
-                //高度小于7层时
-                confiscateArea = data.ConfiscateFloorArea * data.Layer;
-            } else {
-                confiscateArea = data.ConfiscateFloorArea * 7;
+            //2013年4月以前
+            if (data.BuildDate < 201304) {
+
+                if (data.Layer <= 7) {
+                    //高度小于7层时
+                    confiscateArea = data.ConfiscateFloorArea * data.Layer;
+                } else {
+                    confiscateArea = data.ConfiscateFloorArea * 7;
+                }
+            } else {///2013年4月以后
+                confiscateArea = data.IllegalConstructionArea;
             }
             return confiscateArea;
         }
@@ -326,6 +342,7 @@ namespace CFSJMIS {
         /// <returns></returns>
         private static int getQuotaArea(Data data) {
             int quotaArea = 0;
+            
             foreach (string account in data.Accounts.Split('+')) {
                 int member = 0;
                 if (!string.IsNullOrEmpty(account)) {
@@ -343,6 +360,7 @@ namespace CFSJMIS {
                     quotaArea += 90;
                 }
             }
+            
             return quotaArea;
 
         }
@@ -351,8 +369,8 @@ namespace CFSJMIS {
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private static int getConfiscateAreaUnit(Data data) {
-            int ConfiscateAreaUnit = 0;
+        private static double getConfiscateAreaUnit(Data data) {
+            double ConfiscateAreaUnit = 0;
             int[,] price = { { 800, 1200, 600, 900, 400, 600, 200, 300, 80, 120, 40, 60, 0, 0 }, { 1200, 1800, 800, 1200, 600, 900, 400, 600, 150, 225, 70, 105, 40, 60 }, { 1500, 2250, 1000, 1500, 800, 1200, 600, 900, 200, 300, 100, 150, 50, 75 } };
             string orign = data.Control + data.LandOwner;
             int a = 0;
@@ -382,8 +400,18 @@ namespace CFSJMIS {
             }
             if (data.LandOwner.Equals("国有")) {
                 a = a + 1;
-            }
+            }        
             ConfiscateAreaUnit = price[b, a];
+            ///201304以后没收标准
+            if (data.BuildDate >= 201304) {
+                if (data.Control.Equals("一级")) {
+                    ConfiscateAreaUnit *= 2;
+                } else if (data.Control.Equals("二级")) {
+                    ConfiscateAreaUnit *= 1.5;
+                } else if (data.Control.Equals("三级非集镇")) {
+                    ConfiscateAreaUnit *= 1.5;
+                }
+            }  
             return ConfiscateAreaUnit;
 
         }
@@ -400,6 +428,22 @@ namespace CFSJMIS {
             } else {
                 return b;
             }
+        }
+        /// <summary>
+        /// 计算非法建筑面积
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static double getIlegalConstructionArea(Data data) {            
+            double illegalConstructionArea = new double();
+            //土地未审批
+            if (data.LegalArea > 0) {
+                //超审批建筑面积和超审批占地面积乘与层数，哪个大取哪个
+                illegalConstructionArea = getBigNumber(data.ConstructionArea - data.LegalConstructionArea, data.IllegaArea * data.Layer);
+            } else {
+                illegalConstructionArea = data.ConstructionArea;
+            }
+            return illegalConstructionArea;
         }
     }
 }
