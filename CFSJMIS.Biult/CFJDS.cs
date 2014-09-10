@@ -168,15 +168,17 @@ namespace CFSJMIS.Biult {
 
             pText = "    被处罚人未经批准于";
             pText += data.BuildDate.ToString().Substring(0, 4);
-            pText += "年擅自在青田县";
+            pText += "年";
+            pText += data.BuildDate.ToString().Substring(4, 2);
+            pText+="月擅自在青田县";
             pText += data.Town;
             pText += data.Location;
-            pText += "非法占用土地" + data.IllegaArea.ToString();
+            pText += "非法占用土地" + Math.Round(data.IllegaArea,2);
             if (data.ConfiscateAreaPrice > 0) {
                 pText += "平方米";
                 if (data.FarmArea > 0) {
                     pText += "，其中耕地面积";
-                    pText += data.FarmArea;
+                    pText += Math.Round((double)data.FarmArea,2);
                     pText += "平方米，";
                 }
                 if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
@@ -185,23 +187,27 @@ namespace CFSJMIS.Biult {
                     pText += "平方米。经核对青田县";
                 } else {
                     pText += "（其中超土地审批限额";
-                    pText += data.ConfiscateFloorArea;
+                    pText += Math.Round(data.ConfiscateFloorArea,2);
                     pText += "平方米），并在该土地上建造建筑物（房屋），其中超出审批限额占用的土地上的建筑物面积为";
-                    pText += data.ConfiscateArea;
+                    pText += Math.Round(data.ConfiscateArea,2);
                     pText += "平方米。经核对青田县";
                 }
             } else {
                 pText += "平方米";
                 if (data.FarmArea > 0) {
                     pText += "，其中耕地面积";
-                    pText += data.FarmArea;
+                    pText += Math.Round((double)data.FarmArea,2);
                     pText += "平方米";
                 }
                 pText += "并在该土地上建造建筑物（房屋）。经核对青田县";
             }
 
             pText += data.Town;
-            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。依照《中华人民共和国土地管理法》和《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，对被处罚人的违法行为作如下行政处罚：";
+            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。依照《中华人民共和国土地管理法》、《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）";
+            if (data.BuildDate >= 201304) {
+                pText += "、《青田县人民政府关于印发青田县实施浙江省违法建筑处置规定细则（暂行）的补充意见的通知》（青政发〔2014〕101号）";
+            }
+            pText+="有关规定，对被处罚人的违法行为作如下行政处罚：";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             addLine(brf);
             pText = "";
@@ -209,13 +215,13 @@ namespace CFSJMIS.Biult {
             //如果没收
             if (data.ConfiscateAreaPrice > 0) {
                 if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
-                    pText = "    1.没收被处罚人非法占用的" + data.IllegaArea.ToString();
+                    pText = "    1.没收被处罚人非法占用的" + Math.Round(data.IllegaArea,2);
                 } else {
-                    pText = "    1.没收被处罚人超出审批限额占用的" + data.ConfiscateFloorArea.ToString();
+                    pText = "    1.没收被处罚人超出审批限额占用的" + Math.Round(data.ConfiscateFloorArea,2);
                  }
-                pText+= "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
+                pText+= "平方米的土地上的建筑物，建筑面积为" + Math.Round(data.ConfiscateArea,2) + "平方米。";
                 addLine(brf);
-                pText = "    2.对被处罚人非法占用" + data.IllegaArea + "平方米土地的行为处以罚款，";
+                pText = "    2.对被处罚人非法占用" + Math.Round(data.IllegaArea, 2) + "平方米土地的行为处以罚款，";
                 addTxt(brf);
             } else {
                 pText = "    对被处罚人非法占用土地的行为处以罚款，";

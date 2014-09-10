@@ -34,6 +34,7 @@ using System.Collections;
 using System.Data.OleDb;
 using System.Collections.Generic;
 using CFSJMIS.Collections;
+using CFSJMIS.Biult;
 
 namespace CFSJMIS {
     /// <summary>
@@ -256,7 +257,7 @@ namespace CFSJMIS {
                 if (!string.IsNullOrEmpty(reader["耕地面积"].ToString())) {
                     data.FarmArea = reader.GetDouble("耕地面积");
                 } else {
-                    data.FarmUnit = null;
+                    data.FarmArea = 0;
                 }
                 data.Layer = reader.GetDouble("层数");
                 data.BuildDate = reader.GetInt32("建成年月");
@@ -266,7 +267,7 @@ namespace CFSJMIS {
                 if (!string.IsNullOrEmpty(reader["耕地单价"].ToString())) {
                     data.FarmUnit = reader.GetDouble("耕地单价");
                 } else {
-                    data.FarmUnit = null;
+                    data.FarmUnit = 0;
                 }
                 data.Price = reader.GetDouble("金额");
                 data.ConfiscateFloorArea = reader.GetDouble("没收占地面积");
@@ -304,7 +305,7 @@ namespace CFSJMIS {
         /// </summary>
         /// <param name="guid">GUID</param>
         /// <param name="signed">是否已处罚</param>
-        public static void dataSinged(string guid, bool signed) {
+        public static void singedData(string guid, bool signed) {
             StringBuilder sql = new StringBuilder();
             sql.Append("update ");
             sql.Append(Common.table);
@@ -395,6 +396,31 @@ namespace CFSJMIS {
             }
             return data;
         }
+
+        public static bool deleteData(Data data) {
+            StringBuilder sql = new StringBuilder();
+            sql.Append("delete from ");
+            sql.Append(Common.table);
+            sql.Append(" where GUID = @Guid");
+            MySqlParameter[] pt = new MySqlParameter[]{
+                new MySqlParameter("@Guid",data.Guid)
+            };
+            try {
+                MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
+            } catch (MySqlException ex) {
+                return false;
+            }
+            sql = new StringBuilder();
+            sql.Append("delete from ");
+            sql.Append(Common.tableConfiscate());
+            sql.Append(" where GUID = @Guid");
+            try {
+                MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
+            } catch (MySqlException ex) {
+                return false;
+            }
+            return true;
+        }
     }
     /// <summary>
     /// excel操作
@@ -484,6 +510,89 @@ namespace CFSJMIS {
             conn.Close();
             conn.Dispose();
             return myDataSet;
+        }
+
+        public static void exportDataToExcel(string savePath, List<Data> list) {
+            if (System.IO.File.Exists(savePath)) {
+                System.IO.File.Delete(savePath);
+            }
+            using (ExcelHelper excelHelper = new ExcelHelper(savePath)) {
+                foreach (string table in getTable(list)) {
+                    excelHelper.DataTablesToExcel(listToDataTable(list, table), table, true);
+                }
+                excelHelper.Write();
+                excelHelper.Dispose();
+            }
+        }
+        private static List<string> getTable(List<Data> list) {
+            List<string> tables = new List<string>();
+            foreach (Data data in list) {
+                if (!tables.Contains(data.Town)) {
+                    tables.Add(data.Town);
+                }
+            }
+            return tables;
+
+        }
+        private static DataTable listToDataTable(List<Data> list, string table) {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("户主");
+            dt.Columns.Add("没收编号");
+            dt.Columns.Add("户口人数");
+            dt.Columns.Add("土地座落");
+            dt.Columns.Add("控制区");
+            dt.Columns.Add("土地性质");
+            dt.Columns.Add("占地面积");
+            dt.Columns.Add("耕地面积");
+            dt.Columns.Add("建筑面积");
+            dt.Columns.Add("审批建筑面积");
+            dt.Columns.Add("非法建筑面积");
+            dt.Columns.Add("层数");
+            dt.Columns.Add("建成年月");
+            dt.Columns.Add("审批面积");
+            dt.Columns.Add("超建面积");
+            dt.Columns.Add("单价");
+            dt.Columns.Add("耕地单价");
+            dt.Columns.Add("金额");
+            dt.Columns.Add("没收建筑面积");
+            dt.Columns.Add("没收单价");
+            dt.Columns.Add("没收金额");
+            dt.Columns.Add("是否已处罚");
+            dt.Columns.Add("总金额");
+            foreach (Data data in list) {
+                if (data.Town.Contains(table)) {
+                    DataRow dr = dt.NewRow();
+                    dr["ID"] = data.ID;
+                    dr["户主"] = data.Name;
+                    dr["没收编号"] = data.ConfiscateID;
+                    dr["户口人数"] = data.Accounts;
+                    dr["土地座落"] = data.Location;
+                    dr["控制区"] = data.Control;
+                    dr["土地性质"] = data.LandOwner;
+                    dr["占地面积"] = data.Area;
+                    dr["耕地面积"] = data.FarmArea;
+                    dr["建筑面积"] = data.ConstructionArea;
+                    dr["审批建筑面积"] = data.LegalConstructionArea;
+                    dr["非法建筑面积"] = data.IllegalConstructionArea;
+                    dr["层数"] = data.Layer;
+                    dr["建成年月"] = data.BuildDate;
+                    dr["审批面积"] = data.LegalArea;
+                    dr["超建面积"] = data.IllegaArea;
+                    dr["单价"] = data.IllegaUnit;
+                    dr["耕地单价"] = data.FarmUnit;
+                    dr["金额"] = data.Price;
+                    dr["没收建筑面积"] = data.ConfiscateArea;
+                    dr["没收单价"] = data.ConfiscateAreaUnit;
+                    dr["没收金额"] = data.ConfiscateAreaPrice;
+                    if (data.Signed) {
+                        dr["是否已处罚"] = "√";
+                    }
+                    dr["总金额"] = data.Price + data.ConfiscateAreaPrice;
+                    dt.Rows.Add(dr);
+                }
+            }
+            return dt;
         }
     }
 }

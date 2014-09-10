@@ -63,21 +63,21 @@ namespace CFSJMIS {
 
             this.lswCharacter.ItemsSource = data.Characters;
             this.cbxLandOwner.ItemsSource = landOwner;
-            this.DataContext = new DataModel(data);
-            //base.DataContext = data;
+            //this.DataContext = new DataModel(data);
+            base.DataContext = data;
         }
 
         private Data data;
 
         private void lblCancel_MouseDown(object sender, MouseButtonEventArgs e) {
-            ((IEditableObject)DataContext).CancelEdit();
+            //((IEditableObject)DataContext).CancelEdit();
             this.DialogResult = false;
             this.Close();
         }
 
         private void lblModify_MouseDown(object sender, MouseButtonEventArgs e) {
             try {
-                ((IEditableObject)DataContext).EndEdit();
+                //((IEditableObject)DataContext).EndEdit();
                 data = DataOperate.modifyData(data);
                 //data = (Data)this.DataContext;
                 this.DialogResult = true;
@@ -111,6 +111,10 @@ namespace CFSJMIS {
                     lswCharacter.ItemsSource = data.Characters;
                 }
             }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            data = AreaCalculate.getPrice(data);
         }
     }
 }

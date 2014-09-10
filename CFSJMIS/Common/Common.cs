@@ -78,7 +78,7 @@ namespace CFSJMIS {
 
         #region ssh连接信息
         public static string sshServer = "192.168.31.1";
-        public static int sshPort = 2222;
+        public static int sshPort ;
         public static string sshUID = "root";
         public static string sshPWD = "admin";
 
@@ -160,6 +160,8 @@ namespace CFSJMIS {
         #endregion
 
         #region XML信息
+        public const string XMLConfig = "Config.xml";
+
         public const string XMLTown = "XMLTowns.xml";
 
         public const string XMLEthnic = "XMLEthnic.xml";
@@ -232,6 +234,10 @@ namespace CFSJMIS {
         public const string MODIFY_ERROR = "数据修改失败";
 
         public const string MODIFY_SUCCES = "数据修改成功";
+
+        public const string CONFIG_LOAD_ERROR = "配置读取失败请检查配置文件";
+
+        public const string BUILT_COMPLETE = "生成完毕";
     }
     /// <summary>
     /// 面积计算
@@ -444,6 +450,12 @@ namespace CFSJMIS {
                 illegalConstructionArea = data.ConstructionArea;
             }
             return illegalConstructionArea;
+        }
+
+        public static Data getPrice(Data data) {
+            data.IllegaArea = data.Area - data.LegalArea;
+            data.Price = (data.IllegaArea - (double)data.FarmArea) * data.IllegaUnit + (double)data.FarmArea * (double)data.FarmUnit;
+            return data;
         }
     }
 }

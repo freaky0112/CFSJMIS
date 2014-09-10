@@ -104,7 +104,7 @@ namespace CFSJMIS.Biult {
         /// <param name="brf"></param>
         /// <param name="data"></param>
         private static void addText(BiultReportForm brf, Data data) {
-            brf.SetLineSpacing(28f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             pFontName = "仿宋_GB2312";
             pText = "";
@@ -118,11 +118,13 @@ namespace CFSJMIS.Biult {
             addLine(brf);
             pText = "    经查明，你未经批准于";
             pText += data.BuildDate.ToString().Substring(0, 4);
-            pText += "年擅自在青田县";
+            pText += "年";
+            pText += data.BuildDate.ToString().Substring(4, 2);
+            pText += "月擅自在青田县";
             pText += data.Town;
             pText += data.Location;
             pText += "非法占用土地";
-            pText += data.IllegaArea.ToString();
+            pText += Math.Round(data.IllegaArea, 2);
             pText += "平方米";
             if (data.FarmArea > 0) {
                 pText += "，其中耕地面积";
@@ -145,7 +147,11 @@ namespace CFSJMIS.Biult {
                 pText += "，用于建房。经核对青田县";
             }
             pText += data.Town;
-            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。依照《中华人民共和国土地管理法》和《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，拟对你的违法行为作如下行政处罚：";
+            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。依照《中华人民共和国土地管理法》、《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）";
+            if (data.BuildDate >= 201304) {
+                pText += "、《青田县人民政府关于印发青田县实施浙江省违法建筑处置规定细则（暂行）的补充意见的通知》（青政发〔2014〕101号）";
+            }
+            pText+="有关规定，拟对你的违法行为作如下行政处罚：";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             addLine(brf);
             pText = "";
@@ -153,13 +159,13 @@ namespace CFSJMIS.Biult {
             //如果没收
             if (data.ConfiscateAreaPrice > 0) {
                 if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
-                    pText = "    1.没收你户非法占用" + data.IllegaArea.ToString();
+                    pText = "    1.没收你户非法占用" + Math.Round(data.IllegaArea, 2);
                 } else {
                     pText = "    1.没收你户超出审批限额占用的" + data.ConfiscateFloorArea.ToString();
                 }
                 pText+= "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
                 addLine(brf);
-                pText = "    2.对你户非法占用土地" + data.IllegaArea + "平方米的行为处以罚款，";
+                pText = "    2.对你户非法占用土地" + Math.Round(data.IllegaArea, 2) + "平方米的行为处以罚款，";
                 addTxt(brf);
             } else {
                 pText = "    对你户非法占用土地的行为处以罚款，";

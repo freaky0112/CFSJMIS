@@ -39,6 +39,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using CFSJMIS.Security;
 
 namespace CFSJMIS {
     /// <summary>
@@ -70,7 +71,7 @@ namespace CFSJMIS {
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             string name = cbxNames.Text;
-            string password = pbxPassword.Password;
+            string password =Security.Security.getMD5(pbxPassword.Password);
             if (Common.sshConnected) {
 
                 if (DataOperate.login(name, password)) {

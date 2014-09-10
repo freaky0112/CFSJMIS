@@ -175,11 +175,20 @@
       <Project>{c5f888ec-8ea6-4b56-93c9-f38a1525a151}</Project>
       <Name>CFSJMIS.Search</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CFSJMIS.Security\CFSJMIS.Security.csproj">
+      <Project>{6970f454-5fe7-40b2-a371-edf3830b8f17}</Project>
+      <Name>CFSJMIS.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="XMLEthnic.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

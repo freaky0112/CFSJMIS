@@ -49,13 +49,18 @@ namespace CFSJMIS {
         private Thread biult;
 
         public MainWindow() {
-            InitializeComponent();
-            if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
-                MessageBox.Show(Messages.SSH_ERROR);
+            if (Load.configRead()) {
+                InitializeComponent();
+                if (!SSHConnect.sshConnected(Common.sshServer, Common.sshPort, Common.sshUID, Common.sshPWD)) {
+                    MessageBox.Show(Messages.SSH_ERROR);
+                }
+                loginWindow login = new loginWindow();
+                login.ShowDialog();
+                this.Loaded += MainWindow_Loaded;
+            } else {
+                MessageBox.Show(Messages.CONFIG_LOAD_ERROR);
+                Application.Current.Shutdown();
             }
-            loginWindow login = new loginWindow();
-            login.ShowDialog();
-            this.Loaded += MainWindow_Loaded;
 
         }
 
@@ -159,11 +164,13 @@ namespace CFSJMIS {
             CheckBox cbx = sender as CheckBox;
             string guid = cbx.Tag.ToString();
             try {
-                DataOperate.dataSinged(guid, (bool)cbx.IsChecked);
+                DataOperate.singedData(guid, (bool)cbx.IsChecked);
             } catch (Exception ex) {
                 throw ex;
             }
         }
+
+        
 
         private void lswData_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             Data data = (Data)lswData.SelectedItem;
@@ -171,10 +178,15 @@ namespace CFSJMIS {
                 DataModify dm = new DataModify(data);
                 if (dm.ShowDialog() == true) {
                     try {
-                        lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+                        //lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+                        dataList = DataOperate.query();
+                        this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
                     }catch(Exception ex){
                         throw ex;
                     }
+                } else {
+                    dataList = DataOperate.query();
+                    this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
                 }
             }
         }
@@ -198,6 +210,7 @@ namespace CFSJMIS {
                     progressBar.output(count);///控制进度条
                     //Thread.Sleep(30);
                 }
+                MessageBox.Show(Messages.BUILT_COMPLETE);
             });
             biult.Start();
             #endregion
@@ -241,6 +254,46 @@ namespace CFSJMIS {
                 this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
             }
         }
+        /// <summary>
+        /// 删除选中行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            Button button = sender as Button;
+            foreach (Data data in dataList) {
+                if (button.Tag.Equals(data.Guid)) {
+                    dataList.Remove(data);
+                    this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+                    if (!DataOperate.deleteData(data)) {
+                        MessageBox.Show("删除失败");
+                    }
+                    
+                    break;
+                }
+            }           
+
+        }
+        /// <summary>
+        /// 导出数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblExport_MouseDown(object sender, MouseButtonEventArgs e) {
+            string savePath=Load.getSavePath();
+            List<Data> list=new List<Data>();
+            if (lswData.ItemsSource != null) {
+                foreach (Data data in lswData.ItemsSource) {
+                    list.Add(data);
+                }
+                if (!string.IsNullOrEmpty(savePath)) {
+                    ExcelOperate.exportDataToExcel(savePath, list);
+                    MessageBox.Show("生成完成");
+                    System.Diagnostics.Process.Start(savePath);
+                }
+            }
+        }
+
 
 
 
