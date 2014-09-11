@@ -6,7 +6,7 @@
         <Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,18,18" VerticalAlignment="Bottom" Width="100" CornerRadius="5">
             <Label x:Name="lblCancel" Content="取消" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblCancel_MouseDown" />
         </Border>
-        <Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,18,53" VerticalAlignment="Bottom" Width="100" CornerRadius="5">
+        <Border BorderBrush="#FF4886BF" BorderThickness="1" HorizontalAlignment="Right" Height="30" Margin="0,0,141,18" VerticalAlignment="Bottom" Width="100" CornerRadius="5">
             <Label x:Name="lblModify" Content="修改" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" Foreground="#FF4886BF" MouseDown="lblModify_MouseDown" />
         </Border>
         <Grid HorizontalAlignment="Left" Height="102" Margin="18,18,0,0" VerticalAlignment="Top" Width="311">
@@ -48,7 +48,7 @@
         <Grid HorizontalAlignment="Left" Margin="18,125,0,18" Width="311">
             <Grid Height="35" VerticalAlignment="Top">
                 <Label Content="家庭人数" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Accounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Accounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  TextChanged="TextBox_TextChanged"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
                 <Label Content="乡镇" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
@@ -56,19 +56,19 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
                 <Label Content="层数" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Layer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Layer,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  TextChanged="TextBox_TextChanged"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0">
                 <Label Content="土地座落" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
                 <Label Content="控制区" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <ComboBox x:Name="cbxControls" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Control, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox x:Name="cbxControls" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding Control, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DropDownClosed="cbxControls_DropDownClosed"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,175,0,0">
                 <Label Content="土地性质" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <ComboBox x:Name="cbxLandOwner" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding LandOwner, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox x:Name="cbxLandOwner" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding LandOwner, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DropDownClosed="cbxControls_DropDownClosed"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,210,0,0">
                 <Label Content="建成时间" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
@@ -90,7 +90,7 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0" Width="190" HorizontalAlignment="Left">
                 <Label Content="超建面积" HorizontalAlignment="Left" Margin="0" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaArea}" TextChanged="TextBox_TextChanged"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding IllegaArea,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0" Width="190" HorizontalAlignment="Left">
                 <Label Content="单价" HorizontalAlignment="Left" Margin="0" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
@@ -109,14 +109,18 @@
                 <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </Grid>
-        <Grid Height="210" Margin="340,193,18,0" VerticalAlignment="Top" Width="390" HorizontalAlignment="Right">
+        <Grid Height="210" Margin="340,228,18,0" VerticalAlignment="Top" Width="390" HorizontalAlignment="Right">
             <Grid Height="35" VerticalAlignment="Top" Margin="0">
-                <Label Content="没收占地面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            	<Grid.ColumnDefinitions>
+            		<ColumnDefinition Width="9*"/>
+            		<ColumnDefinition Width="17*"/>
+            	</Grid.ColumnDefinitions>
+                <Label Content="没收占地面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF" Grid.ColumnSpan="2"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateFloorArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,35,0,0">
                 <Label Content="没收建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged_1"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
                 <Label Content="没收8层以上建筑面积" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
@@ -124,7 +128,7 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0">
                 <Label Content="没收单价" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="200" Text="{Binding ConfiscateAreaUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged_1"/>
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,140,0,0">
                 <Label Content="没收金额" HorizontalAlignment="Left" Margin="0" Width="190" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
@@ -134,6 +138,23 @@
             <CheckBox Content="7层高度是否超过22米" Margin="0,175,0,0" HorizontalAlignment="right" Width="200" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF4886BF" BorderBrush="#FF4886BF"/>
 
 
+        </Grid>
+        <Grid HorizontalAlignment="Right" Height="35" Margin="340,193,18,0" VerticalAlignment="Top" Width="390">
+        	<Grid Height="35" VerticalAlignment="Top" Margin="0" Width="190" HorizontalAlignment="Left">
+        		<Label Content="建筑面积" HorizontalAlignment="Left" Margin="0" Width="90" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+        		<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding ConstructionArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
+        	</Grid>
+        	<Grid Height="35" VerticalAlignment="Top" Margin="0" Width="200" HorizontalAlignment="Right">
+        		<Label Content="审批建筑面积" HorizontalAlignment="Left" Margin="0" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+        		<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="100" Text="{Binding LegalConstructionArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
+        	</Grid>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="748"/>
+        <Grid HorizontalAlignment="Left" Height="102" Margin="329,18,0,0" VerticalAlignment="Top" Width="11">
+        	<Button Name="btnDelete" Content="-" Margin="0" Background="{x:Null}" Foreground="#FF4886BF" Padding="0" Click="btnDelete_Click"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="102" Margin="7,18,0,0" VerticalAlignment="Top" Width="11">
+        	<Button Name="btnAdd" Content="+" Margin="0" Background="{x:Null}" Foreground="#FF4886BF" Padding="0" Click="btnAdd_Click"/>
         </Grid>
     </Grid>
 </Window>

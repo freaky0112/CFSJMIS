@@ -54,6 +54,7 @@ namespace CFSJMIS {
             this.Loaded += DataModify_Loaded;
         }
 
+        
 
         
         void DataModify_Loaded(object sender, RoutedEventArgs e) {            
@@ -78,6 +79,7 @@ namespace CFSJMIS {
         private void lblModify_MouseDown(object sender, MouseButtonEventArgs e) {
             try {
                 //((IEditableObject)DataContext).EndEdit();
+                DataOperate.CharacterToData(data);
                 data = DataOperate.modifyData(data);
                 //data = (Data)this.DataContext;
                 this.DialogResult = true;
@@ -115,6 +117,35 @@ namespace CFSJMIS {
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
             data = AreaCalculate.getPrice(data);
+            data = AreaCalculate.getConfiscateData(data);
         }
+
+        private void cbxControls_DropDownClosed(object sender, EventArgs e) {
+            data = AreaCalculate.getPrice(data);
+            data = AreaCalculate.getConfiscateData(data);
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e) {
+            data.ConfiscateAreaPrice = AreaCalculate.getConfiscateAreaPrice(data);
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e) {
+            Character charcter = new Character();
+            CharacterProperty cp = new CharacterProperty(charcter);
+            if (cp.ShowDialog() == true) {
+                data.Characters.Add(charcter);
+                this.lswCharacter.Items.Refresh();
+            }
+
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e) {
+            Character charcter = (Character)lswCharacter.SelectedItem;
+            data.Characters.Remove(charcter);
+            //this.lswCharacter.ItemsSource = data.Characters;
+
+            this.lswCharacter.Items.Refresh();
+        }
+
     }
 }

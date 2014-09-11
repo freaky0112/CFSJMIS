@@ -394,9 +394,44 @@ namespace CFSJMIS {
             } catch (MySqlException ex) {
                 throw ex;
             }
+            //没收编号
+            string id;
+            if (data.ConfiscateAreaPrice > 0) {
+                id = getID(Common.tableConfiscate());
+                sql = new StringBuilder();
+                sql.Append("insert into 鹤城所没收 ");
+                sql.Append("(ID,GUID) values ");
+                sql.Append("(@id,@guid)");
+                pt = new MySqlParameter[]{                    
+                        new MySqlParameter("@id",id),
+                        new MySqlParameter("@guid",data.Guid)
+                    };
+                try {
+                    MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
+                } catch (MySqlException ex) {
+                    if (!ex.Message.Contains("UNIQUE")) {
+                        throw ex;
+                    }
+                }
+            } else {
+                sql = new StringBuilder();
+                sql.Append("delete from ");
+                sql.Append(Common.tableConfiscate());
+                sql.Append(" where GUID = @Guid");
+                try {
+                    MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
+                } catch (MySqlException ex) {
+                    throw ex;
+                }
+            }
+
             return data;
         }
-
+        /// <summary>
+        /// 数据删除
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static bool deleteData(Data data) {
             StringBuilder sql = new StringBuilder();
             sql.Append("delete from ");
@@ -420,6 +455,22 @@ namespace CFSJMIS {
                 return false;
             }
             return true;
+        }
+
+        public static void CharacterToData(Data data) {
+            string name="";
+            string cardid="";
+            for (int i = 0; i < data.Characters.Count;i++ ) {
+                Character character = data.Characters[i];
+                name += character.Name;
+                cardid += character.CardID;
+                if (i < data.Characters.Count - 1) {
+                    name += "、";
+                    cardid += "、";
+                }                
+            }
+            data.Name = name;
+            data.CardID = cardid;
         }
     }
     /// <summary>

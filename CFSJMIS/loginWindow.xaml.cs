@@ -96,7 +96,7 @@ namespace CFSJMIS {
 
         private void lblLogin_MouseDown(object sender, MouseButtonEventArgs e) {
             string name = cbxNames.Text;
-            string password = pbxPassword.Password;
+            string password = Security.Security.getMD5(pbxPassword.Password);
             if (Common.sshConnected) {
 
                 if (DataOperate.login(name, password)) {

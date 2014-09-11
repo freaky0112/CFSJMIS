@@ -120,10 +120,13 @@ namespace CFSJMIS {
         }
 
         private void lblImport_MouseDown(object sender, MouseButtonEventArgs e) {
+            if (cbxTown.SelectedIndex != 0) {
+                foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
 
-            foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
-                
-                DataOperate.insertData(data);
+                    DataOperate.insertData(data);
+                }
+            } else {
+                MessageBox.Show(Messages.IMPORT_NOTIFY);
             }
         }
 
@@ -211,6 +214,7 @@ namespace CFSJMIS {
                     //Thread.Sleep(30);
                 }
                 MessageBox.Show(Messages.BUILT_COMPLETE);
+                System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory());
             });
             biult.Start();
             #endregion

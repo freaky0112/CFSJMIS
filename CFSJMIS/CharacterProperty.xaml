@@ -12,7 +12,7 @@
     		<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="140" Text="{Binding Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     	</Grid>
     	<Grid Height="35" VerticalAlignment="Top" Margin="0,70,0,0">
-    		<Label Content="姓名" HorizontalAlignment="Left" Margin="0" Width="140" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
+    		<Label Content="民族" HorizontalAlignment="Left" Margin="0" Width="140" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
     		<TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="140" Text="{Binding Ethnic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     	</Grid>
     	<Grid Height="35" VerticalAlignment="Top" Margin="0,105,0,0">

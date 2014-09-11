@@ -39,6 +39,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CFSJMIS.Collections;
+using System.ComponentModel;
+using CFSJMIS.ViewModel;
 
 namespace CFSJMIS {
     /// <summary>
@@ -48,18 +50,20 @@ namespace CFSJMIS {
         public CharacterProperty(Character _character) {
             InitializeComponent();
             this.character = _character;
-            this.DataContext = character;
+            this.DataContext = new CharacterModel(character);
         }
 
         private Character character;
 
         private void lblOK_MouseDown(object sender, MouseButtonEventArgs e) {
-            this.DialogResult = false;
+            ((IEditableObject)DataContext).EndEdit();
+            this.DialogResult = true;
 
         }
 
         private void lblCancel_MouseDown(object sender, MouseButtonEventArgs e) {
-
+            ((IEditableObject)DataContext).CancelEdit();
+            this.DialogResult = false;
         }
     }
 }

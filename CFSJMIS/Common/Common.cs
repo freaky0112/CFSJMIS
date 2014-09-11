@@ -238,6 +238,8 @@ namespace CFSJMIS {
         public const string CONFIG_LOAD_ERROR = "配置读取失败请检查配置文件";
 
         public const string BUILT_COMPLETE = "生成完毕";
+
+        public const string IMPORT_NOTIFY = "请选择导入乡镇";
     }
     /// <summary>
     /// 面积计算
@@ -266,7 +268,7 @@ namespace CFSJMIS {
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private static double getConfiscateAreaPrice(Data data) {
+        public static double getConfiscateAreaPrice(Data data) {
             double confiscateAreaPrice = data.ConfiscateArea * data.ConfiscateAreaUnit;
             return confiscateAreaPrice;
         }
@@ -339,6 +341,7 @@ namespace CFSJMIS {
         /// <returns></returns>
         private static double getConfiscateFloorArea(Data data) {
             double confiscateFloorArea = data.Area - getBigNumber(data.LegalArea, getQuotaArea(data));
+
             return confiscateFloorArea;
         }
         /// <summary>

@@ -104,7 +104,7 @@ namespace CFSJMIS.Biult {
         /// <param name="brf"></param>
         /// <param name="data"></param>
         private static void addText(BiultReportForm brf, Data data) {
-            brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            brf.SetLineSpacing(28f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             pFontName = "仿宋_GB2312";
             pText = "";
