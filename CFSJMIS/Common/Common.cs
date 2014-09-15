@@ -240,6 +240,8 @@ namespace CFSJMIS {
         public const string BUILT_COMPLETE = "生成完毕";
 
         public const string IMPORT_NOTIFY = "请选择导入乡镇";
+
+        public const string IMPORT_COMPLETE = "导入完毕";
     }
     /// <summary>
     /// 面积计算

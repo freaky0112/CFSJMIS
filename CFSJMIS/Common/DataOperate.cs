@@ -197,16 +197,16 @@ namespace CFSJMIS {
             } catch (Exception ex) {
                 throw ex;
             }
-            if (string.IsNullOrEmpty(id)) {
-                sqlMax = new StringBuilder();
-                sqlMax.Append("select count(*)+1 from ");
-                sqlMax.Append(table);
-                try {
-                    id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
-                } catch (Exception ex) {
-                    throw ex;
-                }
-            }
+            //if (string.IsNullOrEmpty(id)) {
+            //    sqlMax = new StringBuilder();
+            //    sqlMax.Append("select count(*)+1 from ");
+            //    sqlMax.Append(table);
+            //    try {
+            //        id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
+            //    } catch (Exception ex) {
+            //        throw ex;
+            //    }
+            //}
             return id;
         }
         /// <summary>

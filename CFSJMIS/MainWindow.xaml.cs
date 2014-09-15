@@ -120,13 +120,19 @@ namespace CFSJMIS {
         }
 
         private void lblImport_MouseDown(object sender, MouseButtonEventArgs e) {
-            if (cbxTown.SelectedIndex != 0) {
-                foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
+            try {
 
-                    DataOperate.insertData(data);
+                if (cbxTown.SelectedIndex != 0) {
+                    foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
+
+                        DataOperate.insertData(data);
+                    }
+                    MessageBox.Show(Messages.IMPORT_COMPLETE);
+                } else {
+                    MessageBox.Show(Messages.IMPORT_NOTIFY);
                 }
-            } else {
-                MessageBox.Show(Messages.IMPORT_NOTIFY);
+            } catch (Exception ex) {
+                throw ex;
             }
         }
 
@@ -154,8 +160,13 @@ namespace CFSJMIS {
         }
 
         private void lblQuery_MouseDown(object sender, MouseButtonEventArgs e) {
-            dataList = DataOperate.query();
-            this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+            try {
+
+                dataList = DataOperate.query();
+                this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
 
         /// <summary>  
