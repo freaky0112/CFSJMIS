@@ -162,8 +162,9 @@ namespace CFSJMIS {
             if (data.ConfiscateAreaPrice > 0) {
                 id = getID(Common.tableConfiscate());
                 sql = new StringBuilder();
-                sql.Append("insert into 鹤城所没收 ");
-                sql.Append("(ID,GUID) values ");
+                sql.Append("insert into ");
+                sql.Append(Common.tableConfiscate());
+                sql.Append(" (ID,GUID) values ");
                 sql.Append("(@id,@guid)");
                 pt = new MySqlParameter[]{                    
                         new MySqlParameter("@id",id),
@@ -197,16 +198,19 @@ namespace CFSJMIS {
             } catch (Exception ex) {
                 throw ex;
             }
-            //if (string.IsNullOrEmpty(id)) {
-            //    sqlMax = new StringBuilder();
-            //    sqlMax.Append("select count(*)+1 from ");
-            //    sqlMax.Append(table);
-            //    try {
-            //        id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
-            //    } catch (Exception ex) {
-            //        throw ex;
-            //    }
-            //}
+            if (string.IsNullOrEmpty(id)) {
+                sqlMax = new StringBuilder();
+                sqlMax.Append("select count(*)+1 from ");
+                sqlMax.Append(table);
+                try {
+                    id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+            
+            
+            
             return id;
         }
         /// <summary>

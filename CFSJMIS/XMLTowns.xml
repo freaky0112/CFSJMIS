@@ -11,6 +11,9 @@
   </GTX>
   <GTX NAME="温溪所">
     <Town NAME="温溪镇"/>
+    <Town NAME="吴坑乡"/>
+    <Town NAME="小舟山乡"/>
+    <Town NAME="贵岙乡"/>
   </GTX>
   <GTX NAME="山口所">
     <Town NAME="山口镇"/>
@@ -34,6 +37,8 @@
     <Town NAME="腊口镇"/>
     <Town NAME="祯埠乡"/>
     <Town NAME="章村乡"/>
+    <Town NAME="舒桥乡"/>
+    <Town NAME="祯旺乡"/>
   </GTX>
   <GTX NAME="北山所">
     <Town NAME="北山镇"/>
