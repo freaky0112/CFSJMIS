@@ -44,6 +44,7 @@
 						<GridViewColumn Header="没收编号" Width="60" DisplayMemberBinding="{Binding ConfiscateID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 						<GridViewColumn Header="所在乡镇" Width="auto" DisplayMemberBinding="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn Header="所在地" Width="auto" DisplayMemberBinding="{Binding Location, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						<GridViewColumn Header="建成年月" Width="auto" DisplayMemberBinding="{Binding BuildDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn x:Name="gvc">  
 							<GridViewColumn.CellTemplate>  
 								<DataTemplate>  

@@ -58,6 +58,7 @@ namespace CFSJMIS {
                 new MySqlParameter("@name",name),
                 new MySqlParameter("password",password)
             };
+            
             string result = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sql.ToString(), pt).ToString();
             isLogined = Int32.Parse(result);
             if (isLogined == 1) {
@@ -207,6 +208,7 @@ namespace CFSJMIS {
                 } catch (Exception ex) {
                     throw ex;
                 }
+                //id = null;
             }
             
             
@@ -403,8 +405,9 @@ namespace CFSJMIS {
             if (data.ConfiscateAreaPrice > 0) {
                 id = getID(Common.tableConfiscate());
                 sql = new StringBuilder();
-                sql.Append("insert into 鹤城所没收 ");
-                sql.Append("(ID,GUID) values ");
+                sql.Append("insert into ");
+                sql.Append(Common.tableConfiscate());
+                sql.Append(" (ID,GUID) values ");
                 sql.Append("(@id,@guid)");
                 pt = new MySqlParameter[]{                    
                         new MySqlParameter("@id",id),
@@ -489,55 +492,61 @@ namespace CFSJMIS {
                 try {
                     if (Common.IsNumber(dr[0].ToString())) {
                         data = new Data();//初始化数据
-                        //data.ID = Int32.Parse(dr[0].ToString());
                         data.Name = dr[1].ToString();//户主姓名
-                        data.CardID = dr[2].ToString().Replace("\n", "").Trim();//身份证
-                        data.Accounts = dr[3].ToString().Replace("\n", "").Trim();//家庭人口
-                        data.Location = dr[4].ToString();//座落地点
+                        if ((dr[5].ToString().Length != 6)&&Common.IsNumber(dr[5].ToString())) {
+                            throw new Exception("年份有误");
+                        }
                         data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
-                        data.Area = double.Parse(dr[6].ToString());//实地占地面积
-                        data.LegalArea = double.Parse(dr[7].ToString());//合法面积
-                        //data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
-                        data.IllegaArea = data.Area - data.LegalArea;
-                        data.IllegaUnit = double.Parse(dr[9].ToString());//单价
-                        data.Price = double.Parse(dr[10].ToString());//处罚金额
-                        data.Layer = double.Parse(dr[11].ToString());//建设层数
-                        data.ConstructionArea = double.Parse(dr[13].ToString());//建筑面积
-                        data.LegalConstructionArea = double.Parse(dr[14].ToString());//审批建筑面积
-                        data.IllegalConstructionArea = AreaCalculate.getIlegalConstructionArea(data);
-                        data.Conform = dr[22].ToString();//土地利用总体规划
-                        data.Available = dr[21].ToString();//建房资格
-                        data.Control = dr[29].ToString();//控制区
-                        data.LandOwner = dr[28].ToString();//土地性质
-                        //data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
-                        //data.IsnotConfiscate = ConfiscateCalculate.isNotConfiscate(data);
-                        //data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
-                        data.Town = town;//所在乡镇
-                        data.Accounts = dr[3].ToString();//户口人数
-                        data.CardIDs = data.CardID.Split('、');
-                        if (data.CardIDs.Length != data.Names.Length) {
-                            throw new Exception("，" + data.Location + "处数据有误请核实");
-                        }
-                        //foreach (string cardid in data.CardIDs) {
-                        //    if (cardid.Length != 18 && cardid.Length != 0) {
-                        //        //MessageBox.Show(data.Name+"，"+data.Location+"处身份证号码数据有误请核实");
-                        //        //Exception ex=new Exception();
-                        //        //ex.Message=data.Name+"，"+data.Location+"处身份证号码数据有误请核实";
-                        //        throw new Exception( "，" + data.Location + "处身份证号码数据有误请核实");
-                        //    }
-                        //}
-                        data.Guid = System.Guid.NewGuid().ToString();//GUID生成
-                        data = AreaCalculate.getConfiscateData(data);
+                        if (data.BuildDate > 198700) {//1987年以后
+                            //data.ID = Int32.Parse(dr[0].ToString());
+                            data.Name = dr[1].ToString();//户主姓名
+                            data.CardID = dr[2].ToString().Replace("\n", "").Trim();//身份证
+                            data.Accounts = dr[3].ToString().Replace("\n", "").Trim();//家庭人口
+                            data.Location = dr[4].ToString();//座落地点
+                            data.Area = double.Parse(dr[6].ToString());//实地占地面积
+                            data.LegalArea = double.Parse(dr[7].ToString());//合法面积
+                            //data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
+                            data.IllegaArea = data.Area - data.LegalArea;
+                            data.IllegaUnit = double.Parse(dr[9].ToString());//单价
+                            data.Price = double.Parse(dr[10].ToString());//处罚金额
+                            data.Layer = double.Parse(dr[11].ToString());//建设层数
+                            data.ConstructionArea = double.Parse(dr[13].ToString());//建筑面积
+                            data.LegalConstructionArea = double.Parse(dr[14].ToString());//审批建筑面积
+                            data.IllegalConstructionArea = AreaCalculate.getIlegalConstructionArea(data);
+                            data.Conform = dr[22].ToString();//土地利用总体规划
+                            data.Available = dr[21].ToString();//建房资格
+                            data.Control = dr[29].ToString();//控制区
+                            data.LandOwner = dr[28].ToString();//土地性质
+                            //data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
+                            //data.IsnotConfiscate = ConfiscateCalculate.isNotConfiscate(data);
+                            //data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
+                            data.Town = town;//所在乡镇
+                            data.Accounts = dr[3].ToString();//户口人数
+                            data.CardIDs = data.CardID.Split('、');
+                            if (data.CardIDs.Length != data.Names.Length) {
+                                throw new Exception("，" + data.Location + "处数据有误请核实");
+                            }
+                            //foreach (string cardid in data.CardIDs) {
+                            //    if (cardid.Length != 18 && cardid.Length != 0) {
+                            //        //MessageBox.Show(data.Name+"，"+data.Location+"处身份证号码数据有误请核实");
+                            //        //Exception ex=new Exception();
+                            //        //ex.Message=data.Name+"，"+data.Location+"处身份证号码数据有误请核实";
+                            //        throw new Exception( "，" + data.Location + "处身份证号码数据有误请核实");
+                            //    }
+                            //}
+                            data.Guid = System.Guid.NewGuid().ToString();//GUID生成
+                            data = AreaCalculate.getConfiscateData(data);
 
-                        if (data.IsnotConfiscate) {
+                            if (data.IsnotConfiscate) {
 
-                            //data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
-                            //data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
-                            //data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
-                            //data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
-                        }
-                        if (data.IllegaArea / data.Names.Length > 0) {//判断是否要处罚，平均每户小于1平方免于处罚
-                            dataList.Add(data);
+                                //data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
+                                //data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
+                                //data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
+                                //data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
+                            }
+                            if (data.IllegaArea / data.Names.Length > 0) {//判断是否要处罚，平均每户小于1平方免于处罚
+                                dataList.Add(data);
+                            }
                         }
                     }
                 } catch (Exception ex) {

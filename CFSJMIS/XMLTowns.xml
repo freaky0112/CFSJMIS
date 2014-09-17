@@ -45,4 +45,38 @@
     <Town NAME="巨浦乡"/>
     <Town NAME="万阜乡"/>
   </GTX>
+  <GTX NAME="TEST">
+    <Town NAME="北山镇"/>
+    <Town NAME="船寮镇"/>
+    <Town NAME="东源镇"/>
+    <Town NAME="方山乡"/>
+    <Town NAME="阜山乡"/>
+    <Town NAME="高湖镇"/>
+    <Town NAME="高市乡"/>
+    <Town NAME="贵岙乡"/>
+    <Town NAME="海口镇"/>
+    <Town NAME="海溪乡"/>
+    <Town NAME="鹤城街道"/>
+    <Town NAME="黄垟乡"/>
+    <Town NAME="季宅乡"/>
+    <Town NAME="巨浦乡"/>
+    <Town NAME="腊口镇"/>
+    <Town NAME="瓯南街道"/>
+    <Town NAME="仁宫乡"/>
+    <Town NAME="仁庄镇"/>
+    <Town NAME="山口镇"/>
+    <Town NAME="石溪乡"/>
+    <Town NAME="舒桥乡"/>
+    <Town NAME="汤垟乡"/>
+    <Town NAME="万阜乡"/>
+    <Town NAME="万山乡"/>
+    <Town NAME="温溪镇"/>
+    <Town NAME="吴坑乡"/>
+    <Town NAME="小舟山乡"/>
+    <Town NAME="油竹街道"/>
+    <Town NAME="章村乡"/>
+    <Town NAME="章旦乡"/>
+    <Town NAME="祯埠乡"/>
+    <Town NAME="祯旺乡"/>
+  </GTX>
 </ELEMENT>

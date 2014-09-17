@@ -72,7 +72,7 @@
             </Grid>
             <Grid Height="35" VerticalAlignment="Top" Margin="0,210,0,0">
                 <Label Content="建成时间" HorizontalAlignment="Left" Margin="0" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF"/>
-                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding BuildDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="161" Text="{Binding BuildDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" TextChanged="TextBox_TextChanged"/>
             </Grid>
             <Grid Margin="0,245,0,0">
                 <Label Content="备注" Margin="0,0,0,92" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF4886BF" HorizontalAlignment="Stretch"/>

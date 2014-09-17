@@ -91,7 +91,7 @@ namespace CFSJMIS {
 
         private const uint PORT = 3306;
 
-        private const string DATABASE = "CFSJ";
+        private const string DATABASE = "cfsj";
 
         private const string UID = "root";
 

@@ -48,10 +48,13 @@ namespace CFSJMIS {
     /// DataModify.xaml 的交互逻辑
     /// </summary>
     public partial class DataModify : Window {
+
+        private bool isInitializing = false;
         public DataModify(Data _data) {
             InitializeComponent();
             this.data = _data;
             this.Loaded += DataModify_Loaded;
+            isInitializing = true;
         }
 
         
@@ -116,8 +119,10 @@ namespace CFSJMIS {
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
-            data = AreaCalculate.getPrice(data);
-            data = AreaCalculate.getConfiscateData(data);
+            if (!isInitializing) {
+                data = AreaCalculate.getPrice(data);
+                data = AreaCalculate.getConfiscateData(data);
+            }
         }
 
         private void cbxControls_DropDownClosed(object sender, EventArgs e) {

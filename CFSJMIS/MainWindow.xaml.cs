@@ -132,7 +132,7 @@ namespace CFSJMIS {
                     MessageBox.Show(Messages.IMPORT_NOTIFY);
                 }
             } catch (Exception ex) {
-                throw ex;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -165,7 +165,7 @@ namespace CFSJMIS {
                 dataList = DataOperate.query();
                 this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
             } catch (Exception ex) {
-                throw ex;
+                MessageBox.Show(ex.Message);
             }
         }
 
