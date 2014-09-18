@@ -330,7 +330,16 @@ namespace CFSJMIS {
                     confiscateArea = data.ConfiscateFloorArea * 7;
                 }
             } else {///2013年4月以后
-                confiscateArea = data.IllegalConstructionArea;
+                if (data.Control.Contains("四级")) {
+                    if (data.Layer <= 7) {
+                        //高度小于7层时
+                        confiscateArea = data.ConfiscateFloorArea * data.Layer;
+                    } else {
+                        confiscateArea = data.ConfiscateFloorArea * 7;
+                    }
+                } else {
+                    confiscateArea = data.IllegalConstructionArea;
+                }
             }
             return confiscateArea;
         }

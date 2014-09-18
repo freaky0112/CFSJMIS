@@ -54,7 +54,8 @@ namespace CFSJMIS {
             InitializeComponent();
             this.data = _data;
             this.Loaded += DataModify_Loaded;
-            isInitializing = true;
+
+            //isInitializing = true;
         }
 
         
@@ -82,6 +83,7 @@ namespace CFSJMIS {
         private void lblModify_MouseDown(object sender, MouseButtonEventArgs e) {
             try {
                 //((IEditableObject)DataContext).EndEdit();
+                
                 DataOperate.CharacterToData(data);
                 data = DataOperate.modifyData(data);
                 //data = (Data)this.DataContext;
@@ -119,7 +121,7 @@ namespace CFSJMIS {
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
-            if (!isInitializing) {
+            if (isInitializing) {
                 data = AreaCalculate.getPrice(data);
                 data = AreaCalculate.getConfiscateData(data);
             }
@@ -132,6 +134,7 @@ namespace CFSJMIS {
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e) {
             data.ConfiscateAreaPrice = AreaCalculate.getConfiscateAreaPrice(data);
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e) {
@@ -150,6 +153,11 @@ namespace CFSJMIS {
             //this.lswCharacter.ItemsSource = data.Characters;
 
             this.lswCharacter.Items.Refresh();
+        }
+
+        private void Window_ContentRendered_1(object sender, EventArgs e) {
+
+            isInitializing = true;
         }
 
     }
