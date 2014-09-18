@@ -121,9 +121,10 @@ namespace CFSJMIS {
 
         private void lblImport_MouseDown(object sender, MouseButtonEventArgs e) {
             try {
+                bool autoCalculate = (bool)cbxAutoCalculate.IsChecked;
 
                 if (cbxTown.SelectedIndex != 0) {
-                    foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text)) {
+                    foreach (Data data in ExcelOperate.getDataList(tbxPath.Text, cbxTown.Text,autoCalculate)) {
 
                         DataOperate.insertData(data);
                     }

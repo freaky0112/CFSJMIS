@@ -484,7 +484,7 @@ namespace CFSJMIS {
     /// excel操作
     /// </summary>
     public abstract class ExcelOperate {
-        public static ArrayList getDataList(string path, string town) {
+        public static ArrayList getDataList(string path, string town, bool autoCalculate) {
             ArrayList dataList = new ArrayList();
             DataSet dataSet = importExcelToDataSet(path);
             Data data = new Data();
@@ -505,10 +505,14 @@ namespace CFSJMIS {
                             data.Location = dr[4].ToString();//座落地点
                             data.Area = double.Parse(dr[6].ToString());//实地占地面积
                             data.LegalArea = double.Parse(dr[7].ToString());//合法面积
-                            //data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
-                            data.IllegaArea = data.Area - data.LegalArea;
-                            data.IllegaUnit = double.Parse(dr[9].ToString());//单价
-                            data.Price = double.Parse(dr[10].ToString());//处罚金额
+                            if (autoCalculate) {
+                                data=AreaCalculate.autoCalculate(data);
+                            } else {
+                                data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
+                                //data.IllegaArea = data.Area - data.LegalArea;
+                                data.IllegaUnit = double.Parse(dr[9].ToString());//单价
+                                data.Price = double.Parse(dr[10].ToString());//处罚金额
+                            }
                             data.Layer = double.Parse(dr[11].ToString());//建设层数
                             data.ConstructionArea = double.Parse(dr[13].ToString());//建筑面积
                             data.LegalConstructionArea = double.Parse(dr[14].ToString());//审批建筑面积

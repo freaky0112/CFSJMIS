@@ -78,7 +78,7 @@ namespace CFSJMIS {
 
         #region ssh连接信息
         public static string sshServer = "192.168.31.1";
-        public static int sshPort ;
+        public static int sshPort;
         public static string sshUID = "root";
         public static string sshPWD = "admin";
 
@@ -196,20 +196,28 @@ namespace CFSJMIS {
         #endregion
 
         #region 控制区
-        public  enum Contorls {
-            一级I类,一级II类,一级III类,二级,三级集镇,三级非集镇,四级
+        public enum Contorls {
+            一级I类,
+            一级II类,
+            一级III类,
+            二级,
+            三级集镇,
+            三级非集镇,
+            四级
         };
 
         public enum LandOwner {
-            国有,集体
+            国有,
+            集体
         };
         #endregion
 
         #region 个人信息
         public enum Sex {
-            男,女
+            男,
+            女
         };
-        #endregion 
+        #endregion
     }
 
 
@@ -292,7 +300,7 @@ namespace CFSJMIS {
                 if (data.Control.Contains("四级")) {
                     timeandowner = "99年以后" + data.LandOwner;
                 } else {
-                    if (data.IllegaArea > 20*data.Accounts.Length) {
+                    if (data.IllegaArea > 20 * data.Accounts.Length) {
                         return true;
                     } else {
                         return false;
@@ -362,7 +370,7 @@ namespace CFSJMIS {
         /// <returns></returns>
         private static int getQuotaArea(Data data) {
             int quotaArea = 0;
-            
+
             foreach (string account in data.Accounts.Split('+')) {
                 int member = 0;
                 if (!string.IsNullOrEmpty(account)) {
@@ -380,7 +388,7 @@ namespace CFSJMIS {
                     quotaArea += 90;
                 }
             }
-            
+
             return quotaArea;
 
         }
@@ -420,7 +428,7 @@ namespace CFSJMIS {
             }
             if (data.LandOwner.Equals("国有")) {
                 a = a + 1;
-            }        
+            }
             ConfiscateAreaUnit = price[b, a];
             ///201304以后没收标准
             if (data.BuildDate >= 201304) {
@@ -431,7 +439,7 @@ namespace CFSJMIS {
                 } else if (data.Control.Equals("三级非集镇")) {
                     ConfiscateAreaUnit *= 1.5;
                 }
-            }  
+            }
             return ConfiscateAreaUnit;
 
         }
@@ -454,7 +462,7 @@ namespace CFSJMIS {
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static double getIlegalConstructionArea(Data data) {            
+        public static double getIlegalConstructionArea(Data data) {
             double illegalConstructionArea = new double();
             //土地未审批
             if (data.LegalArea > 0) {
@@ -470,6 +478,45 @@ namespace CFSJMIS {
             data.IllegaArea = data.Area - data.LegalArea;
             data.Price = (data.IllegaArea - (double)data.FarmArea) * data.IllegaUnit + (double)data.FarmArea * (double)data.FarmUnit;
             return data;
+        }
+        /// <summary>
+        /// 自动计算行为罚款
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static Data autoCalculate(Data data) {
+            data.IllegaUnit = getIllegaUnit(data);
+            data.FarmUnit = getFarmUnit(data);
+            data.FarmArea = 0;
+            data = getPrice(data);
+            return data;
+
+        }
+
+        private static double getIllegaUnit(Data data) {
+            double illegaUnit = 0;
+            if (data.BuildDate < 199900) {
+                illegaUnit = 5;
+            } else if (data.BuildDate < 201010) {
+                illegaUnit = 10;
+            } else if (data.BuildDate < 201304) {
+                illegaUnit = 15;
+            } else {
+                illegaUnit = 25;
+            }
+            return illegaUnit;
+        }
+
+        private static double getFarmUnit(Data data) {
+            double farmUnit = 0;
+            if (data.BuildDate < 199900) {
+                farmUnit = 15;
+            } else if (data.BuildDate < 201304) {
+                farmUnit = 20;
+            } else {
+                farmUnit = 30;
+            }
+            return farmUnit;
         }
     }
 }
