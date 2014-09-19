@@ -300,7 +300,7 @@ namespace CFSJMIS {
                 if (data.Control.Contains("四级")) {
                     timeandowner = "99年以后" + data.LandOwner;
                 } else {
-                    if (data.IllegaArea > 20 * data.Accounts.Length) {
+                    if (data.IllegaArea > 20 * data.Accounts.Split('+').Length) {
                         return true;
                     } else {
                         return false;
