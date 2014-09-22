@@ -51,10 +51,11 @@ namespace CFSJMIS.Biult {
         /// </summary>
         /// <param name="brf"></param>
         public static void biult(BiultReportForm brf, Data data) {
-
+            brf.NewSection();
+            brf.SetPageFooter(data.Town);
             addTitle(brf, data);
             addText(brf, data);
-            brf.NewPage();
+            //brf.NewPage();
         }
 
         /// <summary>
@@ -129,7 +130,6 @@ namespace CFSJMIS.Biult {
             addLine(brf);
             pText = "                            2014年  月  日";
             addLine(brf);
-
         }
     }
 }

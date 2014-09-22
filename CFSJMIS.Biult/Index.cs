@@ -45,7 +45,6 @@ namespace CFSJMIS.Biult {
         public static void biult(BiultReportForm brf, Data data) {
 
             addTitle(brf, data);
-            brf.NewPage();
         }
 
         /// <summary>

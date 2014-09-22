@@ -52,9 +52,9 @@ namespace CFSJMIS.Biult {
         /// <param name="brf"></param>
         public static  void biult(BiultReportForm brf, Data data) {
 
+            brf.NewPage();
             addTitle(brf, data);
             addText(brf, data);
-            brf.NewPage();
         }
 
         /// <summary>
@@ -76,7 +76,9 @@ namespace CFSJMIS.Biult {
         /// </summary>
         /// <param name="brf"></param>    
         private static void addTitle(BiultReportForm brf, Data data) {
-            brf.TypeBackspace();
+            if (GetOffice.isNotNewOffice()) {
+                brf.TypeBackspace();
+            }
             pText = "青田县国土资源局";
             pFontSize = 24;
             pFontName = "宋体";

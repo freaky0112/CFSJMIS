@@ -68,6 +68,26 @@ namespace CFSJMIS.Biult
             //跳出页眉设置   
             this._wordApplication.ActiveWindow.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;
         }
+
+        /// <summary>
+        /// 添加当前页页脚
+        /// </summary>
+        /// <param name="pPageFooter"></param>
+        public void SetPageFooter(string pPageFooter) {
+            //Object myNothing = System.Reflection.Missing.Value;
+            //Microsoft.Office.Interop.Word.Range allRange=this._wordApplication.Range(ref myNothing, ref myNothing);
+            foreach (Word.Section wordSection in this._wordDocument.Sections) {
+                wordSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].LinkToPrevious = false;
+            }
+
+            this._wordApplication.ActiveWindow.View.Type = Microsoft.Office.Interop.Word.WdViewType.wdOutlineView;            
+            this._wordApplication.ActiveWindow.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekCurrentPageFooter;
+            this._wordApplication.ActiveWindow.ActivePane.Selection.InsertAfter(pPageFooter);
+            //设置右对齐   
+            this._wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
+            //跳出页脚设置   
+            this._wordApplication.ActiveWindow.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;
+        }
         /// <SUMMARY></SUMMARY>   
         /// 插入文字   
         ///    
@@ -118,6 +138,14 @@ namespace CFSJMIS.Biult
             object myPageBreak = Microsoft.Office.Interop.Word.WdBreakType.wdPageBreak;
             this._wordApplication.Application.Selection.InsertBreak(ref myPageBreak);
         }
+        /// <summary>
+        /// 分节
+        /// </summary>
+        public void NewSection() {
+            //分页
+            object mySectionBreak = Microsoft.Office.Interop.Word.WdBreakType.wdSectionBreakNextPage;
+            this._wordApplication.Application.Selection.InsertBreak(ref mySectionBreak);        
+        }
         /// <SUMMARY></SUMMARY>   
         /// 插入一个图片   
         ///    
@@ -144,7 +172,7 @@ namespace CFSJMIS.Biult
                 this._wordDocument.SaveAs(ref myFileName, ref myWordFormatDocument, ref myLockd, ref myPassword, ref myAddto, ref myPassword,
                     ref myLockd, ref myLockd, ref myLockd, ref myLockd, ref myNothing, ref myNothing, ref myNothing,
                     ref myNothing, ref myNothing, ref myNothing);
-                object saveOption = Word.WdSaveOptions.wdDoNotSaveChanges;
+                object saveOption = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
                 this._wordDocument.Close(ref myNothing, ref myNothing, ref myNothing);
                 this._wordApplication.Quit(ref saveOption, ref myNothing);
                 this._wordApplication = null;
