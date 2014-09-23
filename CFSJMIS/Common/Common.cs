@@ -260,16 +260,18 @@ namespace CFSJMIS {
 
             if (isNotConfiscate(data)) {
                 data.QuotaArea = getQuotaArea(data);//没收限额面积
+                data.ConfiscateAreaUnit = getConfiscateAreaUnit(data);//没收单价
                 data.ConfiscateFloorArea = getConfiscateFloorArea(data);//没收占地面积
                 data.ConfiscateArea = getConfiscateArea(data);//没收面积
-                data.ConfiscateAreaUnit = getConfiscateAreaUnit(data);//没收单价
                 data.ConfiscateAreaPrice = getConfiscateAreaPrice(data);//没收金额
             } else {
                 data.ConfiscateFloorArea = 0;//没收占地面积
                 data.ConfiscateArea = 0;//没收面积
-                data.ConfiscateAreaUnit = 0;//没收单价
+                //data.ConfiscateAreaUnit = 0;//没收单价
                 data.ConfiscateAreaPrice = 0;//没收金额
             }
+            data.ConfiscateAreaUnit = getConfiscateAreaUnit(data);//没收单价
+                
 
             return data;
         }
@@ -346,6 +348,7 @@ namespace CFSJMIS {
                         confiscateArea = data.ConfiscateFloorArea * 7;
                     }
                 } else {
+                    data.IllegalConstructionArea = getIlegalConstructionArea(data);
                     confiscateArea = data.IllegalConstructionArea;
                 }
             }

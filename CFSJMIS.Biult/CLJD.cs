@@ -117,7 +117,9 @@ namespace CFSJMIS.Biult {
             pText += data.Code + String.Format("{0:0000}", data.ID);
             pText += "号）依法没收你户";
             pText += data.BuildDate.ToString().Substring(0, 4);
-            pText += "年在青田县";
+            pText += "年";
+            pText += data.BuildDate.ToString().Substring(4, 2);
+            pText += "月在青田县";
             pText += data.Town;
             pText += data.Location;
             if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
@@ -134,7 +136,11 @@ namespace CFSJMIS.Biult {
             } else {
                 pText += data.ConfiscateFloorArea;
             }
-            pText += "平方米，依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，没收金额为";
+            pText += "平方米，依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）";
+            if (data.BuildDate >= 201304) {
+                pText += "、《青田县人民政府关于印发青田县实施浙江省违法建筑处置规定细则（暂行）的补充意见的通知》（青政发〔2014〕101号）";
+            }
+            pText+="有关规定，没收金额为";
             pText += data.ConfiscateAreaUnit;
             pText += "元/平方米，共计人民币";
             pText += ecanNum.CmycurD(data.ConfiscateAreaPrice.ToString()) + "（￥" + Math.Round(data.ConfiscateAreaPrice, 2) + ")。现根据你户申请，经研究决定，由你户购回。";

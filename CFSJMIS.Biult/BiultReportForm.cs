@@ -54,6 +54,15 @@ namespace CFSJMIS.Biult
 
             this._wordDocument = this._wordApplication.Documents.Add(ref myNothing, ref myNothing, ref myNothing, ref myNothing);
         }
+
+        /// <summary>
+        /// 设置视图
+        /// </summary>
+        /// <param name="ViewType"></param>
+        public void SetView(Word.WdViewType ViewType) {
+            this._wordApplication.ActiveWindow.View.Type = ViewType;
+        }
+
         /// <SUMMARY></SUMMARY>   
         /// 添加页眉   
         ///    
@@ -87,6 +96,8 @@ namespace CFSJMIS.Biult
             this._wordApplication.Selection.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
             //跳出页脚设置   
             this._wordApplication.ActiveWindow.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;
+            //切回普通视图
+            //this._wordApplication.ActiveWindow.View.Type = Microsoft.Office.Interop.Word.WdViewType.wdNormalView;
         }
         /// <SUMMARY></SUMMARY>   
         /// 插入文字   

@@ -54,7 +54,8 @@ namespace CFSJMIS.Biult {
                 }
                 JKTZ.biult(brf, data);
                 brf.TypeBackspace();
-                brf.TypeBackspace();
+                //brf.TypeBackspace();
+                brf.SetView(Microsoft.Office.Interop.Word.WdViewType.wdPrintView);
                 brf.SaveWord(path);
             } catch (Exception ex) {
                 throw ex;
