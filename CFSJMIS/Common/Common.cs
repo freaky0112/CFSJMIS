@@ -312,13 +312,13 @@ namespace CFSJMIS {
 
             switch (timeandowner) {
                 case "99年以前国有":
-                    return getConfiscateFloorArea(data) > 20;
+                    return getConfiscateFloorArea(data) > 20 * data.Accounts.Split('+').Length;
                 case "99年以后国有":
-                    return getConfiscateFloorArea(data) > 10;
+                    return getConfiscateFloorArea(data) > 10 * data.Accounts.Split('+').Length;
                 case "99年以前集体":
-                    return getConfiscateFloorArea(data) > 45;
+                    return getConfiscateFloorArea(data) > 45 * data.Accounts.Split('+').Length;
                 case "99年以后集体":
-                    return getConfiscateFloorArea(data) > 20;
+                    return getConfiscateFloorArea(data) > 20 * data.Accounts.Split('+').Length;
                 default:
                     return false;
             }
