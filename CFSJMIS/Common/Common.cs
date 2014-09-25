@@ -435,7 +435,7 @@ namespace CFSJMIS {
             ConfiscateAreaUnit = price[b, a];
             ///201304以后没收标准
             if (data.BuildDate >= 201304) {
-                if (data.Control.Equals("一级")) {
+                if (data.Control.Contains("一级")) {
                     ConfiscateAreaUnit *= 2;
                 } else if (data.Control.Equals("二级")) {
                     ConfiscateAreaUnit *= 1.5;

@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Config>
+<<<<<<< HEAD
   <Address>192.168.1.3</Address>
   <Port>2222</Port>
+=======
+  <Address>192.168.31.1</Address>
+  <Port>22222</Port>
+>>>>>>> origin/master
 </Config>
