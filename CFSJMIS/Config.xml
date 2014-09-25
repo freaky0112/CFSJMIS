@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Config>
-  <Address>freaky0112.eicp.net</Address>
+  <Address>192.168.31.1</Address>
   <Port>22222</Port>
 </Config>
