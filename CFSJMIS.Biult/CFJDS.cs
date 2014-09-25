@@ -107,7 +107,11 @@ namespace CFSJMIS.Biult {
             ptextAlignment = 0;
             pFontSize = 15;
             pFontName = "仿宋_GB2312";
-            brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            if (data.Characters.Count!=1) {
+                brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            } else {
+              brf.SetLineSpacing(24f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly);
+            }
             for (int i = 0; i < data.Names.Length; i++) {
                 string name = data.Names[i];
                 pText = "    被处罚人：" + name + "，";

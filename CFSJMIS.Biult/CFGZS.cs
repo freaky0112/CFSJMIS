@@ -103,7 +103,12 @@ namespace CFSJMIS.Biult {
         /// <param name="brf"></param>
         /// <param name="data"></param>
         private static void addText(BiultReportForm brf, Data data) {
-            brf.SetLineSpacing(28f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly);
+            //if (data.BuildDate > 201304) {
+
+                brf.SetLineSpacing(24f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly);
+            //} else {
+            //    brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            //}
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             pFontName = "仿宋_GB2312";
             pText = "";
