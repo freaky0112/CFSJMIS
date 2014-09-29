@@ -271,7 +271,7 @@ namespace CFSJMIS {
                 data.ConfiscateAreaPrice = 0;//没收金额
             }
             data.ConfiscateAreaUnit = getConfiscateAreaUnit(data);//没收单价
-                
+
 
             return data;
         }
@@ -298,7 +298,7 @@ namespace CFSJMIS {
                 timeandowner = "99年以前" + data.LandOwner;
             } else if (data.BuildDate < 201304) {
                 timeandowner = "99年以后" + data.LandOwner;
-            } else if (data.BuildDate >= 201304) {
+            } else if (data.BuildDate >= 201304&&data.BuildDate<=201406) {
                 if (data.Control.Contains("四级")) {
                     timeandowner = "99年以后" + data.LandOwner;
                 } else {
@@ -307,6 +307,12 @@ namespace CFSJMIS {
                     } else {
                         return false;
                     }
+                }
+            } else if(data.BuildDate>201406){
+                if (data.IllegaArea > 20 * data.Accounts.Split('+').Length) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
 
@@ -339,18 +345,22 @@ namespace CFSJMIS {
                 } else {
                     confiscateArea = data.ConfiscateFloorArea * 7;
                 }
-            } else {///2013年4月以后
+            } else if (data.BuildDate <= 201406) {///2013年4月--2014年6月11日
                 if (data.Control.Contains("四级")) {
                     if (data.Layer <= 7) {
                         //高度小于7层时
                         confiscateArea = data.ConfiscateFloorArea * data.Layer;
                     } else {
+                        //拆除
                         confiscateArea = data.ConfiscateFloorArea * 7;
                     }
                 } else {
                     data.IllegalConstructionArea = getIlegalConstructionArea(data);
                     confiscateArea = data.IllegalConstructionArea;
                 }
+            } else {//2014年6月11号之后
+                data.IllegalConstructionArea = getIlegalConstructionArea(data);
+                confiscateArea = data.IllegalConstructionArea;
             }
             return confiscateArea;
         }
@@ -433,14 +443,23 @@ namespace CFSJMIS {
                 a = a + 1;
             }
             ConfiscateAreaUnit = price[b, a];
-            ///201304以后没收标准
-            if (data.BuildDate >= 201304) {
+            ///201304-201406以后没收标准
+            if (data.BuildDate >= 201304 && data.BuildDate <= 201406) {
                 if (data.Control.Contains("一级")) {
                     ConfiscateAreaUnit *= 2;
                 } else if (data.Control.Equals("二级")) {
                     ConfiscateAreaUnit *= 1.5;
                 } else if (data.Control.Equals("三级非集镇")) {
                     ConfiscateAreaUnit *= 1.5;
+                }
+            }
+                ///2014年6月11号以后标准
+            else if (data.BuildDate > 201406) {
+                if (data.Control.Contains("四级") || data.Control.Contains("三级集镇")) {
+
+                    ConfiscateAreaUnit *= 2;
+                } else {
+                    ConfiscateAreaUnit = int.MaxValue;
                 }
             }
             return ConfiscateAreaUnit;

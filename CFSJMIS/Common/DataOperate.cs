@@ -101,6 +101,8 @@ namespace CFSJMIS {
             sql.Append("建筑面积,");
             sql.Append("审批建筑面积,");
             sql.Append("非法建筑面积,");
+            sql.Append("耕地单价,");
+            sql.Append("耕地面积,");
             sql.Append("GUID");
             sql.Append(") values (");
             sql.Append("@ID,");
@@ -127,6 +129,8 @@ namespace CFSJMIS {
             sql.Append("@ConstructionArea,");
             sql.Append("@LegalConstructionArea,");
             sql.Append("@IllegalConstructionArea,");
+            sql.Append("@FarmUnit,");
+            sql.Append("@FarmArea,");
             sql.Append("@Guid)");
             MySqlParameter[] pt = new MySqlParameter[]{
                     new MySqlParameter("ID",id),
@@ -153,6 +157,8 @@ namespace CFSJMIS {
                     new MySqlParameter("@ConstructionArea",data.ConstructionArea),
                     new MySqlParameter("@LegalConstructionArea",data.LegalConstructionArea),
                     new MySqlParameter("@IllegalConstructionArea",data.IllegalConstructionArea),
+                    new MySqlParameter("@FarmUnit",data.FarmUnit),
+                    new MySqlParameter("@FarmArea",data.FarmArea),
                     new MySqlParameter("@Guid",data.Guid.ToString())
             };
             try {
