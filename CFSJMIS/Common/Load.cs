@@ -32,6 +32,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using System.Windows.Forms;
+using CFSJMIS.Security;
 
 namespace CFSJMIS {
     public abstract class Load {
@@ -43,11 +44,16 @@ namespace CFSJMIS {
                 var cf = from el in config.Descendants("Config")
                          select new {
                              address = el.Element("Address").Value,
-                             port = el.Element("Port").Value
+                             port = el.Element("Port").Value,
+                             uid=el.Element("UID").Value,
+                             pwd=el.Element("PWD").Value
                          };
+                Security.SymmetricMethod method = new SymmetricMethod();
                 foreach (var a in cf) {
                     Common.sshServer = a.address;
                     Common.sshPort = Int32.Parse(a.port);
+                    Common.sshUID = method.Decrypto(a.uid);
+                    Common.sshPWD = method.Decrypto(a.pwd);
                 }
             } catch (Exception ex) {
                 return false;

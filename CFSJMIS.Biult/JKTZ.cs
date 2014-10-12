@@ -51,8 +51,9 @@ namespace CFSJMIS.Biult {
         /// </summary>
         /// <param name="brf"></param>
         public static void biult(BiultReportForm brf, Data data) {
-            brf.NewSection();
-            brf.SetPageFooter(data.Town);
+            //brf.NewSection();
+            //brf.SetPageFooter(data.Town);
+            brf.NewPage();
             addTitle(brf, data);
             addText(brf, data);
             //brf.NewPage();
@@ -86,8 +87,10 @@ namespace CFSJMIS.Biult {
             pFontSize = 22;
             pFontBold = 1;
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            addLine(brf);
+            //addLine(brf);
             pText = "罚没交款通知单";
+            addLine(brf);
+            pText="（"+data.Town+"）";
             addLine(brf);
         }
 
@@ -103,7 +106,6 @@ namespace CFSJMIS.Biult {
             pFontName = "仿宋_GB2312";
             pFontSize = 16;
             pText = "";
-            addLine(brf);
             addLine(brf);
             addLine(brf);
             pText = "执收单位：青田县国土资源监察大队";

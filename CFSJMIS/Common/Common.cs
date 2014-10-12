@@ -77,10 +77,10 @@ namespace CFSJMIS {
 
 
         #region ssh连接信息
-        public static string sshServer = "192.168.31.1";
+        public static string sshServer = "";
         public static int sshPort;
-        public static string sshUID = "root";
-        public static string sshPWD = "admin";
+        public static string sshUID = "";
+        public static string sshPWD = "";
 
         public static Boolean sshConnected = false;
         #endregion

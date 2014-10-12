@@ -58,7 +58,7 @@ namespace CFSJMIS {
                 new MySqlParameter("@name",name),
                 new MySqlParameter("password",password)
             };
-            
+
             string result = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sql.ToString(), pt).ToString();
             isLogined = Int32.Parse(result);
             if (isLogined == 1) {
@@ -216,20 +216,23 @@ namespace CFSJMIS {
                 }
                 //id = null;
             }
-            
-            
-            
+
+
+
             return id;
         }
         /// <summary>
         /// 查询
         /// </summary>
         /// <returns></returns>
-        public static List<Data> query() {
+        public static List<Data> query(Boolean? isMistaken) {
             List<Data> dataList = new List<Data>();
             StringBuilder sql = new StringBuilder();
             sql.Append("SELECT * FROM ");
             sql.Append(Common.getView());
+            if ((bool)isMistaken) {
+                sql.Append(" where 没收占地面积 > 45 ");
+            }
             MySqlDataReader reader;
             try {
                 reader = MySqlHelper.ExecuteReader(Common.strConntection(), CommandType.Text, sql.ToString(), null);
@@ -471,16 +474,16 @@ namespace CFSJMIS {
         }
 
         public static void CharacterToData(Data data) {
-            string name="";
-            string cardid="";
-            for (int i = 0; i < data.Characters.Count;i++ ) {
+            string name = "";
+            string cardid = "";
+            for (int i = 0; i < data.Characters.Count; i++) {
                 Character character = data.Characters[i];
                 name += character.Name;
                 cardid += character.CardID;
                 if (i < data.Characters.Count - 1) {
                     name += "、";
                     cardid += "、";
-                }                
+                }
             }
             data.Name = name;
             data.CardID = cardid;
@@ -499,7 +502,7 @@ namespace CFSJMIS {
                     if (Common.IsNumber(dr[0].ToString())) {
                         data = new Data();//初始化数据
                         data.Name = dr[1].ToString();//户主姓名
-                        if ((dr[5].ToString().Length != 6)&&Common.IsNumber(dr[5].ToString())) {
+                        if ((dr[5].ToString().Length != 6) && Common.IsNumber(dr[5].ToString())) {
                             throw new Exception("年份有误");
                         }
                         data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
@@ -512,7 +515,7 @@ namespace CFSJMIS {
                             data.Area = double.Parse(dr[6].ToString());//实地占地面积
                             data.LegalArea = double.Parse(dr[7].ToString());//合法面积
                             if (autoCalculate) {
-                                data=AreaCalculate.autoCalculate(data);
+                                data = AreaCalculate.autoCalculate(data);
                             } else {
                                 data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
                                 //data.IllegaArea = data.Area - data.LegalArea;

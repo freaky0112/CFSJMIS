@@ -163,7 +163,7 @@ namespace CFSJMIS {
         private void lblQuery_MouseDown(object sender, MouseButtonEventArgs e) {
             try {
 
-                dataList = DataOperate.query();
+                dataList = DataOperate.query(this.cbxIsMistaken.IsChecked);
                 this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
@@ -194,13 +194,13 @@ namespace CFSJMIS {
                 if (dm.ShowDialog() == true) {
                     try {
                         //lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
-                        dataList = DataOperate.query();
+                        dataList = DataOperate.query(this.cbxIsMistaken.IsChecked);
                         this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
                     }catch(Exception ex){
                         throw ex;
                     }
                 } else {
-                    dataList = DataOperate.query();
+                    dataList = DataOperate.query(this.cbxIsMistaken.IsChecked);
                     this.lswData.ItemsSource = Filter.searchList(dataList, txtFilter.Text);
                 }
             }
