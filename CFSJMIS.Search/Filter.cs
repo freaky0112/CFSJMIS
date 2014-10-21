@@ -30,11 +30,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 using CFSJMIS.Collections;
 using System.Text.RegularExpressions;
 
 namespace CFSJMIS.Search {
     public class Filter {
+        /// <summary>
+        /// 重复项查找
+        /// </summary>
+        /// <param name="dataList"></param>
+        /// <returns></returns>
+        public static List<Data> duplicateList(List<Data> dataList) {
+            Hashtable unduplicateList=new Hashtable();
+            List<Data> duplicateList = new List<Data>();
+            foreach (Data data in dataList) {
+                foreach (Character character in data.Characters) {
+                    string hash = character.Name + character.CardID;
+                    if (unduplicateList.ContainsKey(hash)) {
+                        duplicateList.Add(data);
+                        duplicateList.Add((Data)unduplicateList[hash]);
+                    } else {
+                        unduplicateList.Add(hash, data);
+                    }
+                }
+            }
+            return duplicateList;
+        }
+
+
+        /// <summary>
+        /// 筛选
+        /// </summary>
+        /// <param name="dataList"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
         public static List<Data> searchList(List<Data> dataList, string keyword) {
             //List<Data> datas = new List<Data>();
             //IEnumerable<Data> datas = from data in dataList

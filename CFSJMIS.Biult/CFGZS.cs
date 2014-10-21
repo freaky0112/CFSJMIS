@@ -199,8 +199,8 @@ namespace CFSJMIS.Biult {
                 pText += "的权利。";
             }
             addLine(brf);
-            //pText = "";
-            //addLine(brf);
+            pText = "";
+            addLine(brf);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             //ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
             pText = "                              2014年   月   日";

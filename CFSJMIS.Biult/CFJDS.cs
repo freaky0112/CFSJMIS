@@ -50,7 +50,7 @@ namespace CFSJMIS.Biult {
         /// 输入处罚决定书
         /// </summary>
         /// <param name="brf"></param>
-        public static void biult(BiultReportForm brf,Data  data) {
+        public static void biult(BiultReportForm brf, Data data) {
             brf.NewPage();
             addTitle(brf, data);
             addText(brf, data);
@@ -107,11 +107,17 @@ namespace CFSJMIS.Biult {
             ptextAlignment = 0;
             pFontSize = 15;
             pFontName = "仿宋_GB2312";
-            if (data.Characters.Count!=1) {
+            if (data.Characters.Count != 1) {
                 brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
             } else {
-              brf.SetLineSpacing(24f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly);
+                brf.SetLineSpacing(24f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly);
             }
+            if (data.ConfiscateAreaPrice > 0) {
+                brf.SetLineSpacing(21f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            } else {
+                brf.SetLineSpacing(24f, Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly);
+            }
+
             for (int i = 0; i < data.Names.Length; i++) {
                 string name = data.Names[i];
                 pText = "    被处罚人：" + name + "，";
@@ -174,15 +180,15 @@ namespace CFSJMIS.Biult {
             pText += data.BuildDate.ToString().Substring(0, 4);
             pText += "年";
             pText += data.BuildDate.ToString().Substring(4, 2);
-            pText+="月擅自在青田县";
+            pText += "月擅自在青田县";
             pText += data.Town;
             pText += data.Location;
-            pText += "非法占用土地" + Math.Round(data.IllegaArea,2);
+            pText += "非法占用土地" + Math.Round(data.IllegaArea, 2);
             if (data.ConfiscateAreaPrice > 0) {
                 pText += "平方米";
                 if (data.FarmArea > 0) {
                     pText += "，其中耕地面积";
-                    pText += Math.Round((double)data.FarmArea,2);
+                    pText += Math.Round((double)data.FarmArea, 2);
                     pText += "平方米，";
                 }
                 if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
@@ -191,16 +197,16 @@ namespace CFSJMIS.Biult {
                     pText += "平方米。经核对青田县";
                 } else {
                     pText += "（其中超土地审批限额";
-                    pText += Math.Round(data.ConfiscateFloorArea,2);
+                    pText += Math.Round(data.ConfiscateFloorArea, 2);
                     pText += "平方米），并在该土地上建造建筑物（房屋），其中超出审批限额占用的土地上的建筑物面积为";
-                    pText += Math.Round(data.ConfiscateArea,2);
+                    pText += Math.Round(data.ConfiscateArea, 2);
                     pText += "平方米。经核对青田县";
                 }
             } else {
                 pText += "平方米";
                 if (data.FarmArea > 0) {
                     pText += "，其中耕地面积";
-                    pText += Math.Round((double)data.FarmArea,2);
+                    pText += Math.Round((double)data.FarmArea, 2);
                     pText += "平方米";
                 }
                 pText += "并在该土地上建造建筑物（房屋）。经核对青田县";
@@ -211,7 +217,7 @@ namespace CFSJMIS.Biult {
             if (data.BuildDate >= 201304) {
                 pText += "、《青田县人民政府关于印发青田县实施浙江省违法建筑处置规定细则（暂行）的补充意见的通知》（青政发〔2014〕101号）";
             }
-            pText+="有关规定，对被处罚人的违法行为作如下行政处罚：";
+            pText += "有关规定，对被处罚人的违法行为作如下行政处罚：";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             addLine(brf);
             pText = "";
@@ -219,11 +225,11 @@ namespace CFSJMIS.Biult {
             //如果没收
             if (data.ConfiscateAreaPrice > 0) {
                 if (data.BuildDate >= 201304 && !data.Control.Equals("四级")) {
-                    pText = "    1.没收被处罚人非法占用的" + Math.Round(data.IllegaArea,2);
+                    pText = "    1.没收被处罚人非法占用的" + Math.Round(data.IllegaArea, 2);
                 } else {
-                    pText = "    1.没收被处罚人超出审批限额占用的" + Math.Round(data.ConfiscateFloorArea,2);
-                 }
-                pText+= "平方米的土地上的建筑物，建筑面积为" + Math.Round(data.ConfiscateArea,2) + "平方米。";
+                    pText = "    1.没收被处罚人超出审批限额占用的" + Math.Round(data.ConfiscateFloorArea, 2);
+                }
+                pText += "平方米的土地上的建筑物，建筑面积为" + Math.Round(data.ConfiscateArea, 2) + "平方米。";
                 addLine(brf);
                 pText = "    2.对被处罚人非法占用" + Math.Round(data.IllegaArea, 2) + "平方米土地的行为处以罚款，";
                 addTxt(brf);

@@ -310,6 +310,10 @@ namespace CFSJMIS {
             }
         }
 
+        private void lblDuplicateQuery_MouseDown(object sender, MouseButtonEventArgs e) {
+            this.lswData.ItemsSource = Filter.duplicateList(dataList);
+        }
+
 
 
 
