@@ -47,7 +47,7 @@ namespace CFSJMIS {
 
         private List<Data> dataList;
         private Thread biult;
-
+        private BiultSetting biultSetting;
         public MainWindow() {
             if (Load.configRead()) {
                 InitializeComponent();
@@ -66,6 +66,7 @@ namespace CFSJMIS {
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e) {
             List<string> towns = Load.townRead("Town");
+            biultSetting = Load.biultSettingRead();
             this.cbxTown.ItemsSource = towns;
             this.cbxTown.SelectedIndex = 0;
             this.lblDepartment.Content = Common.table;            
@@ -219,7 +220,7 @@ namespace CFSJMIS {
                 foreach (Data data in lswData.Items) {
                     data.Code = Common.getCode();
                     string path = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
-                    WordBiult.Generate(path, data);
+                    WordBiult.Generate(path, data,biultSetting);
                     count++;
                     DelegateProgressBar progressBar = new DelegateProgressBar(prbState);
                     progressBar.output(count);///控制进度条

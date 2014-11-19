@@ -50,12 +50,12 @@ namespace CFSJMIS.Biult {
         /// 输入交款通知单
         /// </summary>
         /// <param name="brf"></param>
-        public static void biult(BiultReportForm brf, Data data) {
+        public static void biult(BiultReportForm brf, Data data,BiultSetting biultSetting) {
             //brf.NewSection();
             //brf.SetPageFooter(data.Town);
             brf.NewPage();
             addTitle(brf, data);
-            addText(brf, data);
+            addText(brf, data, biultSetting);
             //brf.NewPage();
         }
 
@@ -99,7 +99,7 @@ namespace CFSJMIS.Biult {
         /// </summary>
         /// <param name="brf"></param>
         /// <param name="data"></param>
-        private static void addText(BiultReportForm brf, Data data) {
+        private static void addText(BiultReportForm brf, Data data, BiultSetting biultSetting) {
             ptextAlignment = 0;
             pFontBold = 0;
             pText = "";
@@ -108,15 +108,15 @@ namespace CFSJMIS.Biult {
             pText = "";
             addLine(brf);
             addLine(brf);
-            pText = "执收单位：青田县国土资源监察大队";
-            addLine(brf);            
-            pText = "开户银行：青田县信用合作联社营业部";
+            pText = "执收单位："+biultSetting.Unit;
             addLine(brf);
-            pText = "账号：201000013270752";
+            pText = "开户银行：" + biultSetting.Bank          ;
             addLine(brf);
-            pText = "户名：青田县财政局非税收入结算户";
+            pText = "账号："+biultSetting.Account;
             addLine(brf);
-            pText = "交款地点：青田县鹤城街道鹤城东路180号";
+            pText = "户名："+biultSetting.UserName;
+            addLine(brf);
+            pText = "交款地点："+biultSetting.Address;
             addLine(brf);
             pText = "";
             addLine(brf);

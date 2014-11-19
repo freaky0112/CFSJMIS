@@ -33,6 +33,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Windows.Forms;
 using CFSJMIS.Security;
+using CFSJMIS.Collections;
 
 namespace CFSJMIS {
     public abstract class Load {
@@ -45,8 +46,8 @@ namespace CFSJMIS {
                          select new {
                              address = el.Element("Address").Value,
                              port = el.Element("Port").Value,
-                             uid=el.Element("UID").Value,
-                             pwd=el.Element("PWD").Value
+                             uid = el.Element("UID").Value,
+                             pwd = el.Element("PWD").Value
                          };
                 Security.SymmetricMethod method = new SymmetricMethod();
                 foreach (var a in cf) {
@@ -100,6 +101,51 @@ namespace CFSJMIS {
             }
             return towns;
         }
+        /// <summary>
+        /// 生成配置读取
+        /// </summary>
+        /// <returns></returns>
+        public static BiultSetting biultSettingRead() {
+            BiultSetting biultSetting = new BiultSetting();
+            try {
+
+                XDocument config = XDocument.Load(Common.XMLBiultSetting);
+                var cf = from el in config.Descendants("BiultSetting")
+                         select new {
+                             Unit = el.Element("Unit").Value,
+                             Bank = el.Element("Bank").Value,
+                             Account = el.Element("Account").Value,
+                             UserName = el.Element("UserName").Value,
+                             Address = el.Element("Address").Value
+                         };
+                foreach (var a in cf) {
+                    biultSetting.Unit = a.Unit;
+                    biultSetting.Bank = a.Bank;
+                    biultSetting.Account = a.Account;
+                    biultSetting.UserName = a.UserName;
+                    biultSetting.Address = a.Address;
+                }
+            } catch (Exception ex) {
+                throw ex;
+            }
+            return biultSetting;
+        }
+        /// <summary>
+        /// 配置文件写入
+        /// </summary>
+        /// <param name="biultSetting"></param>
+        /// <returns></returns>
+        public static bool biultSettingSave(BiultSetting biultSetting) {
+            try {
+
+
+                return true;
+            } catch (Exception ex) {
+
+                return false;
+            }
+        }
+
         public static List<string> ethnicRead() {
             XElement ethnic = XElement.Load(Common.XMLEthnic);
             IEnumerable<XElement> element =

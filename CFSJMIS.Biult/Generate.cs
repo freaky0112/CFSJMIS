@@ -35,7 +35,7 @@ using System.IO;
 
 namespace CFSJMIS.Biult {
     public abstract class  WordBiult {
-        public static void Generate(string path, Data data) {
+        public static void Generate(string path, Data data,BiultSetting biultSetting) {
             string generatePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town;
             if (!Directory.Exists(generatePath)) {//判断文件目录是否已经存在
                 Directory.CreateDirectory(generatePath);//创建文件夹
@@ -52,7 +52,7 @@ namespace CFSJMIS.Biult {
                     CLJD.biult(brf, data);
                     CLJD.biult(brf, data);
                 }
-                JKTZ.biult(brf, data);
+                JKTZ.biult(brf, data,biultSetting);
                 brf.TypeBackspace();
                 //brf.TypeBackspace();
                 brf.SetView(Microsoft.Office.Interop.Word.WdViewType.wdPrintView);

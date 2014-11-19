@@ -165,6 +165,8 @@ namespace CFSJMIS {
         public const string XMLTown = "XMLTowns.xml";
 
         public const string XMLEthnic = "XMLEthnic.xml";
+
+        public const string XMLBiultSetting = "XMLBiultSetting.xml";
         #endregion
 
         #region 颜色
