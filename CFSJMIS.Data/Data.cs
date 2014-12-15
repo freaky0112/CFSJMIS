@@ -389,7 +389,7 @@ namespace CFSJMIS.Collections
                 if (CardIDs != null) {
                     for (int i = 0; i < CardIDs.Length; i++) {
                         string id = CardIDs[i].Replace("\n", "").Trim();
-                        if (!string.IsNullOrEmpty(id)) {
+                        if (!string.IsNullOrEmpty(id) && CardIDs[i].Length == 18) {
                             DateTime birthDate = DateTime.Parse(id.Substring(6, 8).Insert(6, "-").Insert(4, "-"));
                             _birthDate.SetValue(birthDate, i);
                         }
