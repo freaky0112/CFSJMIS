@@ -219,7 +219,7 @@ namespace CFSJMIS {
             biult = new Thread(() => {
                 foreach (Data data in lswData.Items) {
                     data.Code = Common.getCode();
-                    string path = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
+                    string path = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.PunishDate+"-"+data.ID + data.Name + @".doc";
                     WordBiult.Generate(path, data,biultSetting);
                     count++;
                     DelegateProgressBar progressBar = new DelegateProgressBar(prbState);

@@ -63,9 +63,9 @@ namespace CFSJMIS.Search {
         /// 筛选
         /// </summary>
         /// <param name="dataList"></param>
-        /// <param name="keyword"></param>
+        /// <param name="keywords"></param>
         /// <returns></returns>
-        public static List<Data> searchList(List<Data> dataList, string keyword) {
+        public static List<Data> searchList(List<Data> dataList, string keywords) {
             //List<Data> datas = new List<Data>();
             //IEnumerable<Data> datas = from data in dataList
             //                          where data.ID.ToString().Contains(keyword)
@@ -73,12 +73,14 @@ namespace CFSJMIS.Search {
             //                          || data.Location.Contains(keyword)
             //                          || data.Town.Contains(keyword)
             //                          select data;
+            foreach (string keyword in keywords.Split(' ')) {
 
-            IEnumerable<Data> datas = containKeyWord(dataList, keyword);
+                IEnumerable<Data> datas = containKeyWord(dataList, keyword);
 
-            dataList = new List<Data>();
-            foreach (Data data in datas) {
-                dataList.Add(data);
+                dataList = new List<Data>();
+                foreach (Data data in datas) {
+                    dataList.Add(data);
+                }
             }
             return dataList;
         }
@@ -133,6 +135,7 @@ namespace CFSJMIS.Search {
                     || data.Name.Contains(keyword)
                     || data.Location.Contains(keyword)
                     || data.Town.Contains(keyword)
+                    || data.PunishDate.ToString().Contains(keyword)
                     select data;
             return datas;
 

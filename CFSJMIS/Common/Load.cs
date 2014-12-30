@@ -41,7 +41,7 @@ namespace CFSJMIS {
             try {
 
 
-                XDocument config = XDocument.Load(Common.XMLConfig);
+                XDocument config = XDocument.Load(Common.XMLConfig());
                 var cf = from el in config.Descendants("Config")
                          select new {
                              address = el.Element("Address").Value,

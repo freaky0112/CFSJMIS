@@ -34,6 +34,9 @@ using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CFSJMIS.Collections;
+using System.Xml;
+using System.Reflection;
+using System.IO;
 
 namespace CFSJMIS {
     public class Common {
@@ -160,7 +163,13 @@ namespace CFSJMIS {
         #endregion
 
         #region XML信息
-        public const string XMLConfig = "Config.xml";
+        public static XmlReader XMLConfig() {
+            Assembly a = Assembly.GetExecutingAssembly();
+            Stream s = a.GetManifestResourceStream("CFSJMIS.Config.xml");
+            XmlDocument doc = new XmlDocument();
+            XmlReader xmlreader = new XmlTextReader(s);
+            return xmlreader;
+    }
 
         public const string XMLTown = "XMLTowns.xml";
 

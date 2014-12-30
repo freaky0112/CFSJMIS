@@ -134,7 +134,7 @@ namespace CFSJMIS.Biult {
             addLine(brf);
             pText = "                            青田县国土资源局";
             addLine(brf);
-            pText = "                            2014年  月  日";
+            pText = "                            "+System.DateTime.Now.Year+"年  月  日";
             addLine(brf);
         }
     }

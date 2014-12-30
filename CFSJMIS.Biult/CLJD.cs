@@ -92,7 +92,7 @@ namespace CFSJMIS.Biult {
             pFontBold = 0;//设置细体
             pText = "";
             addLine(brf);
-            pText = "青土资没作字〔2014〕" + data.Code + String.Format("{0:0000}", data.ConfiscateID) + "号";
+            pText = "青土资没作字〔" + data.PunishDate + "〕" + data.Code + String.Format("{0:0000}", data.ConfiscateID) + "号";
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
             addLine(brf);
         }
@@ -151,7 +151,7 @@ namespace CFSJMIS.Biult {
             pText = "";
             addLine(brf);
             addLine(brf);
-            pText = "                              2014年   月   日";
+            pText = "                              " + System.DateTime.Now.Year + "年   月   日";
             addLine(brf);
         }
     }

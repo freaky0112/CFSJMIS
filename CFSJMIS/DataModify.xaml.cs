@@ -133,8 +133,9 @@ namespace CFSJMIS {
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e) {
-            data.ConfiscateAreaPrice = AreaCalculate.getConfiscateAreaPrice(data);
-
+            if (isInitializing) {
+                data.ConfiscateAreaPrice = AreaCalculate.getConfiscateAreaPrice(data);
+            }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e) {

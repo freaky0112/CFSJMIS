@@ -54,6 +54,8 @@
 							</GridViewColumn.CellTemplate>  
 							<Label Content="是否已处罚"/>  
 						</GridViewColumn>
+						
+						<GridViewColumn Header="处罚日期" Width="auto" DisplayMemberBinding="{Binding PunishDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn Header="删除" Width="auto" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

@@ -652,6 +652,20 @@ namespace CFSJMIS.Collections
             }
         }
 
+        private int _punishDate;
+        /// <summary>
+        /// 处罚日期
+        /// </summary>
+        public int PunishDate {
+            get {
+                return _punishDate;
+            }
+            set {
+                _punishDate = value;
+                this.NotifyPropertyChanged("PunishDate");
+            }
+        }
+
     }
     /// <summary>
     /// 人物

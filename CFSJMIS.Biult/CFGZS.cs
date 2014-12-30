@@ -88,7 +88,7 @@ namespace CFSJMIS.Biult {
             addLine(brf);
             pFontSize = 12;
             pFontBold = 0;//设置细体
-            pText = "青土资告字〔2014〕第" + data.Code + String.Format("{0:0000}", data.ID) + "号";
+            pText = "青土资告字〔"+data.PunishDate+"〕第" + data.Code + String.Format("{0:0000}", data.ID) + "号";
             addLine(brf);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineSingle;
             pText = "                                                       ";
@@ -203,7 +203,7 @@ namespace CFSJMIS.Biult {
             addLine(brf);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             //ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
-            pText = "                              2014年   月   日";
+            pText = "                              " + System.DateTime.Now.Year + "年   月   日";
             addLine(brf);
         }
     }

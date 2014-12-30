@@ -73,7 +73,7 @@ namespace CFSJMIS {
         /// <param name="data">数据</param>
         public static void insertData(Data data) {
             StringBuilder sql = new StringBuilder();
-            string id = getID(Common.table);
+            string id = getID(Common.table,data);
             sql.Append("insert into ");
             sql.Append(Common.table);
             sql.Append(" (");
@@ -103,6 +103,7 @@ namespace CFSJMIS {
             sql.Append("非法建筑面积,");
             sql.Append("耕地单价,");
             sql.Append("耕地面积,");
+            sql.Append("处罚日期,");
             sql.Append("GUID");
             sql.Append(") values (");
             sql.Append("@ID,");
@@ -131,6 +132,7 @@ namespace CFSJMIS {
             sql.Append("@IllegalConstructionArea,");
             sql.Append("@FarmUnit,");
             sql.Append("@FarmArea,");
+            sql.Append("@PunishDate,");
             sql.Append("@Guid)");
             MySqlParameter[] pt = new MySqlParameter[]{
                     new MySqlParameter("ID",id),
@@ -159,6 +161,7 @@ namespace CFSJMIS {
                     new MySqlParameter("@IllegalConstructionArea",data.IllegalConstructionArea),
                     new MySqlParameter("@FarmUnit",data.FarmUnit),
                     new MySqlParameter("@FarmArea",data.FarmArea),
+                    new MySqlParameter("@PunishDate",data.PunishDate),
                     new MySqlParameter("@Guid",data.Guid.ToString())
             };
             try {
@@ -167,15 +170,16 @@ namespace CFSJMIS {
                 throw ex;
             }
             if (data.ConfiscateAreaPrice > 0) {
-                id = getID(Common.tableConfiscate());
+                id = getID(Common.tableConfiscate(),data);
                 sql = new StringBuilder();
                 sql.Append("insert into ");
                 sql.Append(Common.tableConfiscate());
-                sql.Append(" (ID,GUID) values ");
-                sql.Append("(@id,@guid)");
+                sql.Append(" (ID,GUID,处罚日期) values ");
+                sql.Append("(@id,@guid,@PunishDate)");
                 pt = new MySqlParameter[]{                    
                         new MySqlParameter("@id",id),
-                        new MySqlParameter("@guid",data.Guid)
+                        new MySqlParameter("@guid",data.Guid),
+                        new MySqlParameter("@PunishDate",data.PunishDate)
                     };
                 try {
                     MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
@@ -190,25 +194,48 @@ namespace CFSJMIS {
         /// </summary>
         /// <param name="table">表名</param>
         /// <returns>返回空缺ID，返回值为Null即向后新增</returns>
-        public static string getID(string table) {
+        public static string getID(string table,Data data) {
             StringBuilder sqlMax = new StringBuilder();
-            string id = null;
-            sqlMax.Append("select min(ID-1) from ");
+            string id = "";
+
+            sqlMax.Append("select ID from ");
             sqlMax.Append(table);
-            sqlMax.Append(" where ID not in(select 1+id from ");
-            sqlMax.Append(table);
-            sqlMax.Append(") and id not in (select min(id) from ");
-            sqlMax.Append(table);
-            sqlMax.Append(")");
+            sqlMax.Append(" where ID = 1");
+            sqlMax.Append(" and 处罚日期 = ");
+            sqlMax.Append(data.PunishDate);
             try {
-                id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
+                object d = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null);
+                if (d == null) {
+                    id = "1";
+                }
             } catch (Exception ex) {
                 throw ex;
             }
             if (string.IsNullOrEmpty(id)) {
                 sqlMax = new StringBuilder();
+                sqlMax.Append("select min(ID-1) from ");
+                sqlMax.Append(table);
+                sqlMax.Append(" where ID not in(select 1+id from ");
+                sqlMax.Append(table);
+                sqlMax.Append(" where 处罚日期 = ");
+                sqlMax.Append(data.PunishDate);
+                sqlMax.Append(") and id not in (select min(id) from ");
+                sqlMax.Append(table);
+                sqlMax.Append(" where 处罚日期 = ");
+                sqlMax.Append(data.PunishDate);
+                sqlMax.Append(")");
+                try {
+                    id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+            if (string.IsNullOrEmpty(id)) {
+                sqlMax = new StringBuilder();
                 sqlMax.Append("select count(*)+1 from ");
                 sqlMax.Append(table);
+                sqlMax.Append(" where 处罚日期 = ");
+                sqlMax.Append(data.PunishDate);
                 try {
                     id = MySqlHelper.ExecuteScalar(Common.strConntection(), CommandType.Text, sqlMax.ToString(), null).ToString();
                 } catch (Exception ex) {
@@ -309,6 +336,7 @@ namespace CFSJMIS {
                 if (!string.IsNullOrEmpty(reader["是否已处罚"].ToString())) {
                     data.Signed = reader.GetBoolean("是否已处罚");
                 }
+                data.PunishDate = reader.GetInt32("处罚日期");
                 data.Guid = reader.GetString("GUID");
             } catch {
                 throw new Exception(data.ID.ToString());
@@ -411,16 +439,17 @@ namespace CFSJMIS {
             }
             //没收编号
             string id;
-            if (data.ConfiscateAreaPrice > 0) {
-                id = getID(Common.tableConfiscate());
+            if (data.ConfiscateAreaPrice > 0&& data.ConfiscateID==null) {
+                id = getID(Common.tableConfiscate(),data);
                 sql = new StringBuilder();
                 sql.Append("insert into ");
                 sql.Append(Common.tableConfiscate());
-                sql.Append(" (ID,GUID) values ");
-                sql.Append("(@id,@guid)");
+                sql.Append(" (ID,GUID,处罚日期) values ");
+                sql.Append("(@id,@guid,@PunishDate)");
                 pt = new MySqlParameter[]{                    
                         new MySqlParameter("@id",id),
-                        new MySqlParameter("@guid",data.Guid)
+                        new MySqlParameter("@guid",data.Guid),
+                        new MySqlParameter("@PunishDate",data.PunishDate)
                     };
                 try {
                     MySqlHelper.ExecuteNonQuery(Common.strConntection(), CommandType.Text, sql.ToString(), pt);
@@ -429,7 +458,7 @@ namespace CFSJMIS {
                         throw ex;
                     }
                 }
-            } else {
+            } else if(data.ConfiscateAreaPrice==0){
                 sql = new StringBuilder();
                 sql.Append("delete from ");
                 sql.Append(Common.tableConfiscate());
@@ -547,6 +576,7 @@ namespace CFSJMIS {
                             //        throw new Exception( "，" + data.Location + "处身份证号码数据有误请核实");
                             //    }
                             //}
+                            data.PunishDate = System.DateTime.Now.Year;
                             data.Guid = System.Guid.NewGuid().ToString();//GUID生成
                             data = AreaCalculate.getConfiscateData(data);
 

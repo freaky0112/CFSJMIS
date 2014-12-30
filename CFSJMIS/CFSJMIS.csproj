@@ -188,10 +188,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config.xml">
+    <EmbeddedResource Include="Config.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

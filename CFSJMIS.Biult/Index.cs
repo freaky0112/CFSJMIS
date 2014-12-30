@@ -77,9 +77,9 @@ namespace CFSJMIS.Biult {
             pFontBold = 1;//设置粗体
             addLine(brf);
             pFontSize = 24;
-            pText = "青土资告字〔2014〕第" + data.Code + String.Format("{0:0000}", data.ID) + "号";
+            pText = "青土资告字〔" + data.PunishDate + "〕第" + data.Code + String.Format("{0:0000}", data.ID) + "号";
             addLine(brf);
-            pText = "青土资罚〔2014〕" + data.Code + String.Format("{0:0000}", data.ID) + "号";
+            pText = "青土资罚〔" + data.PunishDate + "〕" + data.Code + String.Format("{0:0000}", data.ID) + "号";
             addLine(brf);
             pText = data.Name;
             addLine(brf);
